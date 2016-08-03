@@ -4,11 +4,11 @@ MAINTAINER bwnyasse
 #WORKDIR /home/ubuntu
 #ENV PATH /home/ubuntu/ruby/bin:$PATH
 
-ARG proxy
-
-ENV http_proxy ${proxy}
-ENV https_proxy ${proxy}
-ENV no_proxy=.mipih.net,.mipih.fr,localhost,127.0.0.1
+#ARG proxy
+#
+#ENV http_proxy ${proxy}
+#ENV https_proxy ${proxy}
+#ENV no_proxy=.mipih.net,.mipih.fr,localhost,127.0.0.1
 
 RUN gem install fluent-plugin-elasticsearch && \
     gem install fluent-plugin-parser

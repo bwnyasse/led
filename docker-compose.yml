@@ -21,8 +21,6 @@ services:
     fluentd:
       build:
         context: ./images/fluent-es
-        args:
-          proxy: http://utilservnexus:5XgmKC!zNj91Ys8qobTaG-@fw-t-net.mipih.net:3128
       container_name: fluentd
       restart: always
       ports:
@@ -30,28 +28,21 @@ services:
       depends_on:
        - elasticsearch
 
-    ## ELASTIC_SEARCH && KIBANA
+     ## ELASTIC_SEARCH
     elasticsearch:
-      image: nshou/elasticsearch-kibana:latest
+      build:
+        context: ./images/es
+      command: elasticsearch -Des.network.host=0.0.0.0
       ports:
+        - "9100:9100"
         - "9200:9200"
-        - "8081:5601"
+        - "9300:9300"
 
-    # ## ELASTIC_SEARCH
-    # elasticsearch:
-    #   image: elasticsearch:latest
-    #   command: elasticsearch -Des.network.host=0.0.0.0
-    #   ports:
-    #     - "9200:9200"
-    #     - "9300:9300"
-    #
-    # ## KIBANA
-    # kibana:
-    #   build:
-    #     context: ./images/kibana
-    #     args:
-    #       proxy: http://utilservnexus:5XgmKC!zNj91Ys8qobTaG-@fw-t-net.mipih.net:3128
-    #   ports:
-    #     - "8081:5601"
-    #   depends_on:
-    #    - elasticsearch
+    ## KIBANA
+    kibana:
+      build:
+        context: ./images/kibana
+      ports:
+        - "5601:5601"
+      depends_on:
+        - elasticsearch
