@@ -1,0 +1,48 @@
+version: '2'
+services:
+
+    ## APP
+    nginx-app:
+      build:
+        context: ./images/custom-nginx
+      container_name: nginx-app
+      restart: always
+      ports:
+        - "80:80"
+      logging:
+        driver: fluentd
+        options:
+          fluentd-tag: "nginx.docker.{{.Name }}"
+      depends_on:
+       - fluentd-mongo
+       - mongodb
+
+    ## FLUENTD
+    fluentd-mongo:
+      build:
+        context: ./images/fluentd-mongo
+      container_name: fluentd-mongo
+      restart: always
+      ports:
+        - 24224:24224
+      depends_on:
+       - mongodb
+
+     ## MONGODB
+    mongodb:
+      image: mongo:3.3.6
+      container_name: mongodb
+      ports:
+        - "27017:27017"
+        - "28017:28017"
+
+    ## MONGODB EXPRESS
+    mongodb-express:
+      image: mongo-express:0.30.59
+      ports:
+        - "5601:8081"
+      environment:
+        - ME_CONFIG_MONGODB_PORT=27017
+        - ME_CONFIG_MONGODB_SERVER=mongodb
+      depends_on:
+        - mongodb

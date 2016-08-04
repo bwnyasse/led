@@ -14,14 +14,14 @@ services:
         options:
           fluentd-tag: "nginx.docker.{{.Name }}"
       depends_on:
-       - fluentd
+       - fluentd-es
        - elasticsearch
 
     ## FLUENTD
-    fluentd:
+    fluentd-es:
       build:
-        context: ./images/fluent-es
-      container_name: fluentd
+        context: ./images/fluentd-es
+      container_name: fluentd-es
       restart: always
       ports:
         - 24224:24224
