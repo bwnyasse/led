@@ -1,0 +1,29 @@
+name: 'fluentd_log_explorer'
+version: 0.0.1
+
+author: <bwnyasse>
+
+environment:
+  sdk: '>=1.16.0 <2.0.0'
+
+dependencies:
+  angular: '1.1.2+2'
+  angular_ui: any
+  dart_to_js_script_rewriter: "^1.0.1"
+  quiver: "^0.22.0"
+  xml2json: any
+  jsonx: any
+  web_components: "0.12.0+4"
+
+dev_dependencies:
+  test: '0.12.2'
+
+transformers:
+- angular
+- dart_to_js_script_rewriter
+- $dart2js:
+    csp: true # Content Security Policy
+    checked: false
+    $exclude: bin
+    minify: true
+    commandLineOptions: ['--enable-experimental-mirrors','--trust-type-annotations', '--trust-primitives']
