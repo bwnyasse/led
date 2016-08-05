@@ -2,7 +2,8 @@ FROM fluent/fluentd:latest
 MAINTAINER bwnyasse
 
 RUN gem install fluent-plugin-elasticsearch && \
-    gem install fluent-plugin-parser
+    gem install fluent-plugin-parser && \
+    gem install fluent-plugin-concat
 
 COPY fluent.conf /fluentd/etc/
 EXPOSE 24284

@@ -1,0 +1,35 @@
+version: '2'
+services:
+
+    proxy:
+      build:
+        context: ./../images/proxy
+      container_name: proxy
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - elasticsearch
+
+    elasticsearch:
+      build:
+        context: ./../images/es
+      container_name: elasticsearch
+#      command: elasticsearch -Des.network.host=0.0.0.0
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+
+    fluentd-es:
+      build:
+        context: ./../images/fluentd-es
+      container_name: fluentd-es
+      ports:
+        - 24224:24224
+      environment:
+        - ES_HOST=elasticsearch
+        - ES_PORT=9200
+        - ES_TYPE=fluentd
+        - ES_INDEX=fluentd
+      depends_on:
+       - elasticsearch

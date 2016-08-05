@@ -1,5 +1,6 @@
-FROM elasticsearch:2.3.4
+FROM elasticsearch:2.3.5
 
-USER root
+MAINTAINER bwnyasse
+
 # Install HEAD plugin
 RUN /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
