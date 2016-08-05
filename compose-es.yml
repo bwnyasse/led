@@ -1,6 +1,16 @@
 version: '2'
 services:
 
+    proxy:
+      build:
+        context: ./images/proxy
+      container_name: proxy
+      ports:
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - elasticsearch
+
     ## APP
     nginx-app-1:
       build:
