@@ -2,17 +2,33 @@ version: '2'
 services:
 
     ## APP
-    nginx-app:
+    nginx-app-1:
       build:
         context: ./images/custom-nginx
-      container_name: nginx-app
+      container_name: nginx-app-1
       restart: always
       ports:
-        - "80:80"
+        - "3333:80"
       logging:
         driver: fluentd
         options:
-          fluentd-tag: "nginx.docker.{{.Name }}"
+          fluentd-tag: "unparse.nginx1.docker.{{.Name }}"
+      depends_on:
+       - fluentd-es
+       - elasticsearch
+
+    ## APP
+    nginx-app-2:
+      build:
+        context: ./images/custom-nginx
+      container_name: nginx-app-2
+      restart: always
+      ports:
+        - "4444:80"
+      logging:
+        driver: fluentd
+        options:
+          fluentd-tag: "unparse.nginx2.docker.{{.Name }}"
       depends_on:
        - fluentd-es
        - elasticsearch
@@ -22,7 +38,6 @@ services:
       build:
         context: ./images/fluentd-es
       container_name: fluentd-es
-      restart: always
       ports:
         - 24224:24224
       depends_on:
@@ -34,15 +49,5 @@ services:
         context: ./images/es
       command: elasticsearch -Des.network.host=0.0.0.0
       ports:
-        - "9100:9100"
         - "9200:9200"
         - "9300:9300"
-
-    ## KIBANA
-    kibana:
-      build:
-        context: ./images/kibana
-      ports:
-        - "5601:5601"
-      depends_on:
-        - elasticsearch
