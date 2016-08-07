@@ -28,7 +28,7 @@
 
 - Query value and sort by timestamp
 
-POST:
+  POST:
       {
         "query": {
           "bool": {
