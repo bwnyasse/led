@@ -22,39 +22,43 @@ class ContainerLogCmp {
 
   ContainerLogCmp(this.service);
 
-  getLogMessage(source) {
-    String log = source['log'];
-    List split = [];
-    split = ['',log];
-    if (log.contains(new RegExp('INFO'))) {
-      split = log.split(new RegExp('INFO'));
-    } else if (log.contains(new RegExp('WARN'))) {
-      split = log.split(new RegExp('WARN'));
-    } else if (log.contains(new RegExp('DEBUG'))) {
-      split = log.split(new RegExp('DEBUG'));
-    } else if (log.contains(new RegExp('ERROR'))) {
-      split = log.split(new RegExp('ERROR'));
+  getMessage(source) => quiver_strings.isNotEmpty(source['message'])
+      ? source['message']
+      : source['log'];
+
+  getMessageCss(source) {
+    String css = '';
+    String level = getLevel(source);
+    if (level != null) {
+      if (level.contains('WARN')) {
+        return 'log-warning';
+      } else if (level.contains('ERR')) {
+        return 'log-error';
+      }
     }
-    return split[1];
+    return css;
   }
 
-  getLevelMessage(source) {
-    String log = source['log'];
+  getLevel(source) => source['level'];
 
-    if (log.contains(new RegExp('INFO'))) {
-      return 'INFO';
-    } else if (log.contains(new RegExp('WARN'))) {
-      return 'WARN';
-    } else if (log.contains(new RegExp('DEBUG'))) {
-      return 'DEBUG';
-    } else if (log.contains(new RegExp('ERROR'))) {
-      return 'ERROR';
+  getLevelCss(source) {
+    String css = 'label-default';
+    String level = getLevel(source);
+    if (level != null) {
+      if (level.contains('INFO')) {
+        return 'label-info';
+      } else if (level.contains('WARN')) {
+        return 'label-warning';
+      } else if (level.contains('ERR')) {
+        return 'label-error';
+      }
     }
-    return '';
+    return css;
   }
+
   getTime(source) {
-    var timestamp = source['@timestamp'];
-    DateTime dateTime = DateTime.parse(timestamp);
+    String time = source['@timestamp'];
+    DateTime dateTime = DateTime.parse(time);
     var formatter = new DateFormat('H:m:s,ms');
     return formatter.format(dateTime);
   }

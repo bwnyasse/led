@@ -51,6 +51,34 @@ pre {
     border:0px;
 }
 
+.log-warning{
+    color: #f0ad4e;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.log-error {
+    color: #d9534f;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.level-info-menu {
+    border-left: 7px solid #5bc0de;
+}
+
+.level-warning-menu {
+    border-left:7px solid #f0ad4e;
+}
+
+.level-error-menu {
+    border-left:7px solid #d9534f;
+}
+
+.level-debug-menu {
+    border-left:7px solid #95A5A6;
+}
+
 .page-content {
     padding:50px;
 }

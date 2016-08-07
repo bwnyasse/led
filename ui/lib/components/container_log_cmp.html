@@ -1,4 +1,16 @@
 <div class="row">
+    <div class="col-lg-12">
+        <div class="form-group input-group">
+            <input type="text" class="form-control">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-filter"></i> Filter
+                                                </button>
+                                            </span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-6">
         <div class="bs-component">
             <div class="alert alert-dismissible alert-success">
@@ -35,9 +47,13 @@
 
         <tbody>
         <tr ng-repeat="source in service.sourceLogsByContainerName">
-            <td><span class="label label-info">{{getLevelMessage(source)}}</span></td>
-            <td> <div class="source-logs-time">{{getTime(source)}}</div></td>
-            <td><pre>{{getLogMessage(source)}}</pre></td>
+            <td><span class="label  {{getLevelCss(source)}}">{{getLevel(source)}}</span></td>
+            <td>
+                <div class="source-logs-time">{{getTime(source)}}</div>
+            </td>
+            <td>
+                <pre class="{{getMessageCss(source)}}">{{getMessage(source)}}</pre>
+            </td>
         </tr>
         </tbody>
     </table>
