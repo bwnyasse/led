@@ -99,7 +99,7 @@ class ElasticSearchService {
       "from": 0,
       "size": 5000,
       "sort": {
-        "@timestamp": "asc"
+        "time_nano": "desc"
       },
       "aggs": {}
     };
@@ -143,7 +143,7 @@ class ElasticSearchService {
       "from": 0,
       "size": 5000,
       "sort": {
-        "time_nano": "asc"
+        "time_nano": "desc"
       },
       "aggs": {}
     };

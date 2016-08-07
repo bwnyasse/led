@@ -50,7 +50,7 @@ class ContainerLogCmp {
       } else if (level.contains('WARN')) {
         return 'label-warning';
       } else if (level.contains('ERR')) {
-        return 'label-error';
+        return 'label-danger';
       }
     }
     return css;
