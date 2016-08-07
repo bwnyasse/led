@@ -18,7 +18,9 @@ part of fluentd_log_explorer;
     'packages/fluentd_log_explorer/components/container_log_cmp.html',
     useShadowDom: false)
 class ContainerLogCmp {
+
   ElasticSearchService service;
+  String container_id;
 
   ContainerLogCmp(this.service);
 
@@ -41,9 +43,29 @@ class ContainerLogCmp {
 
   getLevel(source) => source['level'];
 
-  getLevelCss(source) {
+  getSelectedAlertLevelCss() {
+    String css = "";
+    if (service.hasCurrentLogLevel()) {
+      String level = service.currentLogLevel.toUpperCase();
+      if (level != null) {
+        if (level.contains('INFO')) {
+          return 'alert-info';
+        } else if (level.contains('WARN')) {
+          return 'alert-warning';
+        } else if (level.contains('ERR')) {
+          return 'alert-danger';
+        }
+      }
+    }
+
+    return css;
+  }
+
+  getLevelCss(source) =>
+      _effectiveGetLevelCss(getLevel(source));
+
+  _effectiveGetLevelCss(level) {
     String css = 'label-default';
-    String level = getLevel(source);
     if (level != null) {
       if (level.contains('INFO')) {
         return 'label-info';
@@ -59,8 +81,10 @@ class ContainerLogCmp {
   getTime(source) {
     String time = source['@timestamp'];
     DateTime dateTime = DateTime.parse(time);
-    var formatter = new DateFormat('H:m:s,ms');
-    return formatter.format(dateTime);
+    DateTime date = new DateTime.fromMillisecondsSinceEpoch(
+        dateTime.millisecondsSinceEpoch);
+    var strictDate = new DateFormat('HH:mm:ss,ms');
+    return strictDate.format(date).toString();
   }
 
   getOutput(source) => (source['source']);
@@ -68,5 +92,17 @@ class ContainerLogCmp {
   getContainerNameAndId(source) =>
       source['container_name'] + " id:" + source['container_id'];
 
+  getHisto() {
+    if (quiver_strings.isNotEmpty(service.currentHisto)) {
+      DateTime dateTime = DateTime.parse(service.currentHisto);
+      DateTime date = new DateTime.fromMillisecondsSinceEpoch(
+          dateTime.millisecondsSinceEpoch);
+      var strictDate = new DateFormat('HH:mm:ss');
+      return "Since " + strictDate.format(date).toString();
+    }
+  }
 
+  launchFilter() => service.getLogsByContainerName(
+      service.currentContainerName, level: service.currentLogLevel,
+      histo: service.currentHisto, filter: service.currentFilterValue);
 }

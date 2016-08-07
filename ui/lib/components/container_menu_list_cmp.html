@@ -1,33 +1,40 @@
 <div class="col-md-3">
-    <p class="lead">Index</p>
-    <div class="list-group">
-        <a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
-           class="list-group-item">{{index}}</a>
+    <div ng-hide="service.indexes.isEmpty">
+        <p class="lead">Index</p>
+        <div class="list-group">
+            <a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
+               class="list-group-item">{{index}}</a>
+        </div>
+    </div>
+    <hr/>
+
+    <div ng-hide="service.containers.isEmpty">
+        <p class="lead">Docker containers</p>
+        <div class="list-group">
+            <a ng-repeat="container in service.containers" href="" ng-click="getLogs(container)"
+               class="list-group-item docker-container-name">{{container}}</a>
+        </div>
     </div>
 
     <hr/>
-
-    <p class="lead">Docker containers</p>
-    <div class="list-group">
-        <a ng-repeat="container in service.containers" href="" ng-click="service.getLogsByContainerName(container)"
-           class="list-group-item">{{container}}</a>
-    </div>
-
-    <div>
-        <p class="lead">Level</p>
+    <div ng-hide="service.levels.isEmpty">
+        <p class="lead"><i class="glyphicon glyphicon-tasks"></i> Level</p>
 
         <div class="list-group">
-            <a class="list-group-item level-info-menu" href="">
-                Info
+            <a ng-repeat="level in service.levels" href="" ng-click="getLogsByLevel(level)"
+               class="list-group-item {{getLevelCss(level)}}">
+                {{level}}
             </a>
-            <a class="list-group-item level-debug-menu" href="">
-                Debug
-            </a>
-            <a class="list-group-item level-warning-menu" href="">
-                Warn
-            </a>
-            <a class="list-group-item level-error-menu" href="">
-                Error
+        </div>
+    </div>
+
+    <hr/>
+    <div ng-hide="service.dateHisto.isEmpty">
+        <p class="lead"><i class="glyphicon glyphicon-hourglass"></i> Last Activities</p>
+
+        <div class="list-group">
+            <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)" class="list-group-item histo-menu">
+                {{getDuration(histo)}}
             </a>
         </div>
     </div>

@@ -1,43 +1,68 @@
 <div class="row">
-    <div class="col-lg-12">
-        <div class="form-group input-group">
-            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-filter"></i> Filter
-                                                </button>
-                                            </span>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-3" ng-show="service.hasCurrentContainerName()">
         <div class="bs-component">
-            <div class="alert alert-dismissible alert-success">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert alert-dismissible alert-success2">
                 <div>
-                    Container :
+                    Container : <!--<span class="docker-container-id">{{service.currentContainerId}}</span>-->
                 </div>
-                <div class="selected-container-name">
+                <div class="selected-alert-data">
                     <strong> {{service.currentContainerName}}</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
         <div class="bs-component">
-            <div class="alert alert-dismissible alert-info">
-                <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="alert alert-dismissible {{getSelectedAlertLevelCss()}}">
+                <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
                 <div>
                     Level :
                 </div>
-                <div class="selected-container-name">
-                    <strong> INFO</strong>
+                <div class="selected-alert-data ">
+                    <strong> {{service.currentLogLevel}}</strong>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-lg-3" ng-show="service.hasCurrentLogHisto()">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-default">
+                <button type="button" class="close" ng-click="service.clearLogHisto()">×</button>
+                <div>
+                    Activities :
+                </div>
+                <div class="selected-alert-data ">
+                    <strong> {{getHisto()}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3" ng-show="service.hasCurrentFilterValue()">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-default">
+                <button type="button" class="close" ng-click="service.clearFilterValue()">×</button>
+                <div>
+                    <i class="glyphicon glyphicon-filter"></i> Filter :
+                </div>
+                <div class="selected-alert-data ">
+                    <strong> {{service.currentFilterValue}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group input-group">
+            <input type="text" class="form-control" ng-model="service.currentFilterValue">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i
+                        class="glyphicon glyphicon-filter" ng-click="launchFilter()"></i> Filter
+                </button>
+            </span>
+        </div>
+    </div>
 </div>
 
 <hr>

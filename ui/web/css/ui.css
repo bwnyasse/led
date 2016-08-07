@@ -1,5 +1,6 @@
 body {
     padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
 .thumbnail img {
@@ -29,9 +30,10 @@ footer {
     background-color: #7388A1;
     color:#FFF;
 }
-.selected-container-name {
+.selected-alert-data {
     text-align: center;
     font-size: 24px;
+    text-transform: uppercase;
 }
 
 .source-logs-row {
@@ -40,6 +42,7 @@ footer {
 
 .source-logs-time {
     color: #95A5A6;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
 pre {
@@ -65,20 +68,52 @@ pre {
 
 .level-info-menu {
     border-left: 7px solid #5bc0de;
+    text-transform: uppercase;
 }
 
 .level-warning-menu {
     border-left:7px solid #f0ad4e;
+    text-transform: uppercase;
 }
 
 .level-error-menu {
     border-left:7px solid #d9534f;
+    text-transform: uppercase;
 }
 
 .level-debug-menu {
     border-left:7px solid #95A5A6;
+    text-transform: uppercase;
 }
 
+.histo-menu {
+    border-left:7px solid #7388A1;
+}
+
+.docker-container-name {
+    border-left:7px solid #117275;
+    text-transform: uppercase;
+}
+
+.docker-container-id {
+    font-size:12px;
+    color:#95A5A6;
+}
+
+.alert-success2 {
+    background-color: #117275;
+    color:#FFF;
+}
 .page-content {
     padding:50px;
 }
+
+/* [START| ANGULAR SPECIFIC */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.ng-hide {
+    display: none !important;
+}
+/* [END| ANGULAR SPECIFIC */
