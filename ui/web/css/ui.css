@@ -1,0 +1,56 @@
+body {
+    padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.alert-default {
+    background-color: #7388A1;
+    color:#FFF;
+}
+.selected-container-name {
+    text-align: center;
+    font-size: 24px;
+}
+
+.source-logs-row {
+    font-size:14px;
+}
+
+.source-logs-time {
+    color: #95A5A6;
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    font-size:12px;
+    border:0px;
+}
+
+.page-content {
+    padding:50px;
+}

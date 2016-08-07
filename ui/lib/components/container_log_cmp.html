@@ -1,13 +1,46 @@
-<div ng-repeat="source in service.currentLogsSource">
+<div class="row">
+    <div class="col-lg-6">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    Container :
+                </div>
+                <div class="selected-container-name">
+                    <strong> {{service.currentContainerName}}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <div>
+                    Level :
+                </div>
+                <div class="selected-container-name">
+                    <strong> INFO</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <hr>
 
-<div class="row">
-    <div class="col-md-12">
-        <p>
-            {{getLogMessage(source)}}
-        </p>
-    </div>
-</div>
+<div class="row source-logs-row">
+    <table class="table">
+
+        <tbody>
+        <tr ng-repeat="source in service.sourceLogsByContainerName">
+            <td><span class="label label-info">{{getLevelMessage(source)}}</span></td>
+            <td> <div class="source-logs-time">{{getTime(source)}}</div></td>
+            <td><pre>{{getLogMessage(source)}}</pre></td>
+        </tr>
+        </tbody>
+    </table>
+
 
 </div>

@@ -1,6 +1,36 @@
 <div class="col-md-3">
-    <p class="lead">Containers Disponibles</p>
+    <p class="lead">Index</p>
     <div class="list-group">
-        <a ng-repeat="container in service.availableContainerIndexes" href="" ng-click="getContainerLog(container)" class="list-group-item">{{container}}</a>
+        <a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
+           class="list-group-item">{{index}}</a>
     </div>
+
+    <hr/>
+
+    <p class="lead">Docker containers</p>
+    <div class="list-group">
+        <a ng-repeat="container in service.containers" href="" ng-click="service.getLogsByContainerName(container)"
+           class="list-group-item">{{container}}</a>
+    </div>
+
+    <div>
+        <p class="lead">Level</p>
+
+        <div class="list-group">
+            <a class="list-group-item" href="">
+                Info
+            </a>
+            <a class="list-group-item" href="">
+                Debug
+            </a>
+            <a class="list-group-item" href="">
+                Warn
+            </a>
+            <a class="list-group-item" href="">
+                Error
+            </a>
+        </div>
+    </div>
+
 </div>
+
