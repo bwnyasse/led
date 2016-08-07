@@ -19,6 +19,9 @@ services:
       ports:
         - "9200:9200"
         - "9300:9300"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro
 
     fluentd-es:
       build:
@@ -32,4 +35,7 @@ services:
         - ES_TYPE=fluentd
         - ES_INDEX=fluentd
       depends_on:
-       - elasticsearch
+        - elasticsearch
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro

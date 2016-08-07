@@ -11,6 +11,9 @@ services:
         driver: fluentd
         options:
           tag: "nginx.docker.{{.Name }}"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro
 
     wildfly:
       image: jboss/wildfly:10.0.0.Final
@@ -19,3 +22,6 @@ services:
         driver: fluentd
         options:
           tag: "java.docker.{{.Name }}"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro
