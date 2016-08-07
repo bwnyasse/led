@@ -10,7 +10,7 @@ services:
       logging:
         driver: fluentd
         options:
-          tag: "docker.{{.Name }}"
+          tag: "nginx.docker.{{.Name }}"
 
     wildfly:
       image: jboss/wildfly:10.0.0.Final
@@ -18,4 +18,4 @@ services:
       logging:
         driver: fluentd
         options:
-          tag: "docker.{{.Name }}"
+          tag: "java.docker.{{.Name }}"
