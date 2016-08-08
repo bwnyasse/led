@@ -30,6 +30,11 @@ footer {
     background-color: #7388A1;
     color:#FFF;
 }
+
+.alert-filter{
+    background-color: #A24BFD;
+    color: #FFF;
+}
 .selected-alert-data {
     text-align: center;
     font-size: 24px;

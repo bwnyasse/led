@@ -17,7 +17,7 @@ part of fluentd_log_explorer;
     templateUrl:
     'packages/fluentd_log_explorer/components/container_log_cmp.html',
     useShadowDom: false)
-class ContainerLogCmp {
+class ContainerLogCmp extends ShadowRootAware{
 
   ElasticSearchService service;
   String container_id;
@@ -102,7 +102,24 @@ class ContainerLogCmp {
     }
   }
 
-  launchFilter() => service.getLogsByContainerName(
+  launchFilter() {
+    handler(null);
+  }
+
+  @override
+  void onShadowRoot(ShadowRoot shadowRoot) {
+  querySelector('#filter-input-id')
+      ..onChange.listen(handler)
+      ..onKeyDown.listen(handler)
+      ..onKeyUp.listen(handler)
+      ..onCut.listen(handler)
+      ..onPaste.listen(handler);
+
+
+    // TODO: implement onShadowRoot
+  }
+
+  handler(event) =>    service.getLogsByContainerName(
       service.currentContainerName, level: service.currentLogLevel,
       histo: service.currentHisto, filter: service.currentFilterValue);
 }

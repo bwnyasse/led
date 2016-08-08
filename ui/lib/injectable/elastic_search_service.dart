@@ -18,6 +18,7 @@ class ElasticSearchService {
 
 //  static String ES_TYPE = "fluentd";
   static String SEARCH_PREFIX = "/_search?pretty=true";
+  static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_HOST + "_aliases?pretty=1";
   static String SEARCH_URL = ES_HOST + "_search";
   static String INTERVAL_DATE_HISTOGRAM_AGGREGATION = "15m";
@@ -72,11 +73,22 @@ class ElasticSearchService {
       Map jsonResponse = JSON.decode(response.responseText);
       indexes = jsonResponse.keys.toList();
 
+      // Ensure Log analyzed for all indexes
+      indexes.forEach((value) {
+        ensureLogAnalyzed(value);
+      });
+
       // Init containers list
       if (indexes.isNotEmpty) {
         getContainersByIndex(indexes[0]);
       }
     });
+  }
+
+  ensureLogAnalyzed(String index) {
+    //TODO : Extract type in variable
+    String url = '$ES_HOST$index/fluentd$MAPPING_PREFIX';
+    _post(url, sendData: JSON.encode(_dslEnsureLogAnalyzed()));
   }
 
   getContainersByIndex(String index) async {
@@ -104,6 +116,7 @@ class ElasticSearchService {
     currentContainerName = containerName;
     currentLogLevel = level;
     currentHisto = histo;
+    currentFilterValue = filter;
     String url = "$ES_HOST$currentIndex$SEARCH_PREFIX";
     Map dsl = _dslLogs(containerName, level, histo, filter);
 
@@ -181,6 +194,7 @@ class ElasticSearchService {
   Future<HttpRequest> _post(String url, {var sendData}) async =>
       _performServerCall(url, 'POST', sendData: sendData);
 
+
   _performServerCall(String url, String m, {var sendData: null}) async {
     Future<HttpRequest> httpRequest;
 
@@ -227,14 +241,15 @@ class ElasticSearchService {
       "bool": {
         "must": [
           {
-            "term": {ES_FIELD_CONTAINER_NAME: containerName}
+            "term": {ES_FIELD_CONTAINER_NAME: containerName},
+            "wildcard": _dslLogFilterValue(filterValue)
           },
           _dslLogLevel(level),
           _dslLogHisto(histo)
         ],
         "must_not": [],
-        "should": [_dslLogFilterValue(filterValue)]
-      }
+        "should": []
+      },
     },
     "from": 0,
     "size": 5000,
@@ -268,7 +283,9 @@ class ElasticSearchService {
       quiver_strings.isEmpty(filterValue) ?
       {} :
       {
-        "term": { ES_FIELD_LOG_MESSAGE: filterValue}
+        "wildcard": {
+          ES_FIELD_LOG_MESSAGE: filterValue+"*"
+        }
       };
 
   _dslCommonAggregation() => {
@@ -283,4 +300,12 @@ class ElasticSearchService {
     }
   };
 
+  _dslEnsureLogAnalyzed() => {
+    "properties": {
+      "log": {
+        "type": "string",
+        "index": "analyzed"
+      }
+    }
+  };
 }
