@@ -50,3 +50,12 @@
         },
         "aggs": {}
       }
+
+ -  Update partial document
+   URL : http://host:port/index/type/id/_update
+
+   {
+     "doc" : {
+       "field": "newValue"
+     }
+    }

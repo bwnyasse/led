@@ -14,6 +14,8 @@ services:
     elasticsearch:
       build:
         context: ./../images/es
+        args:
+          proxy: http://utilservnexus:5XgmKC!zNj91Ys8qobTaG-@fw-t-net.mipih.net:3128
       container_name: elasticsearch
 #      command: elasticsearch -Des.network.host=0.0.0.0
       ports:
@@ -26,11 +28,13 @@ services:
     fluentd-es:
       build:
         context: ./../images/fluentd-es
+        args:
+          proxy: http://utilservnexus:5XgmKC!zNj91Ys8qobTaG-@fw-t-net.mipih.net:3128
       container_name: fluentd-es
       ports:
         - 24224:24224
       environment:
-        - ES_HOST=elasticsearch
+        - ES_HOST=0.0.0.0
         - ES_PORT=9200
         - ES_TYPE=fluentd
         - ES_INDEX=fluentd

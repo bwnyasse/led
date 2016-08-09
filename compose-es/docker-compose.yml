@@ -21,7 +21,8 @@ services:
       logging:
         driver: fluentd
         options:
-          tag: "java.docker.{{.Name }}"
+          tag: "wildfly.docker.{{.Name }}"
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
+        - /vagrant/mtte/volumes/deployements/:/opt/jboss/wildfly/standalone/deployments/:rw
