@@ -1,0 +1,5 @@
+echo "env = {"
+echo "  ES_BROWSER_HOST: '$ES_BROWSER_HOST',"
+echo "  ES_PORT: '$ES_PORT',"
+echo "  ES_INDEX: '$ES_INDEX'"
+echo "}"

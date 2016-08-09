@@ -14,13 +14,13 @@ part of fluentd_log_explorer;
 
 @Injectable()
 class ElasticSearchService {
-  static String ES_HOST = "http://localhost:9200/";
+  static String ES_URL = "http://"+jsinterop.ES_BROWSER_HOST+":"+jsinterop.ES_PORT+"/";
 
 //  static String ES_TYPE = "fluentd";
   static String SEARCH_PREFIX = "/_search?pretty=true";
   static String MAPPING_PREFIX = "/_mapping";
-  static String INDEX_URL = ES_HOST + "_aliases?pretty=1";
-  static String SEARCH_URL = ES_HOST + "_search";
+  static String INDEX_URL = ES_URL + "_aliases?pretty=1";
+  static String SEARCH_URL = ES_URL + "_search";
   static String INTERVAL_DATE_HISTOGRAM_AGGREGATION = "15m";
 
   // 15 minutes
@@ -58,12 +58,12 @@ class ElasticSearchService {
   }
 
   _pingES() {
-    String url = ES_HOST + "?hello=elasticsearch";
+    String url = ES_URL + "?hello=elasticsearch";
     _head(url).then((response) {
-      jsinterop.showNotieSuccess('ElasticSearch is available at : $ES_HOST');
+      jsinterop.showNotieSuccess('ElasticSearch is available at : $ES_URL');
     }).catchError((error) {
       jsinterop
-          .showNotieError('[ERROR] ElasticSearch is unreachable at $ES_HOST');
+          .showNotieError('[ERROR] ElasticSearch is unreachable at $ES_URL');
     });
   }
 
@@ -87,7 +87,7 @@ class ElasticSearchService {
 
   ensureLogAnalyzed(String index) {
     //TODO : Extract type in variable
-    String url = '$ES_HOST$index/fluentd$MAPPING_PREFIX';
+    String url = '$ES_URL$index/fluentd$MAPPING_PREFIX';
     _post(url, sendData: JSON.encode(_dslEnsureLogAnalyzed()));
   }
 
@@ -95,7 +95,7 @@ class ElasticSearchService {
     currentIndex = index;
 
     containers.clear();
-    String url = "$ES_HOST$currentIndex$SEARCH_PREFIX";
+    String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
     Map dsl = _dslAvailableContainers();
     _post(url, sendData: JSON.encode(dsl)).then((HttpRequest response) {
       Map jsonResponse = JSON.decode(response.responseText);
@@ -117,7 +117,7 @@ class ElasticSearchService {
     currentLogLevel = level;
     currentHisto = histo;
     currentFilterValue = filter;
-    String url = "$ES_HOST$currentIndex$SEARCH_PREFIX";
+    String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
     Map dsl = _dslLogs(containerName, level, histo, filter);
 
     sourceLogsByContainerName.clear();
@@ -212,9 +212,9 @@ class ElasticSearchService {
   _addHttpRequestCatchError(Future<HttpRequest> httpRequest) {
     // Handle Timeout
     // TODO: Handler Timeout ? maybe something wrong to call server
-    httpRequest.catchError((e) {
-      jsinterop.showNotieError('[ERROR]');
-    });
+//    httpRequest.catchError((e) {
+//      jsinterop.showNotieError('[ERROR]');
+//    });
   }
 
   Map<String, String> addAcceptHeadersAsJson() =>

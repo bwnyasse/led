@@ -1,11 +1,6 @@
 FROM fluent/fluentd:latest
+
 MAINTAINER bwnyasse
-
-ARG proxy
-
-ENV http_proxy ${proxy}
-ENV https_proxy ${proxy}
-ENV no_proxy=.mipih.net,.mipih.fr,localhost,127.0.0.1,0.0.0.0,elasticsearch
 
 USER root
 
@@ -15,13 +10,25 @@ RUN gem install fluent-plugin-elasticsearch && \
     gem install fluent-plugin-record-reformer && \
     gem install fluent-plugin-better-timestamp
 
+RUN apk add --update \
+    lighttpd \
+  && rm -rf /var/cache/apk/*
+
+RUN adduser www-data -G www-data -H -s /bin/false -D
+
+COPY lighttpd/lighttpd.conf /etc/lighttpd/
 
 COPY manage/wildfly.conf /fluentd/etc/
+
 COPY fluent.conf /fluentd/etc/
+ADD www /var/www/
 
 EXPOSE 24284
+EXPOSE 8080
 
-# Starter
+COPY ./env.sh /
+RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh
+
 COPY ./start.sh /
 RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 

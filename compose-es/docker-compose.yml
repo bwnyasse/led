@@ -25,4 +25,3 @@ services:
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
-        - /vagrant/mtte/volumes/deployements/:/opt/jboss/wildfly/standalone/deployments/:rw
