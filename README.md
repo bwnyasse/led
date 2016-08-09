@@ -5,8 +5,8 @@
 The goal is to provide an easy process to visualize and explorer logs from your
 running container.
 
-LED want to keep everything as simple as possible.
+LED want to keep everything as simple as possible. But it is in very early stage. 
 
-Work in progress....
+Documentation will be available soon. Work in progress....
 
 ![](current.png?raw=true)
