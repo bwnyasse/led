@@ -3,7 +3,7 @@
         <div class="bs-component">
             <div class="alert alert-dismissible alert-success2">
                 <div>
-                    Container : <!--<span class="docker-container-id">{{service.currentContainerId}}</span>-->
+                    <i class="devicon-docker-plain "> </i> Container : <!--<span class="docker-container-id">{{service.currentContainerId}}</span>-->
                 </div>
                 <div class="selected-alert-data">
                     <strong> {{service.currentContainerName}}</strong>
@@ -16,7 +16,7 @@
             <div class="alert alert-dismissible {{getSelectedAlertLevelCss()}}">
                 <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
                 <div>
-                    Level :
+                    <i class="glyphicon glyphicon-tasks"></i> Level :
                 </div>
                 <div class="selected-alert-data ">
                     <strong> {{service.currentLogLevel}}</strong>
@@ -29,7 +29,7 @@
             <div class="alert alert-dismissible alert-default">
                 <button type="button" class="close" ng-click="service.clearLogHisto()">×</button>
                 <div>
-                    Activities :
+                    <i class="glyphicon glyphicon-hourglass"></i> Activities :
                 </div>
                 <div class="selected-alert-data ">
                     <strong> {{getHisto()}}</strong>

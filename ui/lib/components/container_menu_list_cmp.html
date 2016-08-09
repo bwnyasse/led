@@ -9,7 +9,7 @@
     <hr/>
 
     <div ng-hide="service.containers.isEmpty">
-        <p class="lead">Docker containers</p>
+        <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
         <div class="list-group">
             <a ng-repeat="container in service.containers" href="" ng-click="getLogs(container)"
                class="list-group-item docker-container-name">{{container}}</a>

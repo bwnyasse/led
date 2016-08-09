@@ -122,3 +122,16 @@ pre {
     display: none !important;
 }
 /* [END| ANGULAR SPECIFIC */
+
+.devicon-git-plain {
+    max-width: 2em;
+}
+
+/* if you want to change the original color */
+.devicon-git-plain path {
+    fill: #4691f6;
+}
+
+.menu-icon {
+    font-size: 32px;
+}
