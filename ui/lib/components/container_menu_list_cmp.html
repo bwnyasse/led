@@ -18,7 +18,7 @@
 
     <hr/>
     <div ng-hide="service.levels.isEmpty">
-        <p class="lead"><i class="glyphicon glyphicon-tasks"></i> Level</p>
+        <p class="lead"><i class="icon ion-ios-speedometer-outline"></i> Level</p>
 
         <div class="list-group">
             <a ng-repeat="level in service.levels" href="" ng-click="getLogsByLevel(level)"
@@ -30,7 +30,7 @@
 
     <hr/>
     <div ng-hide="service.dateHisto.isEmpty">
-        <p class="lead"><i class="glyphicon glyphicon-hourglass"></i> Last Activities</p>
+        <p class="lead">  <i class="icon ion-ios-time-outline"></i> Last Activities</p>
 
         <div class="list-group">
             <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)" class="list-group-item histo-menu">
