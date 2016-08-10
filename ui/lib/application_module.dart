@@ -17,12 +17,14 @@ import 'dart:mirrors';
 import 'dart:async';
 import 'dart:html';
 
-
 import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:intl/intl.dart';
 import 'package:fluentd_log_explorer/utils/js_interop.dart' as jsinterop;
 import 'package:quiver/strings.dart' as quiver_strings;
+import 'package:quiver/collection.dart' as quiver_collection;
+import 'package:fluentd_log_explorer/utils/utils.dart';
+
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_service.dart';
@@ -33,9 +35,8 @@ part 'containers/wildfly/wildfly_search_service.dart';
 
 class ApplicationModule extends Module {
   ApplicationModule() {
-
     // Wildfly
-    bind(WildlflySearchService);
+    bind(WildflySearchService);
 
     bind(ContainerMenuListCmp);
     bind(ContainerLogCmp);

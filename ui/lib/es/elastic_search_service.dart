@@ -13,16 +13,14 @@
 part of fluentd_log_explorer;
 
 @Injectable()
-class ElasticSearchService extends AbstractRestService {
-
-  static String ES_URL = "http://"+jsinterop.ES_BROWSER_HOST+":"+jsinterop.ES_PORT+"/";
+abstract class ElasticSearchService extends AbstractRestService {
+  static String ES_URL = "http://" + jsinterop.ES_BROWSER_HOST + ":" + jsinterop.ES_PORT + "/";
 
 //  static String ES_TYPE = "fluentd";
   static String SEARCH_PREFIX = "/_search?pretty=true";
   static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
-
 
   String currentIndex;
   String currentContainerName;
@@ -48,8 +46,7 @@ class ElasticSearchService extends AbstractRestService {
     _head(url).then((response) {
       jsinterop.showNotieSuccess('ElasticSearch is available at : $ES_URL');
     }).catchError((error) {
-      jsinterop
-          .showNotieError('[ERROR] ElasticSearch is unreachable at $ES_URL');
+      jsinterop.showNotieError('[ERROR] ElasticSearch is unreachable at $ES_URL');
     });
   }
 
@@ -97,8 +94,7 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  getLogsByContainerName(String containerName,
-      {String level: null, String histo: null, String filter: null}) async {
+  getLogsByContainerName(String containerName, {String level: null, String histo: null, String filter: null}) async {
     currentContainerName = containerName;
     currentLogLevel = level;
     currentHisto = histo;
@@ -140,26 +136,20 @@ class ElasticSearchService extends AbstractRestService {
 
   clearFilterValue() {
     currentFilterValue = null;
-    getLogsByContainerName(
-        currentContainerName, level: currentLogLevel,
-        histo: currentHisto,
-        filter: currentFilterValue);
+    getLogsByContainerName(currentContainerName,
+        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
   }
 
   clearLogLevel() {
     currentLogLevel = null;
-    getLogsByContainerName(
-        currentContainerName, level: currentLogLevel,
-        histo: currentHisto,
-        filter: currentFilterValue);
+    getLogsByContainerName(currentContainerName,
+        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
   }
 
   clearLogHisto() {
     currentHisto = null;
-    getLogsByContainerName(
-        currentContainerName, level: currentLogLevel,
-        histo: currentHisto,
-        filter: currentFilterValue);
+    getLogsByContainerName(currentContainerName,
+        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
   }
 
   hasCurrentLogLevel() => quiver_strings.isNotEmpty(currentLogLevel);
@@ -167,10 +157,9 @@ class ElasticSearchService extends AbstractRestService {
   hasCurrentLogHisto() => quiver_strings.isNotEmpty(currentHisto);
 
   hasCurrentContainerName() =>
-      quiver_strings.isNotEmpty(currentContainerName) &&
-          quiver_strings.isNotEmpty(currentContainerId);
+      quiver_strings.isNotEmpty(currentContainerName) && quiver_strings.isNotEmpty(currentContainerId);
 
   hasCurrentFilterValue() => quiver_strings.isNotEmpty(currentFilterValue);
 
-
+  Map retryFormat(String log);
 }
