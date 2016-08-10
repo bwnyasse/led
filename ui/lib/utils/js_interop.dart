@@ -7,7 +7,8 @@ import 'package:quiver/strings.dart' as quiver_strings;
 
 ////////////////////////// Call -> [env.js] /////////////////////////////////////
 
-var ES_BROWSER_HOST = quiver_strings.isEmpty(js.context['env']['ES_BROWSER_HOST']) ? '0.0.0.0' : js.context['env']['ES_BROWSER_HOST'];
+var ES_BROWSER_HOST =
+    quiver_strings.isEmpty(js.context['env']['ES_BROWSER_HOST']) ? '0.0.0.0' : js.context['env']['ES_BROWSER_HOST'];
 var ES_PORT = quiver_strings.isEmpty(js.context['env']['ES_PORT']) ? '9200' : js.context['env']['ES_PORT'];
 var ES_INDEX = quiver_strings.isEmpty(js.context['env']['ES_INDEX']) ? 'fluentd' : js.context['env']['ES_INDEX'];
 
@@ -29,4 +30,3 @@ showNotieError(String message) {
 
 @JS("notie.alert")
 external String notieAlert(int styleNumber, String message, int timeInSecond);
-

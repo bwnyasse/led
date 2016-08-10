@@ -1,8 +1,7 @@
 class Utils {
-
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(.*m)(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
 
-  static Map retryFormatWildfly({String log}) => retryFormat(log:log,regExp:LOG_FORMAT_REGEXP_WILDFLY );
+  static Map retryFormatWildfly({String log}) => retryFormat(log: log, regExp: LOG_FORMAT_REGEXP_WILDFLY);
 
   static Map retryFormat({String log, RegExp regExp}) {
     Map json = new Map();

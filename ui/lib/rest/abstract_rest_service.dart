@@ -13,7 +13,6 @@
 part of fluentd_log_explorer;
 
 abstract class AbstractRestService {
-  
   Future<HttpRequest> _get(String url) async => _performServerCall(url, 'GET');
 
   Future<HttpRequest> _head(String url) async => _performServerCall(url, 'HEAD');

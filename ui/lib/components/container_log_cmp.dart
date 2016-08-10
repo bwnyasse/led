@@ -14,19 +14,15 @@ part of fluentd_log_explorer;
 
 @Component(
     selector: 'container-log-cmp',
-    templateUrl:
-    'packages/fluentd_log_explorer/components/container_log_cmp.html',
+    templateUrl: 'packages/fluentd_log_explorer/components/container_log_cmp.html',
     useShadowDom: false)
-class ContainerLogCmp extends ShadowRootAware{
-
+class ContainerLogCmp extends ShadowRootAware {
   ElasticSearchService service;
   String container_id;
 
   ContainerLogCmp(this.service);
 
-  getMessage(source) => quiver_strings.isNotEmpty(source['message'])
-      ? source['message']
-      : source['log'];
+  getMessage(source) => quiver_strings.isNotEmpty(source['message']) ? source['message'] : source['log'];
 
   getMessageCss(source) {
     String css = '';
@@ -61,8 +57,7 @@ class ContainerLogCmp extends ShadowRootAware{
     return css;
   }
 
-  getLevelCss(source) =>
-      _effectiveGetLevelCss(getLevel(source));
+  getLevelCss(source) => _effectiveGetLevelCss(getLevel(source));
 
   _effectiveGetLevelCss(level) {
     String css = 'label-default';
@@ -81,22 +76,19 @@ class ContainerLogCmp extends ShadowRootAware{
   getTime(source) {
     String time = source['@timestamp'];
     DateTime dateTime = DateTime.parse(time);
-    DateTime date = new DateTime.fromMillisecondsSinceEpoch(
-        dateTime.millisecondsSinceEpoch);
+    DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
     var strictDate = new DateFormat('HH:mm:ss,ms');
     return strictDate.format(date).toString();
   }
 
   getOutput(source) => (source['source']);
 
-  getContainerNameAndId(source) =>
-      source['container_name'] + " id:" + source['container_id'];
+  getContainerNameAndId(source) => source['container_name'] + " id:" + source['container_id'];
 
   getHisto() {
     if (quiver_strings.isNotEmpty(service.currentHisto)) {
       DateTime dateTime = DateTime.parse(service.currentHisto);
-      DateTime date = new DateTime.fromMillisecondsSinceEpoch(
-          dateTime.millisecondsSinceEpoch);
+      DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
       var strictDate = new DateFormat('HH:mm:ss');
       return "Since " + strictDate.format(date).toString();
     }
@@ -108,18 +100,16 @@ class ContainerLogCmp extends ShadowRootAware{
 
   @override
   void onShadowRoot(ShadowRoot shadowRoot) {
-  querySelector('#filter-input-id')
+    querySelector('#filter-input-id')
       ..onChange.listen(handler)
       ..onKeyDown.listen(handler)
       ..onKeyUp.listen(handler)
       ..onCut.listen(handler)
       ..onPaste.listen(handler);
 
-
     // TODO: implement onShadowRoot
   }
 
-  handler(event) =>    service.getLogsByContainerName(
-      service.currentContainerName, level: service.currentLogLevel,
-      histo: service.currentHisto, filter: service.currentFilterValue);
+  handler(event) => service.getLogsByContainerName(service.currentContainerName,
+      level: service.currentLogLevel, histo: service.currentHisto, filter: service.currentFilterValue);
 }
