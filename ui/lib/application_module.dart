@@ -25,14 +25,21 @@ import 'package:fluentd_log_explorer/utils/js_interop.dart' as jsinterop;
 import 'package:quiver/strings.dart' as quiver_strings;
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
-part 'injectable/elastic_search_service.dart';
+part 'package:fluentd_log_explorer/es/elastic_search_service.dart';
+part 'rest/abstract_rest_service.dart';
+part 'package:fluentd_log_explorer/es/elastic_search_query_dsl.dart';
+
+part 'containers/wildfly/wildfly_search_service.dart';
 
 class ApplicationModule extends Module {
   ApplicationModule() {
+
+    // Wildfly
+    bind(WildlflySearchService);
+
     bind(ContainerMenuListCmp);
     bind(ContainerLogCmp);
     bind(ElasticSearchService);
-
     // Routing Mechanism
 //    bind(RouteInitializerFn, toImplementation: MRouter);
 //    bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));

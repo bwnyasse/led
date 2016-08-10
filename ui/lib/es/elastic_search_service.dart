@@ -13,7 +13,8 @@
 part of fluentd_log_explorer;
 
 @Injectable()
-class ElasticSearchService {
+class ElasticSearchService extends AbstractRestService {
+
   static String ES_URL = "http://"+jsinterop.ES_BROWSER_HOST+":"+jsinterop.ES_PORT+"/";
 
 //  static String ES_TYPE = "fluentd";
@@ -21,20 +22,7 @@ class ElasticSearchService {
   static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
-  static String INTERVAL_DATE_HISTOGRAM_AGGREGATION = "15m";
 
-  // 15 minutes
-
-  // ES field
-  static String ES_FIELD_TIMESTAMP = "@timestamp";
-  static String ES_FIELD_CONTAINER_NAME = "container_name";
-  static String ES_FIELD_LOG_LEVEL = "level";
-  static String ES_FIELD_LOG_MESSAGE = "message";
-
-  // ES Aggre
-  static String ES_AGG_LOG_LEVEL = "agg_log_level";
-  static String ES_AGG_CONTAINER_NAME = "agg_container_name";
-  static String ES_AGG_DATE_HISTOGRAM_AGGREGATION = "agg_date_histo_aggregation";
 
   String currentIndex;
   String currentContainerName;
@@ -47,8 +35,6 @@ class ElasticSearchService {
   List<String> containers = [];
   List<String> levels = [];
   List<String> dateHisto = [];
-
-  // timestamp key_as_string
 
   List sourceLogsByContainerName = [];
 
@@ -88,7 +74,7 @@ class ElasticSearchService {
   ensureLogAnalyzed(String index) {
     //TODO : Extract type in variable
     String url = '$ES_URL$index/fluentd$MAPPING_PREFIX';
-    _post(url, sendData: JSON.encode(_dslEnsureLogAnalyzed()));
+    _post(url, sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));
   }
 
   getContainersByIndex(String index) async {
@@ -96,10 +82,10 @@ class ElasticSearchService {
 
     containers.clear();
     String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
-    Map dsl = _dslAvailableContainers();
+    Map dsl = ElasticSearchQueryDSL._dslAvailableContainers();
     _post(url, sendData: JSON.encode(dsl)).then((HttpRequest response) {
       Map jsonResponse = JSON.decode(response.responseText);
-      List buckets = jsonResponse['aggregations'][ES_AGG_CONTAINER_NAME]['buckets'];
+      List buckets = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_CONTAINER_NAME]['buckets'];
       buckets.forEach((json) {
         containers.add(json['key']);
 
@@ -118,7 +104,7 @@ class ElasticSearchService {
     currentHisto = histo;
     currentFilterValue = filter;
     String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
-    Map dsl = _dslLogs(containerName, level, histo, filter);
+    Map dsl = ElasticSearchQueryDSL._dslLogs(containerName, level, histo, filter);
 
     sourceLogsByContainerName.clear();
 
@@ -132,14 +118,14 @@ class ElasticSearchService {
 
         // update level
         levels.clear();
-        List b1 = jsonResponse['aggregations'][ES_AGG_LOG_LEVEL]['buckets'];
+        List b1 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
         b1.forEach((json) {
           levels.add(json['key']);
         });
 
         // Update date histo
         dateHisto.clear();
-        List b2 = jsonResponse['aggregations'][ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
+        List b2 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
         b2.forEach((json) {
           // Add only 4 ( means last hour )
           if (dateHisto.length < 4) {
@@ -186,126 +172,5 @@ class ElasticSearchService {
 
   hasCurrentFilterValue() => quiver_strings.isNotEmpty(currentFilterValue);
 
-  Future<HttpRequest> _get(String url) async => _performServerCall(url, 'GET');
 
-  Future<HttpRequest> _head(String url) async =>
-      _performServerCall(url, 'HEAD');
-
-  Future<HttpRequest> _post(String url, {var sendData}) async =>
-      _performServerCall(url, 'POST', sendData: sendData);
-
-
-  _performServerCall(String url, String m, {var sendData: null}) async {
-    Future<HttpRequest> httpRequest;
-
-    if (sendData == null) {
-      httpRequest = HttpRequest.request(url, method: m);
-    } else {
-      httpRequest = HttpRequest.request(url, method: m, sendData: sendData);
-    }
-
-    _addHttpRequestCatchError(httpRequest);
-
-    return httpRequest;
-  }
-
-  _addHttpRequestCatchError(Future<HttpRequest> httpRequest) {
-    // Handle Timeout
-    // TODO: Handler Timeout ? maybe something wrong to call server
-//    httpRequest.catchError((e) {
-//      jsinterop.showNotieError('[ERROR]');
-//    });
-  }
-
-  Map<String, String> addAcceptHeadersAsJson() =>
-      {'Accept': 'application/json'};
-
-  Map<String, String> addContentTypeHeadersAsJson() =>
-      {'Content-Type': 'application/json'};
-
-  ///
-  /// DSL
-  ///
-  _dslAvailableContainers() => {
-    "size": "0",
-    "aggs": {
-      ES_AGG_CONTAINER_NAME: {
-        "terms": {"field": ES_FIELD_CONTAINER_NAME}
-      }
-    }
-  };
-
-  _dslLogs(String containerName, String level, String histo,
-      String filterValue) => {
-    "query": {
-      "bool": {
-        "must": [
-          {
-            "term": {ES_FIELD_CONTAINER_NAME: containerName},
-            "wildcard": _dslLogFilterValue(filterValue)
-          },
-          _dslLogLevel(level),
-          _dslLogHisto(histo)
-        ],
-        "must_not": [],
-        "should": []
-      },
-    },
-    "from": 0,
-    "size": 5000,
-    "sort": {ES_FIELD_TIMESTAMP: "desc"},
-    "aggs": _dslCommonAggregation()
-  };
-
-
-  _dslLogLevel(String level) => quiver_strings.isEmpty(level) ?
-  {} :
-  {
-    "term": {ES_FIELD_LOG_LEVEL: level}
-  };
-
-  _dslLogHisto(String histo) => quiver_strings.isEmpty(histo) ?
-  {} :
-  {
-    "range":
-    {
-      ES_FIELD_TIMESTAMP:
-      {
-        "gte": DateTime
-            .parse(histo)
-            .millisecondsSinceEpoch,
-        "lte": new DateTime.now().millisecondsSinceEpoch
-      }
-    }
-  };
-
-  _dslLogFilterValue(String filterValue) =>
-      quiver_strings.isEmpty(filterValue) ?
-      {} :
-      {
-        "wildcard": {
-          ES_FIELD_LOG_MESSAGE: filterValue+"*"
-        }
-      };
-
-  _dslCommonAggregation() => {
-    ES_AGG_LOG_LEVEL: {
-      "terms": {"field": ES_FIELD_LOG_LEVEL}
-    },
-    ES_AGG_DATE_HISTOGRAM_AGGREGATION: {
-      "date_histogram": {
-        "field": ES_FIELD_TIMESTAMP,
-        "interval": INTERVAL_DATE_HISTOGRAM_AGGREGATION
-      }
-    }
-  };
-
-  _dslEnsureLogAnalyzed() => {
-    "properties": {
-      "log": {
-        "type": "string",
-        "index": "analyzed"
-      }
-    }
-  };
 }
