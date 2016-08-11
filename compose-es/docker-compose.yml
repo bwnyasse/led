@@ -11,3 +11,4 @@ services:
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
+        - /home/bwnyasse/work/project/sootoop/volumes/deployments/:/opt/jboss/wildfly/standalone/deployments/:rw

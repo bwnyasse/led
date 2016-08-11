@@ -2,8 +2,7 @@ version: '2'
 services:
 
     elasticsearch:
-      build:
-        context: ./../images/es
+      image: bwnyasse/elasticsearch-head
       container_name: elasticsearch
       ports:
         - "9200:9200"
@@ -12,9 +11,9 @@ services:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
 
-    fluentd-es:
+    fluentd-led:
       build:
-        context: ./../images/fluentd-led
+        context: ./../images/led
       container_name: fluentd-led
       ports:
         - 24224:24224
