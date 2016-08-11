@@ -1,21 +1,9 @@
 version: '2'
 services:
 
-    proxy:
-      build:
-        context: ./../images/proxy
-      container_name: proxy
-      ports:
-        - "80:80"
-        - "443:443"
-      depends_on:
-        - elasticsearch
-
     elasticsearch:
-      build:
-        context: ./../images/es
+      images: ypereirareis/elasticsearch-head
       container_name: elasticsearch
-#      command: elasticsearch -Des.network.host=0.0.0.0
       ports:
         - "9200:9200"
         - "9300:9300"
