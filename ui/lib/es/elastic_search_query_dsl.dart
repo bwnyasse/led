@@ -20,6 +20,7 @@ class ElasticSearchQueryDSL {
   static String ES_FIELD_CONTAINER_NAME = "container_name";
   static String ES_FIELD_LOG_LEVEL = "level";
   static String ES_FIELD_LOG_MESSAGE = "message";
+  static String ES_FIELD_LOG_SUFFIX = "suffix";
 
   // ES Aggre
   static String ES_AGG_LOG_LEVEL = "agg_log_level";
@@ -79,7 +80,7 @@ class ElasticSearchQueryDSL {
   static _dslLogFilterValue(String filterValue) => quiver_strings.isEmpty(filterValue)
       ? {}
       : {
-          "wildcard": {ES_FIELD_LOG_MESSAGE: filterValue + "*"}
+          "wildcard": {ES_FIELD_LOG_MESSAGE: filterValue.toLowerCase() + "*"}
         };
 
   static _dslCommonAggregation() => {
@@ -96,4 +97,12 @@ class ElasticSearchQueryDSL {
           "log": {"type": "string", "index": "analyzed"}
         }
       };
+
+  static _dslRetryUpdateLogFormat({String suffix, String level,String message}) =>{
+    "doc" : {
+      ES_FIELD_LOG_SUFFIX: suffix,
+      ES_FIELD_LOG_LEVEL: level,
+      ES_FIELD_LOG_MESSAGE: message
+    }
+  };
 }

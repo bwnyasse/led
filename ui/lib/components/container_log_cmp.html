@@ -72,13 +72,13 @@
     <table class="table">
 
         <tbody>
-        <tr ng-repeat="source in service.sourceLogsByContainerName">
-            <td><span class="label  {{getLevelCss(source)}}">{{getLevel(source)}}</span></td>
+        <tr ng-repeat="input in service.sourceLogsByContainerName">
+            <td><span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span></td>
             <td>
-                <div class="source-logs-time">{{getTime(source)}}</div>
+                <div class="source-logs-time">{{getTime(input)}}</div>
             </td>
             <td>
-                <pre class="{{getMessageCss(source)}}">{{getMessage(source)}}</pre>
+                <pre class="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
             </td>
         </tr>
         </tbody>

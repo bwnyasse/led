@@ -13,7 +13,14 @@
 part of fluentd_log_explorer;
 
 @Injectable()
-class WildflySearchService extends ElasticSearchService {
-  @override
-  Map retryFormat(String log) => Utils.retryFormatWildfly(log: log);
+class WildflyService  {
+
+  static String CONTAINER_TYPE = "wildfly";
+
+  retryFormat(String log) {
+    Map json = Utils.retryFormatWildfly(log: log);
+    if(json.isNotEmpty){
+      // Update to ES
+    }
+  }
 }

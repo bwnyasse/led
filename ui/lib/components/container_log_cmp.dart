@@ -17,16 +17,29 @@ part of fluentd_log_explorer;
     templateUrl: 'packages/fluentd_log_explorer/components/container_log_cmp.html',
     useShadowDom: false)
 class ContainerLogCmp extends ShadowRootAware {
+
   ElasticSearchService service;
+  ContainerService containerService;
   String container_id;
 
-  ContainerLogCmp(this.service);
+  ContainerLogCmp(this.service,this.containerService);
 
-  getMessage(source) => quiver_strings.isNotEmpty(source['message']) ? source['message'] : source['log'];
+  getMessage(Input input) {
+    String toDisplay = "";
+    if (quiver_strings.isNotEmpty(input.message)) {
+      toDisplay = input.message;
+    } else {
+      toDisplay = input.log;
 
-  getMessageCss(source) {
+      // Try to retry the formatting
+      containerService.retryFormat(input);
+    }
+    return toDisplay;
+  }
+
+  getMessageCss(Input input) {
     String css = '';
-    String level = getLevel(source);
+    String level = getLevel(input);
     if (level != null) {
       if (level.contains('WARN')) {
         return 'log-warning';
@@ -37,7 +50,7 @@ class ContainerLogCmp extends ShadowRootAware {
     return css;
   }
 
-  getLevel(source) => source['level'];
+  getLevel(Input input) => input.level;
 
   getSelectedAlertLevelCss() {
     String css = "";
@@ -57,7 +70,7 @@ class ContainerLogCmp extends ShadowRootAware {
     return css;
   }
 
-  getLevelCss(source) => _effectiveGetLevelCss(getLevel(source));
+  getLevelCss(Input input) => _effectiveGetLevelCss(getLevel(input));
 
   _effectiveGetLevelCss(level) {
     String css = 'label-default';
@@ -73,17 +86,17 @@ class ContainerLogCmp extends ShadowRootAware {
     return css;
   }
 
-  getTime(source) {
-    String time = source['@timestamp'];
+  getTime(Input input) {
+    String time = input.timestamp;
     DateTime dateTime = DateTime.parse(time);
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
     var strictDate = new DateFormat('HH:mm:ss,ms');
     return strictDate.format(date).toString();
   }
 
-  getOutput(source) => (source['source']);
+  getOutput(Input input) => input.source;
 
-  getContainerNameAndId(source) => source['container_name'] + " id:" + source['container_id'];
+  getContainerNameAndId(Input input) => input.container_name + " id:" + input.container_id;
 
   getHisto() {
     if (quiver_strings.isNotEmpty(service.currentHisto)) {

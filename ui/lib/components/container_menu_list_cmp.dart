@@ -22,7 +22,6 @@ class ContainerMenuListCmp {
   ContainerMenuListCmp(this.service);
 
   getLevelCss(String level) {
-    print("ici");
     String css = '';
     if (level != null) {
       level = level.toUpperCase();

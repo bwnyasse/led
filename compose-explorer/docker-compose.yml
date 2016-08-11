@@ -2,7 +2,8 @@ version: '2'
 services:
 
     elasticsearch:
-      images: ypereirareis/elasticsearch-head
+      build:
+        context: ./../images/es
       container_name: elasticsearch
       ports:
         - "9200:9200"
@@ -13,8 +14,8 @@ services:
 
     fluentd-es:
       build:
-        context: ./../images/fluentd-es
-      container_name: fluentd-es
+        context: ./../images/fluentd-led
+      container_name: fluentd-led
       ports:
         - 24224:24224
         - 8080:8080
