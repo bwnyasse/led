@@ -1,20 +1,6 @@
 version: '2'
 services:
 
-    nginx:
-      build:
-        context: ./../images/custom-nginx
-      container_name: nginx
-      ports:
-        - "3333:80"
-      logging:
-        driver: fluentd
-        options:
-          tag: "nginx.docker.{{.Name }}"
-      volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /etc/timezone:/etc/timezone:ro
-
     wildfly:
       image: jboss/wildfly:10.0.0.Final
       container_name: wildfly
