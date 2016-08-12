@@ -19,9 +19,10 @@ part of fluentd_log_explorer;
 class ContainerLogCmp extends ShadowRootAware {
 
   ElasticSearchService service;
-  String container_id;
 
   ContainerLogCmp(this.service);
+
+  displayedContainerId() => 'id: '+service.currentContainerId.substring(0,9)+'...';
 
   getMessage(Input input) => quiver_strings.isNotEmpty(input.message) ?input.message : input.log;
 
