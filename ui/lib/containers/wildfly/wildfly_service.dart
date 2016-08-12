@@ -17,10 +17,4 @@ class WildflyService  {
 
   static String CONTAINER_TYPE = "wildfly";
 
-  retryFormat(String log) {
-    Map json = Utils.retryFormatWildfly(log: log);
-    if(json.isNotEmpty){
-      // Update to ES
-    }
-  }
 }

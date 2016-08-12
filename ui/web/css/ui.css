@@ -1,8 +1,11 @@
 body {
     padding-top: 100px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.color-white {
+    color:#FFF;
+}
 .thumbnail img {
     width: 100%;
 }
@@ -10,7 +13,7 @@ body {
 .ratings {
     padding-right: 10px;
     padding-left: 10px;
-    color: #d17581;
+    color: #D17581;
 }
 
 .thumbnail {
@@ -28,13 +31,14 @@ footer {
 
 .alert-default {
     background-color: #7388A1;
-    color:#FFF;
-}
-
-.alert-filter{
-    background-color: #775e81;
     color: #FFF;
 }
+
+.alert-filter {
+    background-color: #775E81;
+    color: #FFF;
+}
+
 .selected-alert-data {
     text-align: center;
     font-size: 24px;
@@ -42,75 +46,117 @@ footer {
 }
 
 .source-logs-row {
-    font-size:14px;
+    font-size: 14px;
 }
 
 .source-logs-time {
     color: #95A5A6;
-    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 pre {
-    white-space: pre-wrap;       /* Since CSS 2.1 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    font-size:12px;
-    border:0px;
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    font-size: 12px;
+    border: 0px;
 }
 
-.log-warning{
-    color: #f0ad4e;
+.log-warning {
+    color: #F0AD4E;
     font-weight: bold;
     border: 1px solid;
 }
 
 .log-error {
-    color: #d9534f;
+    color: #D9534F;
     font-weight: bold;
     border: 1px solid;
 }
 
+.log-fatal {
+    color: #FFF;
+    background-color: #973A37;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+.level-info-label {
+    background-color: #5BC0DE;
+}
+
+.level-warning-label {
+    background-color: #F0AD4E;
+}
+
+.level-error-label {
+    background-color: #D9534F;
+}
+
+.level-debug-label {
+    background-color: #6dd4c0;
+}
+
+.level-trace-label {
+    background-color: #FAE6C9;
+}
+
+.level-fatal-label {
+    background-color: #973A37;
+}
+
 .level-info-menu {
-    border-left: 7px solid #5bc0de;
+    border-left: 7px solid #5BC0DE;
     text-transform: uppercase;
 }
 
 .level-warning-menu {
-    border-left:7px solid #f0ad4e;
+    border-left: 7px solid #F0AD4E;
     text-transform: uppercase;
 }
 
 .level-error-menu {
-    border-left:7px solid #d9534f;
+    border-left: 7px solid #D9534F;
     text-transform: uppercase;
 }
 
 .level-debug-menu {
-    border-left:7px solid #95A5A6;
+    border-left: 7px solid #6dd4c0;
+    text-transform: uppercase;
+}
+
+.level-trace-menu {
+    border-left: 7px solid #FAE6C9;
+    text-transform: uppercase;
+}
+
+.level-fatal-menu {
+    border-left: 7px solid #973A37;
     text-transform: uppercase;
 }
 
 .histo-menu {
-    border-left:7px solid #7388A1;
+    border-left: 7px solid #7388A1;
 }
 
 .docker-container-name {
-    border-left:7px solid #117275;
+    border-left: 7px solid #117275;
     text-transform: uppercase;
 }
 
 .docker-container-id {
-    font-size:12px;
-    color:#95A5A6;
+    font-size: 12px;
+    color: #95A5A6;
 }
 
 .alert-success2 {
     background-color: #117275;
-    color:#FFF;
+    color: #FFF;
 }
+
 .page-content {
-    padding:50px;
+    padding: 50px;
 }
 
 /* [START| ANGULAR SPECIFIC */
@@ -121,6 +167,7 @@ pre {
 .ng-hide {
     display: none !important;
 }
+
 /* [END| ANGULAR SPECIFIC */
 
 .devicon-git-plain {
@@ -129,7 +176,7 @@ pre {
 
 /* if you want to change the original color */
 .devicon-git-plain path {
-    fill: #4691f6;
+    fill: #4691F6;
 }
 
 .menu-icon {

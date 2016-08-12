@@ -19,23 +19,12 @@ part of fluentd_log_explorer;
 class ContainerLogCmp extends ShadowRootAware {
 
   ElasticSearchService service;
-  ContainerService containerService;
   String container_id;
 
-  ContainerLogCmp(this.service,this.containerService);
+  ContainerLogCmp(this.service);
 
-  getMessage(Input input) {
-    String toDisplay = "";
-    if (quiver_strings.isNotEmpty(input.message)) {
-      toDisplay = input.message;
-    } else {
-      toDisplay = input.log;
+  getMessage(Input input) => quiver_strings.isNotEmpty(input.message) ?input.message : input.log;
 
-      // Try to retry the formatting
-      containerService.retryFormat(input);
-    }
-    return toDisplay;
-  }
 
   getMessageCss(Input input) {
     String css = '';
@@ -45,6 +34,8 @@ class ContainerLogCmp extends ShadowRootAware {
         return 'log-warning';
       } else if (level.contains('ERR')) {
         return 'log-error';
+      } else if (level.contains('FATAL')) {
+        return 'log-fatal';
       }
     }
     return css;
@@ -56,15 +47,7 @@ class ContainerLogCmp extends ShadowRootAware {
     String css = "";
     if (service.hasCurrentLogLevel()) {
       String level = service.currentLogLevel.toUpperCase();
-      if (level != null) {
-        if (level.contains('INFO')) {
-          return 'alert-info';
-        } else if (level.contains('WARN')) {
-          return 'alert-warning';
-        } else if (level.contains('ERR')) {
-          return 'alert-danger';
-        }
-      }
+      css = _effectiveGetLevelCss(level);
     }
 
     return css;
@@ -76,11 +59,17 @@ class ContainerLogCmp extends ShadowRootAware {
     String css = 'label-default';
     if (level != null) {
       if (level.contains('INFO')) {
-        return 'label-info';
+        return 'level-info-label';
       } else if (level.contains('WARN')) {
-        return 'label-warning';
+        return 'level-warning-label';
       } else if (level.contains('ERR')) {
-        return 'label-danger';
+        return 'level-error-label';
+      } else if (level.contains('FATAL')) {
+        return 'level-fatal-label';
+      } else if (level.contains('DEBUG')) {
+        return 'level-debug-label';
+      } else if (level.contains('TRACE')) {
+        return 'level-trace-label';
       }
     }
     return css;

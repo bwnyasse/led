@@ -33,8 +33,8 @@
         <p class="lead">  <i class="icon ion-ios-time-outline"></i> Last Activities</p>
 
         <div class="list-group">
-            <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)" class="list-group-item histo-menu">
-                {{getDuration(histo)}}
+            <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)" class="list-group-item histo-menu" ng-bind-html="getDuration(histo)">
+
             </a>
         </div>
     </div>

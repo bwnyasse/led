@@ -17,6 +17,7 @@ class ElasticSearchQueryDSL {
 
   // ES field
   static String ES_FIELD_TIMESTAMP = "@timestamp";
+  static String ES_FIELD_TIME_NANO = "time_nano";
   static String ES_FIELD_CONTAINER_NAME = "container_name";
   static String ES_FIELD_LOG_LEVEL = "level";
   static String ES_FIELD_LOG_MESSAGE = "message";
@@ -56,7 +57,7 @@ class ElasticSearchQueryDSL {
         },
         "from": 0,
         "size": 5000,
-        "sort": {ES_FIELD_TIMESTAMP: "desc"},
+        "sort": {ES_FIELD_TIME_NANO: "desc"},
         "aggs": _dslCommonAggregation()
       };
 

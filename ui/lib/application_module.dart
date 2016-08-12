@@ -34,7 +34,6 @@ part 'rest/abstract_rest_service.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_query_dsl.dart';
 part 'models/models.dart';
 part 'containers/wildfly/wildfly_service.dart';
-part 'containers/container_service.dart';
 
 class ApplicationModule extends Module {
   ApplicationModule() {
@@ -44,7 +43,6 @@ class ApplicationModule extends Module {
     bind(ContainerMenuListCmp);
     bind(ContainerLogCmp);
     bind(ElasticSearchService);
-    bind(ContainerService);
     // Routing Mechanism
 //    bind(RouteInitializerFn, toImplementation: MRouter);
 //    bind(NgRoutingUsePushState, toValue: new NgRoutingUsePushState.value(false));

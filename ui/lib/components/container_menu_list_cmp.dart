@@ -33,6 +33,10 @@ class ContainerMenuListCmp {
         return 'level-error-menu';
       } else if (level.contains('DEBUG')) {
         return 'level-debug-menu';
+      } else if (level.contains('TRACE')) {
+        return 'level-trace-menu';
+      } else if (level.contains('FATAL')) {
+        return 'level-fatal-menu';
       }
       return css;
     }
@@ -50,6 +54,6 @@ class ContainerMenuListCmp {
     DateTime dateTime = DateTime.parse(histo);
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
     var strictDate = new DateFormat('HH:mm:ss');
-    return "Since " + strictDate.format(date).toString();
+    return "From : <b>" + strictDate.format(date).toString() + "</b> - To:  now";
   }
 }

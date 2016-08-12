@@ -112,7 +112,7 @@ class ElasticSearchService extends AbstractRestService {
       listHists.forEach((hists) {
         Input input = new Input.fromJSON(hists);
         currentContainerId = input.container_id;
-        inputList.add(input);
+        inputList.add(retryFormat(input));
       });
       sourceLogsByContainerName.addAll(inputList);
       
@@ -171,4 +171,23 @@ class ElasticSearchService extends AbstractRestService {
 
   hasCurrentFilterValue() => quiver_strings.isNotEmpty(currentFilterValue);
 
+  retryFormat(Input input) {
+    Map json = new Map();
+
+    //WILDFLY
+    if(quiver_strings.equalsIgnoreCase(input.container_type,WildflyService.CONTAINER_TYPE)){
+      json.addAll(Utils.retryFormatWildfly(log: input.log));
+    }
+
+    if(json.isNotEmpty){
+      // Update Input
+      input.suffix = json['suffix'];
+      input.level = json['level'];
+      input.message = json['message'];
+      // Update to ES
+      retryUpdateLogFormat(type:input.type,id:input.id,suffix:input.suffix ,level:input.level,message: input.message);
+    }
+
+    return input;
+  }
 }
