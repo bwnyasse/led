@@ -1,0 +1,14 @@
+version: '2'
+services:
+
+    wildfly_swarm:
+      build:
+        context: .
+      container_name:  wildfly_swarm
+      logging:
+        driver: fluentd
+        options:
+          tag: "wildfly.docker.{{.Name }}"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro

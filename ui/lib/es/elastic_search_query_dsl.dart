@@ -99,9 +99,8 @@ class ElasticSearchQueryDSL {
         }
       };
 
-  static _dslRetryUpdateLogFormat({String suffix, String level,String message}) =>{
+  static _dslRetryUpdateLogFormat({String level,String message}) =>{
     "doc" : {
-      ES_FIELD_LOG_SUFFIX: suffix,
       ES_FIELD_LOG_LEVEL: level,
       ES_FIELD_LOG_MESSAGE: message
     }
