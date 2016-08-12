@@ -1,7 +1,18 @@
+#!/bin/bash
+#
+# @description
+# Script used to build projet and Test from DART2Js compilation
+#
+# @author bwnyasse
+##
 CURRENT=$(pwd)
+INTEGRATION_PATH=$CURRENT/integ
+EXPLORER_PATH=$CURRENT/explorer
+UI_PATH=$CURRENT/ui
+IMAGES_PATH=$CURRENT/images
 
 echo 'Build UI Dart2JS'
-cd $CURRENT/ui && pub get && pub build --mode=release
+cd $UI_PATH && pub get && pub build --mode=release
 
 ## Clean Previous ui
 echo 'Clean Previous www content'
@@ -10,14 +21,14 @@ rm -rf $CURRENT/images/led/www
 ## Copy Ui output to docker image dir
 echo 'Update www content'
 mkdir $CURRENT/images/led/www
-mv $CURRENT/ui/build/web/* $CURRENT/images/led/www/
+mv $UI_PATH/build/web/* $IMAGES_PATH/led/www/
 
 ## Build fluentd LED docker image
 ## TODO
 
 ## Dev mode launch compose-explorer
 
-cd $CURRENT/compose-explorer && docker-compose build && docker-compose up --force-recreate
+cd $EXPLORER_PATH && docker-compose build && docker-compose up --force-recreate
 
 # Clean
-rm -rf $CURRENT/images/fluentd-led/www/
+rm -rf $IMAGES_PATH/fluentd-led/www/
