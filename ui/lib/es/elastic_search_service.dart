@@ -137,9 +137,9 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  retryUpdateLogFormat({String type, String id, String level, String message}){
+  retryUpdateLogFormat({String type, String id, String time_forward, String level, String message}){
     String url = "$ES_URL$currentIndex/$type/$id$UPDATE_PARTIAL_PREFIX";
-    String json = ElasticSearchQueryDSL._dslRetryUpdateLogFormat(level:level,message:message);
+    String json = ElasticSearchQueryDSL._dslRetryUpdateLogFormat(time_forward:time_forward , level:level,message:message);
     print(json);
     _post(url, sendData: JSON.encode(json));
   }
@@ -181,11 +181,11 @@ class ElasticSearchService extends AbstractRestService {
 
     if(json.isNotEmpty){
       // Update Input
-      //input.suffix = json['suffix'];
+      input.time_forward = json['time_forward'];
       input.level = json['level'];
       input.message = json['message'];
       // Update to ES
-      retryUpdateLogFormat(type:input.type,id:input.id,level:input.level,message: input.message);
+      retryUpdateLogFormat(type:input.type,id:input.id,time_forward:input.time_forward, level:input.level,message: input.message);
     }
 
     return input;

@@ -1,3 +1,6 @@
+#wildlfy SWARM 
+  format /^(^.*m)?(\d{4}-\d{2}-\d{2})? (?<time>\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) (?<level>[^\s]+) (?<message>.*)/
+
 ## Online format regex checker
 http://fluentular.herokuapp.com/
 

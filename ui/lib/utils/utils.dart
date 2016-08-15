@@ -1,5 +1,5 @@
 class Utils {
-  static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(.*m)?(\d{1,4}-\d{1,2}-\d{1,2})? (\d{1,2}:\d{1,2}:\d{1,2},\d{1,3})? ([^\s]+)? (.*)");
+  static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
 
   static Map retryFormatWildfly({String log}) {
     Map json = new Map();
@@ -10,7 +10,6 @@ class Utils {
     // Check if always empty , check if contains started by any JAVA error
     if(json.isEmpty && (log.contains("Caused by:") || log.contains("Exception in"))) {
       json['level'] = "ERROR";
-      //json['suffix'] = "";
       json['message'] = log;
     }
 
@@ -23,17 +22,9 @@ class Utils {
     if(matches.isNotEmpty){
       Match match = matches.elementAt(0);
       if (match.groupCount == 7) {
-        //json['suffix'] = match[1].trim();
-        //json['date'] = match[2].trim();
-        //json['time'] = match[3].trim();
+        json['time_forward'] = match[5].trim();
         json['level'] = match[6].trim();
-        log = log.replaceAll(match[1],"");
-        log = log.replaceAll(match[2],"");
-        log = log.replaceAll(match[3],"");
-        log = log.replaceAll(match[4],"");
-        log = log.replaceAll(match[5],"");
-        log = log.replaceAll(match[6],"");
-        json['message'] =log;
+        json['message'] = match[7].trim();
       }
     }
 
