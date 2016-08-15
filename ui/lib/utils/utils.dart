@@ -1,5 +1,6 @@
 class Utils {
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
+  static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})\+(\d{0,4})?( +)?(I|E|F|D|W)( +)?(.*)");
 
   static Map retryFormatWildfly({String log}) {
     Map json = new Map();
@@ -12,6 +13,15 @@ class Utils {
       json['level'] = "ERROR";
       json['message'] = log;
     }
+
+    return json;
+  }
+
+  static Map retryFormatMongo({String log}) {
+    Map json = new Map();
+
+    // Test the fomat
+    json.addAll(retryFormat(log: log, regExp: LOG_FORMAT_REGEXP_MONGO));
 
     return json;
   }
