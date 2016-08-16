@@ -23,6 +23,8 @@ class ElasticSearchService extends AbstractRestService {
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
 
+
+
   String currentIndex;
   String currentContainerName;
   String currentContainerId;
@@ -120,7 +122,7 @@ class ElasticSearchService extends AbstractRestService {
       levels.clear();
       List b1 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
       b1.forEach((json) {
-        levels.add(json['key']);
+        levels.add(Utils.getLevelFormat(listHists[0]['_source']['container_type'],json['key']));
       });
 
       // Update date histo
@@ -175,7 +177,7 @@ class ElasticSearchService extends AbstractRestService {
     Map json = new Map();
 
     //WILDFLY
-    if(quiver_strings.equalsIgnoreCase(input.container_type,WildflyService.CONTAINER_TYPE)){
+    if(quiver_strings.equalsIgnoreCase(input.container_type,Utils.CONTAINER_TYPE_WILDFLY)){
       json.addAll(Utils.retryFormatWildfly(log: input.log));
     }
 
@@ -190,4 +192,6 @@ class ElasticSearchService extends AbstractRestService {
 
     return input;
   }
+
+
 }

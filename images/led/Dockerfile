@@ -14,6 +14,7 @@ RUN gem install fluent-plugin-elasticsearch && \
     gem install fluent-plugin-color-stripper
 
 COPY manage/wildfly.conf /fluentd/etc/
+COPY manage/mongo.conf /fluentd/etc/
 
 COPY fluent.conf /fluentd/etc/
 # ============ end - fluent configuration

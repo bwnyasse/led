@@ -1,6 +1,12 @@
+import 'package:quiver/strings.dart' as quiver_strings;
+
 class Utils {
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
   static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})\+(\d{0,4})?( +)?(I|E|F|D|W)( +)?(.*)");
+
+  // container Type
+  static String CONTAINER_TYPE_WILDFLY = "wildfly";
+  static String CONTAINER_TYPE_MONGO = "mongo";
 
   static Map retryFormatWildfly({String log}) {
     Map json = new Map();
@@ -39,5 +45,26 @@ class Utils {
     }
 
     return json;
+  }
+
+  static getLevelFormat(var type ,String inputLevel){
+    if(quiver_strings.equalsIgnoreCase(type,CONTAINER_TYPE_MONGO) && inputLevel != null){
+    inputLevel = inputLevel.toUpperCase();
+
+      switch (inputLevel) {
+        case 'I':
+          return 'INFO';
+        case 'E':
+          return 'ERROR';
+        case 'W':
+          return 'WARNING';
+        case 'D':
+          return 'DEBUG';
+        case 'F':
+          return 'FATAL';
+      }
+    }
+
+    return inputLevel;
   }
 }

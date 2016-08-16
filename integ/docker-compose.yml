@@ -12,3 +12,17 @@ services:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
         - /home/bwnyasse/work/project/sootoop/volumes/deployments/:/opt/jboss/wildfly/standalone/deployments/:rw
+
+    # Mongo Db Instance
+    mongodb:
+      image: mongo:3.2.8
+      ports:
+        - "27017:27017"
+        - "28017:28017"
+      container_name: mongodb
+      logging:
+        driver: fluentd
+        options:
+          tag: "mongo.docker.{{.Name }}"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro

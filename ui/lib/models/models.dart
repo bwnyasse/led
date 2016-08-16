@@ -23,7 +23,7 @@ class Input {
         this.source = map['_source']['source'],
         this.log = map['_source']['log'],
         this.container_type = map['_source']['container_type'],
-        this.level = map['_source']['level'],
+        this.level = Utils.getLevelFormat( map['_source']['container_type'], map['_source']['level']),
         this.message = map['_source']['message'],
         this.time_forward = map['_source']['time_forward'],
         this.timestamp = map['_source']['@timestamp'];
@@ -39,4 +39,6 @@ class Input {
       quiver_strings.equalsIgnoreCase(container_type, o.container_type) &&
       quiver_strings.equalsIgnoreCase(timestamp, o.timestamp) &&
       quiver_strings.equalsIgnoreCase(time_forward, o.time_forward);
+
+
 }
