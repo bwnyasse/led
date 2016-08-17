@@ -14,16 +14,15 @@ part of fluentd_log_explorer;
 
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
-  static String ES_URL = "http://" + jsinterop.ES_BROWSER_HOST + ":" + jsinterop.ES_PORT + "/";
+  static String ES_URL =
+      "http://" + jsinterop.ES_BROWSER_HOST + ":" + jsinterop.ES_PORT + "/";
 
 //  static String ES_TYPE = "fluentd";
   static String SEARCH_PREFIX = "/_search?pretty=true";
-  static String UPDATE_PARTIAL_PREFIX = "/_update" ;
+  static String UPDATE_PARTIAL_PREFIX = "/_update";
   static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
-
-
 
   String currentIndex;
   String currentContainerName;
@@ -49,7 +48,8 @@ class ElasticSearchService extends AbstractRestService {
     _head(url).then((response) {
       jsinterop.showNotieSuccess('ElasticSearch is available at : $ES_URL');
     }).catchError((error) {
-      jsinterop.showNotieError('[ERROR] ElasticSearch is unreachable at $ES_URL');
+      jsinterop
+          .showNotieError('[ERROR] ElasticSearch is unreachable at $ES_URL');
     });
   }
 
@@ -74,7 +74,8 @@ class ElasticSearchService extends AbstractRestService {
   ensureLogAnalyzed(String index) {
     //TODO : Extract type in variable
     String url = '$ES_URL$index/fluentd$MAPPING_PREFIX';
-    _post(url, sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));
+    _post(url,
+        sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));
   }
 
   getContainersForCurrentIndex() async {
@@ -89,7 +90,8 @@ class ElasticSearchService extends AbstractRestService {
     Map dsl = ElasticSearchQueryDSL._dslAvailableContainers();
     _post(url, sendData: JSON.encode(dsl)).then((HttpRequest response) {
       Map jsonResponse = JSON.decode(response.responseText);
-      List buckets = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_CONTAINER_NAME]['buckets'];
+      List buckets = jsonResponse['aggregations']
+          [ElasticSearchQueryDSL.ES_AGG_CONTAINER_NAME]['buckets'];
       buckets.forEach((json) {
         containers.add(json['key']);
 
@@ -101,37 +103,44 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  getLogsByContainerName(String containerName, {Level level: null, String histo: null, String filter: null}) async {
+  getLogsByContainerName(String containerName,
+      {Level level: null, String histo: null, String filter: null}) async {
     currentContainerName = containerName;
     currentLogLevel = level;
     currentHisto = histo;
     currentFilterValue = filter;
     String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
-    Map dsl = ElasticSearchQueryDSL._dslLogs(containerName, level, histo, filter);
+    Map dsl =
+        ElasticSearchQueryDSL._dslLogs(containerName, level, histo, filter);
 
     sourceLogsByContainerName.clear();
 
     _post(url, sendData: JSON.encode(dsl)).then((HttpRequest response) {
       Map jsonResponse = JSON.decode(response.responseText);
       List listHists = jsonResponse['hits']['hits'];
-      List inputList = [] ;
+      List inputList = [];
       listHists.forEach((hists) {
         Input input = new Input.fromJSON(hists);
         currentContainerId = input.container_id;
         inputList.add(retryFormat(input));
       });
       sourceLogsByContainerName.addAll(inputList);
-      
+
       // update level
       levels.clear();
-      List b1 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
+      List b1 = jsonResponse['aggregations']
+          [ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
       b1.forEach((json) {
-        levels.add(new Level(value:json['key'],displayedValue: Utils.getLevelFormat(listHists[0]['_source']['container_type'],json['key'])));
+        levels.add(new Level(
+            value: json['key'],
+            displayedValue: Utils.getLevelFormat(
+                listHists[0]['_source']['container_type'], json['key'])));
       });
 
       // Update date histo
       dateHisto.clear();
-      List b2 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
+      List b2 = jsonResponse['aggregations']
+          [ElasticSearchQueryDSL.ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
       b2.forEach((json) {
         // Add only 4 ( means last hour )
         if (dateHisto.length < 4) {
@@ -143,9 +152,15 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  retryUpdateLogFormat({String type, String id, String time_forward, String level, String message}){
+  retryUpdateLogFormat(
+      {String type,
+      String id,
+      String time_forward,
+      String level,
+      String message}) {
     String url = "$ES_URL$currentIndex/$type/$id$UPDATE_PARTIAL_PREFIX";
-    String json = ElasticSearchQueryDSL._dslRetryUpdateLogFormat(time_forward:time_forward , level:level,message:message);
+    String json = ElasticSearchQueryDSL._dslRetryUpdateLogFormat(
+        time_forward: time_forward, level: level, message: message);
     print(json);
     _post(url, sendData: JSON.encode(json));
   }
@@ -153,53 +168,66 @@ class ElasticSearchService extends AbstractRestService {
   clearFilterValue() {
     currentFilterValue = null;
     getLogsByContainerName(currentContainerName,
-        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
+        level: currentLogLevel,
+        histo: currentHisto,
+        filter: currentFilterValue);
   }
 
   clearLogLevel() {
     currentLogLevel = null;
     getLogsByContainerName(currentContainerName,
-        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
+        level: currentLogLevel,
+        histo: currentHisto,
+        filter: currentFilterValue);
   }
 
   clearLogHisto() {
     currentHisto = null;
     getLogsByContainerName(currentContainerName,
-        level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
+        level: currentLogLevel,
+        histo: currentHisto,
+        filter: currentFilterValue);
   }
 
-  hasCurrentLogLevel() => currentLogLevel != null && quiver_strings.isNotEmpty(currentLogLevel.value);
+  hasCurrentLogLevel() =>
+      currentLogLevel != null &&
+      quiver_strings.isNotEmpty(currentLogLevel.value);
 
   hasCurrentLogHisto() => quiver_strings.isNotEmpty(currentHisto);
 
   hasCurrentContainerName() =>
-      quiver_strings.isNotEmpty(currentContainerName) && quiver_strings.isNotEmpty(currentContainerId);
+      quiver_strings.isNotEmpty(currentContainerName) &&
+      quiver_strings.isNotEmpty(currentContainerId);
 
   hasCurrentFilterValue() => quiver_strings.isNotEmpty(currentFilterValue);
 
   retryFormat(Input input) {
-    if(quiver_strings.isNotEmpty(input.message)){
+    if (quiver_strings.isNotEmpty(input.message)) {
       return input;
     }
 
     Map json = new Map();
 
     //WILDFLY
-    if(quiver_strings.equalsIgnoreCase(input.container_type,Utils.CONTAINER_TYPE_WILDFLY)){
+    if (quiver_strings.equalsIgnoreCase(
+        input.container_type, Utils.CONTAINER_TYPE_WILDFLY)) {
       json.addAll(Utils.retryFormatWildfly(log: input.log));
     }
 
-    if(json.isNotEmpty){
+    if (json.isNotEmpty) {
       // Update Input
       input.time_forward = json['time_forward'];
       input.level = json['level'];
       input.message = json['message'];
       // Update to ES
-      retryUpdateLogFormat(type:input.type,id:input.id,time_forward:input.time_forward, level:input.level.value,message: input.message);
+      retryUpdateLogFormat(
+          type: input.type,
+          id: input.id,
+          time_forward: input.time_forward,
+          level: input.level.value,
+          message: input.message);
     }
 
     return input;
   }
-
-
 }

@@ -14,7 +14,8 @@ part of fluentd_log_explorer;
 
 @Component(
     selector: 'container-menu-list-cmp',
-    templateUrl: 'packages/fluentd_log_explorer/components/container_menu_list_cmp.html',
+    templateUrl:
+        'packages/fluentd_log_explorer/components/container_menu_list_cmp.html',
     useShadowDom: false)
 class ContainerMenuListCmp {
   ElasticSearchService service;
@@ -42,24 +43,27 @@ class ContainerMenuListCmp {
     }
   }
 
-  getIndexAsLogHistory(String index) => index.replaceAll('fluentd-','');
+  getIndexAsLogHistory(String index) => index.replaceAll('fluentd-', '');
 
   getLogs(String container) => service.getLogsByContainerName(container);
 
   getLogsByLevel(Level level) =>
-      service.getLogsByContainerName(service.currentContainerName, level: level, histo: service.currentHisto);
+      service.getLogsByContainerName(service.currentContainerName,
+          level: level, histo: service.currentHisto);
 
   getLogsByHisto(String histo) =>
-      service.getLogsByContainerName(service.currentContainerName, level: service.currentLogLevel, histo: histo);
+      service.getLogsByContainerName(service.currentContainerName,
+          level: service.currentLogLevel, histo: histo);
 
   getDuration(String histo) {
     DateTime dateTime = DateTime.parse(histo);
-    DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
+    DateTime date = new DateTime.fromMillisecondsSinceEpoch(
+        dateTime.millisecondsSinceEpoch);
     var strictDate = new DateFormat('HH:mm:ss');
     return "From : <b>" + strictDate.format(date).toString() + "</b>";
   }
 
-  changeIndex() =>  new Future(() {
-    service.getContainersForCurrentIndex();
-  });
+  changeIndex() => new Future(() {
+        service.getContainersForCurrentIndex();
+      });
 }

@@ -15,9 +15,11 @@ part of fluentd_log_explorer;
 abstract class AbstractRestService {
   Future<HttpRequest> _get(String url) async => _performServerCall(url, 'GET');
 
-  Future<HttpRequest> _head(String url) async => _performServerCall(url, 'HEAD');
+  Future<HttpRequest> _head(String url) async =>
+      _performServerCall(url, 'HEAD');
 
-  Future<HttpRequest> _post(String url, {var sendData}) async => _performServerCall(url, 'POST', sendData: sendData);
+  Future<HttpRequest> _post(String url, {var sendData}) async =>
+      _performServerCall(url, 'POST', sendData: sendData);
 
   _performServerCall(String url, String m, {var sendData: null}) async {
     Future<HttpRequest> httpRequest;
@@ -41,7 +43,9 @@ abstract class AbstractRestService {
 //    });
   }
 
-  Map<String, String> addAcceptHeadersAsJson() => {'Accept': 'application/json'};
+  Map<String, String> addAcceptHeadersAsJson() =>
+      {'Accept': 'application/json'};
 
-  Map<String, String> addContentTypeHeadersAsJson() => {'Content-Type': 'application/json'};
+  Map<String, String> addContentTypeHeadersAsJson() =>
+      {'Content-Type': 'application/json'};
 }

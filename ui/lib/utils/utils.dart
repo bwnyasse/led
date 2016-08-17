@@ -1,8 +1,10 @@
 import 'package:quiver/strings.dart' as quiver_strings;
 
 class Utils {
-  static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
-  static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})\+(\d{0,4})?( +)?(I|E|F|D|W)( +)?(.*)");
+  static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(
+      r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
+  static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(
+      r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})\+(\d{0,4})?( +)?(I|E|F|D|W)( +)?(.*)");
 
   // container Type
   static String CONTAINER_TYPE_WILDFLY = "wildfly";
@@ -15,7 +17,8 @@ class Utils {
     json.addAll(retryFormat(log: log, regExp: LOG_FORMAT_REGEXP_WILDFLY));
 
     // Check if always empty , check if contains started by any JAVA error
-    if(json.isEmpty && (log.contains("Caused by:") || log.contains("Exception in"))) {
+    if (json.isEmpty &&
+        (log.contains("Caused by:") || log.contains("Exception in"))) {
       json['level'] = "ERROR";
       json['message'] = log;
     }
@@ -35,7 +38,7 @@ class Utils {
   static Map retryFormat({String log, RegExp regExp}) {
     Map json = new Map();
     var matches = regExp.allMatches(log);
-    if(matches.isNotEmpty){
+    if (matches.isNotEmpty) {
       Match match = matches.elementAt(0);
       if (match.groupCount == 7) {
         json['time_forward'] = match[5].trim();
@@ -47,9 +50,10 @@ class Utils {
     return json;
   }
 
-  static getLevelFormat(var type ,String inputLevel){
-    if(quiver_strings.equalsIgnoreCase(type,CONTAINER_TYPE_MONGO) && inputLevel != null){
-    inputLevel = inputLevel.toUpperCase();
+  static getLevelFormat(var type, String inputLevel) {
+    if (quiver_strings.equalsIgnoreCase(type, CONTAINER_TYPE_MONGO) &&
+        inputLevel != null) {
+      inputLevel = inputLevel.toUpperCase();
 
       switch (inputLevel) {
         case 'I':
