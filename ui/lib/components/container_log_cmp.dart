@@ -22,7 +22,7 @@ class ContainerLogCmp extends ShadowRootAware {
 
   ContainerLogCmp(this.service);
 
-  displayedContainerId() => 'id: '+service.currentContainerId.substring(0,9)+'...';
+  displayedContainerId() => service.currentContainerId != null ? 'id: '+service.currentContainerId.substring(0,9)+'...' : "";
 
   getMessage(Input input) => quiver_strings.isNotEmpty(input.message) ?input.message : input.log;
 
@@ -42,12 +42,12 @@ class ContainerLogCmp extends ShadowRootAware {
     return css;
   }
 
-  getLevel(Input input) => input.level;
+  getLevel(Input input) => input.level.displayedValue;
 
   getSelectedAlertLevelCss() {
     String css = "";
     if (service.hasCurrentLogLevel()) {
-      String level = service.currentLogLevel.toUpperCase();
+      String level = service.currentLogLevel.displayedValue.toUpperCase();
       css = _effectiveGetLevelCss(level);
     }
 

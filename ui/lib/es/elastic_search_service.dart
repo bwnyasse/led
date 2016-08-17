@@ -28,13 +28,13 @@ class ElasticSearchService extends AbstractRestService {
   String currentIndex;
   String currentContainerName;
   String currentContainerId;
-  String currentLogLevel;
+  Level currentLogLevel;
   String currentHisto;
   String currentFilterValue;
 
   List<String> indexes = [];
   List<String> containers = [];
-  List<String> levels = [];
+  List<Level> levels = [];
   List<String> dateHisto = [];
 
   Set<Input> sourceLogsByContainerName = new Set();
@@ -77,6 +77,10 @@ class ElasticSearchService extends AbstractRestService {
     _post(url, sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));
   }
 
+  getContainersForCurrentIndex() async {
+    getContainersByIndex(currentIndex);
+  }
+
   getContainersByIndex(String index) async {
     currentIndex = index;
 
@@ -97,7 +101,7 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  getLogsByContainerName(String containerName, {String level: null, String histo: null, String filter: null}) async {
+  getLogsByContainerName(String containerName, {Level level: null, String histo: null, String filter: null}) async {
     currentContainerName = containerName;
     currentLogLevel = level;
     currentHisto = histo;
@@ -122,7 +126,7 @@ class ElasticSearchService extends AbstractRestService {
       levels.clear();
       List b1 = jsonResponse['aggregations'][ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
       b1.forEach((json) {
-        levels.add(Utils.getLevelFormat(listHists[0]['_source']['container_type'],json['key']));
+        levels.add(new Level(value:json['key'],displayedValue: Utils.getLevelFormat(listHists[0]['_source']['container_type'],json['key'])));
       });
 
       // Update date histo
@@ -164,7 +168,7 @@ class ElasticSearchService extends AbstractRestService {
         level: currentLogLevel, histo: currentHisto, filter: currentFilterValue);
   }
 
-  hasCurrentLogLevel() => quiver_strings.isNotEmpty(currentLogLevel);
+  hasCurrentLogLevel() => currentLogLevel != null && quiver_strings.isNotEmpty(currentLogLevel.value);
 
   hasCurrentLogHisto() => quiver_strings.isNotEmpty(currentHisto);
 
@@ -174,6 +178,10 @@ class ElasticSearchService extends AbstractRestService {
   hasCurrentFilterValue() => quiver_strings.isNotEmpty(currentFilterValue);
 
   retryFormat(Input input) {
+    if(quiver_strings.isNotEmpty(input.message)){
+      return input;
+    }
+
     Map json = new Map();
 
     //WILDFLY
@@ -187,7 +195,7 @@ class ElasticSearchService extends AbstractRestService {
       input.level = json['level'];
       input.message = json['message'];
       // Update to ES
-      retryUpdateLogFormat(type:input.type,id:input.id,time_forward:input.time_forward, level:input.level,message: input.message);
+      retryUpdateLogFormat(type:input.type,id:input.id,time_forward:input.time_forward, level:input.level.value,message: input.message);
     }
 
     return input;

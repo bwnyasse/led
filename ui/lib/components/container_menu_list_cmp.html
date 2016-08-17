@@ -1,9 +1,14 @@
 <div class="col-md-3">
     <div ng-hide="service.indexes.isEmpty">
-        <p class="lead">Index</p>
+        <p class="lead">Log History</p>
         <div class="list-group">
-            <a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
-               class="list-group-item">{{index}}</a>
+            <!--<a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
+               class="list-group-item">{{index}}</a>-->
+            <select class="form-control" ng-model="service.currentIndex" ng-change="changeIndex()">
+                <option ng-repeat="index in service.indexes" ng-value="index">
+                    {{getIndexAsLogHistory(index)}}
+                </option>
+            </select>
         </div>
     </div>
     <hr/>
@@ -22,8 +27,8 @@
 
         <div class="list-group">
             <a ng-repeat="level in service.levels" href="" ng-click="getLogsByLevel(level)"
-               class="list-group-item {{getLevelCss(level)}}">
-                {{level}}
+               class="list-group-item {{getLevelCss(level.displayedValue)}}">
+                {{level.displayedValue}}
             </a>
         </div>
     </div>

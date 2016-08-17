@@ -42,9 +42,11 @@ class ContainerMenuListCmp {
     }
   }
 
+  getIndexAsLogHistory(String index) => index.replaceAll('fluentd-','');
+
   getLogs(String container) => service.getLogsByContainerName(container);
 
-  getLogsByLevel(String level) =>
+  getLogsByLevel(Level level) =>
       service.getLogsByContainerName(service.currentContainerName, level: level, histo: service.currentHisto);
 
   getLogsByHisto(String histo) =>
@@ -54,6 +56,10 @@ class ContainerMenuListCmp {
     DateTime dateTime = DateTime.parse(histo);
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(dateTime.millisecondsSinceEpoch);
     var strictDate = new DateFormat('HH:mm:ss');
-    return "From : <b>" + strictDate.format(date).toString() + "</b> - To:  now";
+    return "From : <b>" + strictDate.format(date).toString() + "</b>";
   }
+
+  changeIndex() =>  new Future(() {
+    service.getContainersForCurrentIndex();
+  });
 }

@@ -9,7 +9,7 @@ class Input {
   String source;
   String log;
   String container_type;
-  String level;
+  Level level;
   String message;
   String time_forward;
   String timestamp;
@@ -23,7 +23,7 @@ class Input {
         this.source = map['_source']['source'],
         this.log = map['_source']['log'],
         this.container_type = map['_source']['container_type'],
-        this.level = Utils.getLevelFormat( map['_source']['container_type'], map['_source']['level']),
+        this.level = new Level(value: map['_source']['level'], displayedValue: Utils.getLevelFormat( map['_source']['container_type'], map['_source']['level'])),
         this.message = map['_source']['message'],
         this.time_forward = map['_source']['time_forward'],
         this.timestamp = map['_source']['@timestamp'];
@@ -41,4 +41,12 @@ class Input {
       quiver_strings.equalsIgnoreCase(time_forward, o.time_forward);
 
 
+}
+
+class Level {
+
+String displayedValue;
+String value;
+
+  Level({this.value,this.displayedValue});
 }

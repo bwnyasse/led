@@ -41,7 +41,7 @@ class ElasticSearchQueryDSL {
     }
   };
 
-  static _dslLogs(String containerName, String level, String histo,
+  static _dslLogs(String containerName, Level level, String histo,
       String filterValue) => {
     "query": {
       "bool": {
@@ -63,10 +63,10 @@ class ElasticSearchQueryDSL {
     "aggs": _dslCommonAggregation()
   };
 
-  static _dslLogLevel(String level) => quiver_strings.isEmpty(level)
+  static _dslLogLevel(Level level) => level == null || quiver_strings.isEmpty(level.value)
       ? {}
       : {
-    "term": {ES_FIELD_LOG_LEVEL: level}
+    "term": {ES_FIELD_LOG_LEVEL: level.value}
   };
 
   static _dslLogHisto(String histo) => quiver_strings.isEmpty(histo)
