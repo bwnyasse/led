@@ -9,4 +9,4 @@ LED want to keep everything as simple as possible. But it is in very early stage
 
 Documentation will be available soon. Work in progress....
 
-![](current_3.png?raw=true)
+![](current_4.png?raw=true)
