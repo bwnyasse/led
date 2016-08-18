@@ -14,10 +14,12 @@ part of fluentd_log_explorer;
 
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
-  static String ES_URL =
-      "http://" + jsinterop.ES_BROWSER_HOST + ":" + jsinterop.ES_PORT + "/";
 
-//  static String ES_TYPE = "fluentd";
+  static String ES_HOST = jsinterop.ES_BROWSER_HOST;
+  static String ES_PORT = jsinterop.ES_PORT;
+  static String ES_URL = "http://$ES_HOST:$ES_PORT/";
+  static String ES_TYPE = "fluentd";
+
   static String SEARCH_PREFIX = "/_search?pretty=true";
   static String UPDATE_PARTIAL_PREFIX = "/_update";
   static String MAPPING_PREFIX = "/_mapping";
@@ -45,7 +47,7 @@ class ElasticSearchService extends AbstractRestService {
   }
 
   _pingES() {
-    String url = ES_URL + "?hello=elasticsearch";
+    String url = "$ES_URL?hello=elasticsearch";
     _head(url).then((response) {
       jsinterop.showNotieSuccess('ElasticSearch is available at : $ES_URL');
     }).catchError((error) {
@@ -74,7 +76,7 @@ class ElasticSearchService extends AbstractRestService {
 
   ensureLogAnalyzed(String index) {
     //TODO : Extract type in variable
-    String url = '$ES_URL$index/fluentd$MAPPING_PREFIX';
+    String url = '$ES_URL$index/$ES_TYPE$MAPPING_PREFIX';
     _post(url,
         sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));
   }
@@ -162,7 +164,6 @@ class ElasticSearchService extends AbstractRestService {
     String url = "$ES_URL$currentIndex/$type/$id$UPDATE_PARTIAL_PREFIX";
     String json = ElasticSearchQueryDSL._dslRetryUpdateLogFormat(
         time_forward: time_forward, level: level, message: message);
-    print(json);
     _post(url, sendData: JSON.encode(json));
   }
 
@@ -218,14 +219,14 @@ class ElasticSearchService extends AbstractRestService {
     if (json.isNotEmpty) {
       // Update Input
       input.time_forward = json['time_forward'];
-      input.level = json['level'];
+      input.level = new Level(value:json['level'], displayedValue: Utils.getLevelFormat(input.container_type,json['level']));
       input.message = json['message'];
       // Update to ES
       retryUpdateLogFormat(
           type: input.type,
           id: input.id,
           time_forward: input.time_forward,
-          level: input.level.value,
+          level: json['level'],
           message: input.message);
     }
 

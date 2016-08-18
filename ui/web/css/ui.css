@@ -3,6 +3,10 @@ body {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.width-full {
+    width:100%;
+}
+
 .color-white {
     color:#FFF;
 }

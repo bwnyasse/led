@@ -32,17 +32,17 @@ class Input {
         this.timestamp = map['_source']['@timestamp'];
 
   int get hashCode =>
-      quiver_core.hash3(source.hashCode, log.hashCode, timestamp.hashCode);
+      quiver_core.hash3(source.hashCode, log.hashCode, time_forward.hashCode);
+
 
   bool operator ==(o) =>
       o is Input &&
-      quiver_strings.equalsIgnoreCase(container_id, o.container_id) &&
-      quiver_strings.equalsIgnoreCase(container_name, o.container_name) &&
-      quiver_strings.equalsIgnoreCase(source, o.source) &&
-      quiver_strings.equalsIgnoreCase(log, o.log) &&
-      quiver_strings.equalsIgnoreCase(container_type, o.container_type) &&
-      quiver_strings.equalsIgnoreCase(timestamp, o.timestamp) &&
-      quiver_strings.equalsIgnoreCase(time_forward, o.time_forward);
+          quiver_strings.equalsIgnoreCase(container_id, o.container_id) &&
+          quiver_strings.equalsIgnoreCase(container_name, o.container_name) &&
+          quiver_strings.equalsIgnoreCase(source, o.source) &&
+          quiver_strings.equalsIgnoreCase(log, o.log) &&
+          quiver_strings.equalsIgnoreCase(container_type, o.container_type) &&
+          quiver_strings.equalsIgnoreCase(time_forward, o.time_forward);
 }
 
 class Level {
