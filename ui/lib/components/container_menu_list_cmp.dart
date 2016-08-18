@@ -26,24 +26,24 @@ class ContainerMenuListCmp {
     String css = '';
     if (level != null) {
       level = level.toUpperCase();
-      if (level.contains('INFO')) {
+      if (level.contains(Utils.LABEL_INFO)) {
         return 'level-info-menu';
-      } else if (level.contains('WARN')) {
+      } else if (level.contains(Utils.LABEL_WARNING)) {
         return 'level-warning-menu';
-      } else if (level.contains('ERR')) {
+      } else if (level.contains(Utils.LABEL_ERROR)) {
         return 'level-error-menu';
-      } else if (level.contains('DEBUG')) {
+      } else if (level.contains(Utils.LABEL_DEBUG)) {
         return 'level-debug-menu';
-      } else if (level.contains('TRACE')) {
+      } else if (level.contains(Utils.LABEL_TRACE)) {
         return 'level-trace-menu';
-      } else if (level.contains('FATAL')) {
+      } else if (level.contains(Utils.LABEL_FATAL)) {
         return 'level-fatal-menu';
       }
       return css;
     }
   }
 
-  getIndexAsLogHistory(String index) => index.replaceAll('fluentd-', '');
+  getIndexAsLogHistory(String index) => index.replaceAll(ElasticSearchService.INDEX_PREFIX, '');
 
   getLogs(String container) => service.getLogsByContainerName(container);
 

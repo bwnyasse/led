@@ -33,11 +33,11 @@ class ContainerLogCmp extends ShadowRootAware {
     String css = '';
     String level = getLevel(input);
     if (level != null) {
-      if (level.contains('WARN')) {
+      if (level.contains(Utils.LABEL_WARNING)) {
         return 'log-warning';
-      } else if (level.contains('ERR')) {
+      } else if (level.contains(Utils.LABEL_ERROR)) {
         return 'log-error';
-      } else if (level.contains('FATAL')) {
+      } else if (level.contains(Utils.LABEL_FATAL)) {
         return 'log-fatal';
       }
     }
@@ -61,17 +61,17 @@ class ContainerLogCmp extends ShadowRootAware {
   _effectiveGetLevelCss(level) {
     String css = 'label-default';
     if (level != null) {
-      if (level.contains('INFO')) {
+      if (level.contains(Utils.LABEL_INFO)) {
         return 'level-info-label';
-      } else if (level.contains('WARN')) {
+      } else if (level.contains(Utils.LABEL_WARNING)) {
         return 'level-warning-label';
-      } else if (level.contains('ERR')) {
+      } else if (level.contains(Utils.LABEL_ERROR)) {
         return 'level-error-label';
-      } else if (level.contains('FATAL')) {
+      } else if (level.contains(Utils.LABEL_FATAL)) {
         return 'level-fatal-label';
-      } else if (level.contains('DEBUG')) {
+      } else if (level.contains(Utils.LABEL_DEBUG)) {
         return 'level-debug-label';
-      } else if (level.contains('TRACE')) {
+      } else if (level.contains(Utils.LABEL_TRACE)) {
         return 'level-trace-label';
       }
     }
@@ -117,8 +117,6 @@ class ContainerLogCmp extends ShadowRootAware {
       ..onKeyUp.listen(handler)
       ..onCut.listen(handler)
       ..onPaste.listen(handler);
-
-    // TODO: implement onShadowRoot
   }
 
   handler(event) => service.getLogsByContainerName(service.currentContainerName,

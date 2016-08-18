@@ -23,6 +23,7 @@ class ElasticSearchService extends AbstractRestService {
   static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
+  static String INDEX_PREFIX ="fluentd-";
 
   String currentIndex;
   String currentContainerName;

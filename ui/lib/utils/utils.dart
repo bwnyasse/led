@@ -1,6 +1,16 @@
 import 'package:quiver/strings.dart' as quiver_strings;
 
 class Utils {
+
+  // Level contains Label
+  static String LABEL_ERROR = "ERR";
+  static String LABEL_WARNING = "WAR";
+  static String LABEL_INFO = "INFO";
+  static String LABEL_DEBUG = "DEBUG";
+  static String LABEL_TRACE = "TRACE";
+  static String LABEL_FATAL = "FATAL";
+
+  // Regex
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(
       r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
   static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(
