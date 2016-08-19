@@ -33,7 +33,7 @@ class ElasticSearchService extends AbstractRestService {
   String currentHisto;
   String currentFilterValue;
 
-  Set<String> indexes = [];
+  Set<String> indexes = new Set();
   List<String> containers = [];
   List<Level> levels = [];
   List<String> dateHisto = [];
@@ -68,7 +68,7 @@ class ElasticSearchService extends AbstractRestService {
 
       // Init containers list
       if (indexes.isNotEmpty) {
-        getContainersByIndex(indexes[0]);
+        getContainersByIndex(indexes.elementAt(0));
       }
     });
   }

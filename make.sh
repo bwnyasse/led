@@ -24,11 +24,8 @@ mkdir $CURRENT/images/led/www
 mv $UI_PATH/build/web/* $IMAGES_PATH/led/www/
 
 ## Build fluentd LED docker image
-## TODO
-
 ## Dev mode launch compose-explorer
-
-cd $EXPLORER_PATH && docker-compose build && docker-compose up --force-recreate
+cd $IMAGES_PATH/led && docker build -t bwnyasse/fluentd-led . 
 
 # Clean
 rm -rf $IMAGES_PATH/fluentd-led/www/
