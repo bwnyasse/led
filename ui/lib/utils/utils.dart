@@ -12,8 +12,9 @@ class Utils {
   // Regex
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(
       r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
+
   static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(
-      r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})\+(\d{0,4})?( +)?(I|E|F|D|W)( +)?(.*)");
+      r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})?(\+|\-)?(\d{0,4})?( +)?(I|E|F|D|W)?( +)?(.*)");
 
   // container Type
   static String CONTAINER_TYPE_WILDFLY = "wildfly";
@@ -23,7 +24,18 @@ class Utils {
     Map json = new Map();
 
     // Test the fomat
-    json.addAll(retryFormat(log: log, regExp: LOG_FORMAT_REGEXP_WILDFLY));
+    Map tmp = new Map();
+    var matches = LOG_FORMAT_REGEXP_WILDFLY.allMatches(log.trim());
+    if (matches.isNotEmpty) {
+      Match match = matches.elementAt(0);
+      if (match.groupCount == 7) {
+        tmp['time_forward'] = match[5].trim();
+        tmp['level'] = match[6].trim();
+        tmp['message'] = match[7].trim();
+      }
+    }
+
+    json.addAll(tmp);
 
     // Check if always empty , check if contains started by any JAVA error
     if (json.isEmpty &&
@@ -39,22 +51,20 @@ class Utils {
     Map json = new Map();
 
     // Test the fomat
-    json.addAll(retryFormat(log: log, regExp: LOG_FORMAT_REGEXP_MONGO));
-
-    return json;
-  }
-
-  static Map retryFormat({String log, RegExp regExp}) {
-    Map json = new Map();
-    var matches = regExp.allMatches(log);
+    Map tmp = new Map();
+    var matches = LOG_FORMAT_REGEXP_MONGO.allMatches(log.trim());
     if (matches.isNotEmpty) {
       Match match = matches.elementAt(0);
-      if (match.groupCount == 7) {
-        json['time_forward'] = match[5].trim();
-        json['level'] = match[6].trim();
-        json['message'] = match[7].trim();
+      if (match.groupCount == 9) {
+        tmp['time_forward'] = match[3].trim();
+        tmp['level'] = match[7].trim();
+        tmp['message'] = match[9].trim();
       }
+    }else {
+      print("BAD");
     }
+
+    json.addAll(tmp);
 
     return json;
   }
