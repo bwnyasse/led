@@ -15,7 +15,7 @@ dependencies:
   jsonx: any
   web_components: "0.12.0+4"
   js: ^0.6.0
-
+  date: "^0.1.0"
 dev_dependencies:
   test: '0.12.2'
 

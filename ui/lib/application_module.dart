@@ -24,6 +24,7 @@ import 'package:fluentd_log_explorer/utils/js_interop.dart' as jsinterop;
 import 'package:quiver/strings.dart' as quiver_strings;
 import 'package:quiver/collection.dart' as quiver_collection;
 import 'package:quiver/core.dart' as quiver_core;
+import 'package:date/date.dart' as external_date_lib;
 
 import 'package:fluentd_log_explorer/utils/utils.dart';
 

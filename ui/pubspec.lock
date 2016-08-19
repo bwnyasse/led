@@ -97,6 +97,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  date:
+    description:
+      name: date
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   di:
     description:
       name: di

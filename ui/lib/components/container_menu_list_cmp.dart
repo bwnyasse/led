@@ -44,12 +44,18 @@ class ContainerMenuListCmp {
   }
 
   getIndexAsLogHistory(String index) {
-   String logDate = index.replaceAll(ElasticSearchService.INDEX_PREFIX, '');
-   var strictDate = new DateFormat('y.MM.d');
-   if(quiver_strings.equalsIgnoreCase(logDate,strictDate.format(new DateTime.now()).toString())){
-     logDate = "Today";
-   }
-   return logDate;
+    String logDate = index.replaceAll(ElasticSearchService.INDEX_PREFIX, '');
+    var strictDate = new DateFormat('y.MM.d');
+    DateTime today = new DateTime.now();
+    DateTime yesterday = external_date_lib.Date.yesterday(today);
+    if (quiver_strings.equalsIgnoreCase(
+        logDate, strictDate.format(today).toString())) {
+      logDate = "Today";
+    } else if (quiver_strings.equalsIgnoreCase(
+        logDate, strictDate.format(yesterday))) {
+      logDate = "Yesterday";
+    }
+    return logDate;
   }
 
   getLogs(String container) => service.getLogsByContainerName(container);

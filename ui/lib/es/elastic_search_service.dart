@@ -14,7 +14,6 @@ part of fluentd_log_explorer;
 
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
-
   static String ES_HOST = jsinterop.ES_BROWSER_HOST;
   static String ES_PORT = jsinterop.ES_PORT;
   static String ES_URL = "http://$ES_HOST:$ES_PORT/";
@@ -25,7 +24,7 @@ class ElasticSearchService extends AbstractRestService {
   static String MAPPING_PREFIX = "/_mapping";
   static String INDEX_URL = ES_URL + "_aliases?pretty=1";
   static String SEARCH_URL = ES_URL + "_search";
-  static String INDEX_PREFIX ="fluentd-";
+  static String INDEX_PREFIX = "fluentd-";
 
   String currentIndex;
   String currentContainerName;
@@ -34,7 +33,7 @@ class ElasticSearchService extends AbstractRestService {
   String currentHisto;
   String currentFilterValue;
 
-  List<String> indexes = [];
+  Set<String> indexes = [];
   List<String> containers = [];
   List<Level> levels = [];
   List<String> dateHisto = [];
@@ -60,7 +59,7 @@ class ElasticSearchService extends AbstractRestService {
     indexes.clear();
     _get(INDEX_URL).then((response) {
       Map jsonResponse = JSON.decode(response.responseText);
-      indexes = jsonResponse.keys.toList();
+      indexes.addAll(jsonResponse.keys.toList());
 
       // Ensure Log analyzed for all indexes
       indexes.forEach((value) {
@@ -219,7 +218,10 @@ class ElasticSearchService extends AbstractRestService {
     if (json.isNotEmpty) {
       // Update Input
       input.time_forward = json['time_forward'];
-      input.level = new Level(value:json['level'], displayedValue: Utils.getLevelFormat(input.container_type,json['level']));
+      input.level = new Level(
+          value: json['level'],
+          displayedValue:
+              Utils.getLevelFormat(input.container_type, json['level']));
       input.message = json['message'];
       // Update to ES
       retryUpdateLogFormat(

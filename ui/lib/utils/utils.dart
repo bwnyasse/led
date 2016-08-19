@@ -1,7 +1,6 @@
 import 'package:quiver/strings.dart' as quiver_strings;
 
 class Utils {
-
   // Level contains Label
   static String LABEL_ERROR = "ERR";
   static String LABEL_WARNING = "WAR";
