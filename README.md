@@ -50,17 +50,17 @@ docker run \
 
 The following table displayed fluent tag requires by LED to match service with logs
 
-| Service       |            Fluentd Tag                  |
-| ------------- |: -------------------------------------: |
-| wildfly       |        wildfly.docker.{{.Name }}        |
-| MongoDB       |        mongo.docker.{{.Name }}          |
+      | Service       |            Fluentd Tag                  |
+      | ------------- |-----------------------------------------|
+      | wildfly       |        wildfly.docker.{{.Name }}        |
+      | MongoDB       |        mongo.docker.{{.Name }}          |
 
 For example , the following command will connect a wildfly container to LED
 
-  docker run -dit \
-      --log-driver=fluentd \
-      --log-opt tag="wildfly.docker.{{.Name}}" \
-      jboss/wildfly:10.0.0.Final
+        docker run -dit \
+            --log-driver=fluentd \
+            --log-opt tag="wildfly.docker.{{.Name}}" \
+            jboss/wildfly:10.0.0.Final
 
 3- Using docker-compose ( recommanded )
 
