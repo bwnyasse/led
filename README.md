@@ -115,6 +115,6 @@ It is very easy to launch everything with [docker-compose](https://docs.docker.c
 
 
 ## TODO:
-
+- Better wiki & documentation
 - LED needs feedback
-- Adds another services and make LED more generic. Actually, only Wildfly & MongoDB are well implemented in LED.
+- Add another services and make LED more generic. Actually, only Wildfly & MongoDB are well implemented in LED.
