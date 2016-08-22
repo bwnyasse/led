@@ -1,48 +1,50 @@
 <div class="col-md-3">
     <div ng-hide="service.indexes.isEmpty">
-        <p class="lead"> <i class="ion-ios-calendar-outline"></i> Log History</p>
-        <div class="list-group">
-            <!--<a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
-               class="list-group-item">{{index}}</a>-->
-            <select class="form-control" ng-model="service.currentIndex" ng-change="changeIndex()">
-                <option ng-repeat="index in service.indexes" ng-value="index">
-                    {{getIndexAsLogHistory(index)}}
-                </option>
-            </select>
+        <div ng-hide="service.indexes.isEmpty">
+            <p class="lead"><i class="ion-ios-calendar-outline"></i> Log History</p>
+            <div class="list-group">
+                <!--<a ng-repeat="index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
+                   class="list-group-item">{{index}}</a>-->
+                <select class="form-control" ng-model="service.currentIndex" ng-change="changeIndex()">
+                    <option ng-repeat="index in service.indexes" ng-value="index">
+                        {{getIndexAsLogHistory(index)}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <hr/>
+
+        <div ng-hide="service.containers.isEmpty">
+            <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
+            <div class="list-group">
+                <a ng-repeat="container in service.containers" href="" ng-click="getLogs(container)"
+                   class="list-group-item docker-container-name">{{container}}</a>
+            </div>
+        </div>
+
+        <hr/>
+        <div ng-hide="service.levels.isEmpty">
+            <p class="lead"><i class="icon ion-ios-speedometer-outline"></i> Level</p>
+
+            <div class="list-group">
+                <a ng-repeat="level in service.levels" href="" ng-click="getLogsByLevel(level)"
+                   class="list-group-item {{getLevelCss(level.displayedValue)}}">
+                    {{level.displayedValue}}
+                </a>
+            </div>
+        </div>
+
+        <hr/>
+        <div ng-hide="service.dateHisto.isEmpty">
+            <p class="lead"><i class="icon ion-ios-time-outline"></i> Last Activities</p>
+
+            <div class="list-group">
+                <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)"
+                   class="list-group-item histo-menu" ng-bind-html="getDuration(histo)">
+
+                </a>
+            </div>
         </div>
     </div>
-    <hr/>
-
-    <div ng-hide="service.containers.isEmpty">
-        <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
-        <div class="list-group">
-            <a ng-repeat="container in service.containers" href="" ng-click="getLogs(container)"
-               class="list-group-item docker-container-name">{{container}}</a>
-        </div>
-    </div>
-
-    <hr/>
-    <div ng-hide="service.levels.isEmpty">
-        <p class="lead"><i class="icon ion-ios-speedometer-outline"></i> Level</p>
-
-        <div class="list-group">
-            <a ng-repeat="level in service.levels" href="" ng-click="getLogsByLevel(level)"
-               class="list-group-item {{getLevelCss(level.displayedValue)}}">
-                {{level.displayedValue}}
-            </a>
-        </div>
-    </div>
-
-    <hr/>
-    <div ng-hide="service.dateHisto.isEmpty">
-        <p class="lead">  <i class="icon ion-ios-time-outline"></i> Last Activities</p>
-
-        <div class="list-group">
-            <a ng-repeat="histo in service.dateHisto" href="" ng-click="getLogsByHisto(histo)" class="list-group-item histo-menu" ng-bind-html="getDuration(histo)">
-
-            </a>
-        </div>
-    </div>
-
 </div>
 

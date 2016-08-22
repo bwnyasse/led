@@ -1,83 +1,92 @@
-<div class="row">
-    <div class="col-lg-3" ng-show="service.hasCurrentContainerName()">
-        <div class="bs-component">
-            <div class="alert alert-dismissible alert-success2">
-                <div>
-                    <i class="devicon-docker-plain "> </i> Container  <span class="docker-container-id">{{displayedContainerId()}}</span>
+<div ng-hide="service.indexes.isEmpty || service.containers.isEmpty">
+    <div class="row">
+        <div class="col-lg-3" ng-show="service.hasCurrentContainerName()">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-success2">
+                    <div>
+                        <i class="devicon-docker-plain "> </i> Container <span class="docker-container-id">{{displayedContainerId()}}</span>
+                    </div>
+                    <div class="selected-alert-data">
+                        <strong> {{service.currentContainerName}}</strong>
+                    </div>
                 </div>
-                <div class="selected-alert-data">
-                    <strong> {{service.currentContainerName}}</strong>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
+            <div class="bs-component">
+                <div class="alert alert-dismissible {{getSelectedAlertLevelCss()}} color-white">
+                    <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
+                    <div>
+                        <i class="icon ion-ios-speedometer-outline"></i> Level :
+                    </div>
+                    <div class="selected-alert-data ">
+                        <strong> {{service.currentLogLevel.displayedValue}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-show="service.hasCurrentLogHisto()">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-default">
+                    <button type="button" class="close" ng-click="service.clearLogHisto()">×</button>
+                    <div>
+                        <i class="icon ion-ios-time-outline"></i> Activities :
+                    </div>
+                    <div class="selected-alert-data ">
+                        <strong> {{getHisto()}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" ng-show="service.hasCurrentFilterValue()">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-filter">
+                    <button type="button" class="close" ng-click="service.clearFilterValue()">×</button>
+                    <div>
+                        <i class="glyphicon glyphicon-filter"></i> Filter :
+                    </div>
+                    <div class="selected-alert-data ">
+                        <strong> {{service.currentFilterValue}}</strong>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
-        <div class="bs-component">
-            <div class="alert alert-dismissible {{getSelectedAlertLevelCss()}} color-white">
-                <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
-                <div>
-                    <i class="icon ion-ios-speedometer-outline"></i> Level :
-                </div>
-                <div class="selected-alert-data ">
-                    <strong> {{service.currentLogLevel.displayedValue}}</strong>
-                </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group input-group width-full">
+                <input type="text" class="form-control" ng-model="service.currentFilterValue"
+                       placeholder="Filter the result here .." id="filter-input-id">
             </div>
         </div>
     </div>
-    <div class="col-lg-3" ng-show="service.hasCurrentLogHisto()">
-        <div class="bs-component">
-            <div class="alert alert-dismissible alert-default">
-                <button type="button" class="close" ng-click="service.clearLogHisto()">×</button>
-                <div>
-                    <i class="icon ion-ios-time-outline"></i> Activities :
-                </div>
-                <div class="selected-alert-data ">
-                    <strong> {{getHisto()}}</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3" ng-show="service.hasCurrentFilterValue()">
-        <div class="bs-component">
-            <div class="alert alert-dismissible alert-filter">
-                <button type="button" class="close" ng-click="service.clearFilterValue()">×</button>
-                <div>
-                    <i class="glyphicon glyphicon-filter"></i> Filter :
-                </div>
-                <div class="selected-alert-data ">
-                    <strong> {{service.currentFilterValue}}</strong>
-                </div>
-            </div>
-        </div>
+
+    <hr>
+
+    <div class="row source-logs-row">
+        <table class="table">
+
+            <tbody>
+            <tr ng-repeat="input in service.sourceLogsByContainerName">
+                <td><span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span></td>
+                <td>
+                    <div class="source-logs-time">{{getTime(input)}}</div>
+                </td>
+                <td>
+                    <pre class="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
     </div>
 </div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-group input-group width-full">
-            <input type="text" class="form-control" ng-model="service.currentFilterValue"
-                   placeholder="Filter the result here .." id="filter-input-id">
-        </div>
+<div ng-show="service.indexes.isEmpty || service.containers.isEmpty">
+    <div class="alert alert-dismissible alert-warning col-lg-6">
+        <h4>Warning : Nothing to display !</h4>
+        <p>No ElasticSearch Index nor docker containers are available. </p>
     </div>
-</div>
-
-<hr>
-
-<div class="row source-logs-row">
-    <table class="table">
-
-        <tbody>
-        <tr ng-repeat="input in service.sourceLogsByContainerName">
-            <td><span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span></td>
-            <td>
-                <div class="source-logs-time">{{getTime(input)}}</div>
-            </td>
-            <td>
-                <pre class="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
 
 </div>
