@@ -7,10 +7,10 @@ import 'package:quiver/strings.dart' as quiver_strings;
 
 ////////////////////////// Call -> [env.js] /////////////////////////////////////
 
-var ES_BROWSER_HOST =
-    quiver_strings.isEmpty(js.context['env']['ES_BROWSER_HOST'])
+var ES_SERVER_HOST_ADDRESS =
+    quiver_strings.isEmpty(js.context['env']['ES_SERVER_HOST_ADDRESS'])
         ? '0.0.0.0'
-        : js.context['env']['ES_BROWSER_HOST'];
+        : js.context['env']['ES_SERVER_HOST_ADDRESS'];
 var ES_PORT = quiver_strings.isEmpty(js.context['env']['ES_PORT'])
     ? '9200'
     : js.context['env']['ES_PORT'];

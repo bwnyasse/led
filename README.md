@@ -36,11 +36,13 @@ docker run \
       -v /etc/timezone:/etc/timezone:ro \
       -p 8080:8080 \
       -p 24224:24224 \
-      -e ES_BROWSER_HOST='your_es_host_from_browser_value' \
-      -e ES_HOST='your_es_host_value' \
+      -e ES_SERVER_HOST_ADDRESS='server_host_value' \
+      -e ES_CONTAINER_HOST_ADDRESS='container_host_value' \
       -e ES_PORT='your_es_port_value' \
       bwnyasse/fluentd-led
 </pre>
+
+TODO: Explain ES_SERVER_HOST_ADDRESS vs ES_CONTAINER_HOST_ADDRESS
 
 2- Connect your container :
 
@@ -65,7 +67,7 @@ For example , the following command will connect a wildfly container to LED
 
 3- Using docker-compose ( recommanded )
 
-It is very easy to launch everything with [docker-compose](https://docs.docker.com/compose/). The following snippet of docker-compose  shows you how to setup everything for mongodb container 
+It is very easy to launch everything with [docker-compose](https://docs.docker.com/compose/). The following snippet of docker-compose  shows you how to setup everything for mongodb container
 
     version: '2'
     services:
@@ -89,8 +91,8 @@ It is very easy to launch everything with [docker-compose](https://docs.docker.c
             - 24224:24224
             - 8080:8080
           environment:
-            - ES_BROWSER_HOST=localhost
-            - ES_HOST=elasticsearch
+            - ES_SERVER_HOST_ADDRESS=localhost
+            - ES_CONTAINER_HOST_ADDRESS=elasticsearch
             - ES_PORT=9200
             - ES_INDEX=fluentd
           depends_on:

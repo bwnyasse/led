@@ -5,6 +5,7 @@
 #
 # @author bwnyasse
 ##
+IMAGE_VERSION=0.1.0
 CURRENT=$(pwd)
 INTEGRATION_PATH=$CURRENT/integ
 EXPLORER_PATH=$CURRENT/explorer
@@ -25,7 +26,8 @@ mv $UI_PATH/build/web/* $IMAGES_PATH/led/www/
 
 ## Build fluentd LED docker image
 ## Dev mode launch compose-explorer
-cd $IMAGES_PATH/led && docker build -t bwnyasse/fluentd-led . 
+cd $IMAGES_PATH/led && docker build -t bwnyasse/fluentd-led .
+cd $IMAGES_PATH/led && docker build -t bwnyasse/fluentd-led:$IMAGE_VERSION .
 
 # Clean
 rm -rf $IMAGES_PATH/fluentd-led/www/

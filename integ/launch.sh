@@ -24,7 +24,7 @@ usage() {
 }
 
 function launchCompose {
-  docker-compose -f led.yml up --build --force-recreate -d && \
+  docker-compose -f led.yml up --build --force-recreate --remove-orphans -d && \
   docker-compose -f service.yml up --build --force-recreate -d
 }
 
