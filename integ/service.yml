@@ -10,6 +10,7 @@ services:
         driver: fluentd
         options:
           tag: "wildfly.docker.{{.Name }}"
+          fluentd-address: localhost:24224
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
@@ -23,6 +24,7 @@ services:
         driver: fluentd
         options:
           tag: "wildfly.docker.{{.Name }}"
+          fluentd-address: localhost:24224
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
@@ -38,5 +40,6 @@ services:
         driver: fluentd
         options:
           tag: "mongo.docker.{{.Name }}"
+          fluentd-address: localhost:24224
       volumes:
         - /etc/localtime:/etc/localtime:ro

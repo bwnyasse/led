@@ -1,6 +1,7 @@
 version: '2'
 services:
 
+    # Elastic Search
     elasticsearch:
       image: bwnyasse/elasticsearch-head
       container_name: elasticsearch
@@ -11,6 +12,7 @@ services:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
 
+    # LED
     fluentd-led:
       image: bwnyasse/fluentd-led
       container_name: fluentd-led
