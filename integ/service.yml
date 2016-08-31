@@ -16,18 +16,18 @@ services:
         - /etc/timezone:/etc/timezone:ro
 
     # wildfly swarm 1.0.0.Final
-    wildfly_swarm:
-      build:
-        context: ./javaee/wildfly-swarm
-      container_name:  wildfly_swarm
-      logging:
-        driver: fluentd
-        options:
-          tag: "wildfly.docker.{{.Name }}"
-          fluentd-address: localhost:24224
-      volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /etc/timezone:/etc/timezone:ro
+    # wildfly_swarm:
+    #   build:
+    #     context: ./javaee/wildfly-swarm
+    #   container_name:  wildfly_swarm
+    #   logging:
+    #     driver: fluentd
+    #     options:
+    #       tag: "wildfly.docker.{{.Name }}"
+    #       fluentd-address: localhost:24224
+    #   volumes:
+    #     - /etc/localtime:/etc/localtime:ro
+    #     - /etc/timezone:/etc/timezone:ro
 
     # Mongo Db Instance
     mongodb:
