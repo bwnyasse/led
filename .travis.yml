@@ -12,7 +12,7 @@ env:
 
      # Comment this for release and uncomment RELEASE_VERSION
      - SNAPSHOT_VERSION=0.1.1-build-${TRAVIS_COMMIT}
-     - VERSION = ${SNAPSHOT_VERSION}
+     - VERSION=${SNAPSHOT_VERSION}
      # Tools Var
      - DOCKER_COMPOSE_VERSION=1.8.0
 
@@ -41,8 +41,8 @@ install:
   - cd $CURRENT/images/led
   - docker pull ${DOCKER_REPOSITORY}:latest || true
   - docker build -t ${DOCKER_REPOSITORY} --pull=true .
-  - docker build -t ${DOCKER_REPOSITORY}:${VERSION} --pull=true .
-  
+  - docker build -t ${DOCKER_REPOSITORY}:${VERSION}  .
+
 script:
   - cd $CURRENT/integ
   - docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
