@@ -38,7 +38,7 @@ before_install:
 
 install:
   - docker pull ${DOCKER_REPOSITORY}:latest || true
-  - docker build -t ${DOCKER_REPOSITORY}:${SNAPSHOT_VERSION} --pull=true .
+  - cd images/led && docker build -t ${DOCKER_REPOSITORY}:${SNAPSHOT_VERSION} --pull=true .
 
 script:
   - docker-compose -f integ/led.yml up --build --force-recreate --remove-orphans -d
