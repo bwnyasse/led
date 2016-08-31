@@ -5,10 +5,8 @@
 #
 # @author bwnyasse
 ##
-#set -e
+set -e
 
-echo "here"
 docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-docker push ${DOCKER_REPOSITORY}
-docker tag  ${DOCKER_REPOSITORY}:${VERSION}
-docker push  ${DOCKER_REPOSITORY}:${VERSION}
+docker tag -f ${DOCKER_REPOSITORY}:${VERSION} ${DOCKER_REPOSITORY}:latest
+docker push ${DOCKER_REPOSITORY}:${VERSION}
