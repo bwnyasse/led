@@ -51,5 +51,10 @@ script:
 
 after_success:
   - echo "Tag and push to docker hub"
-  - docker tag  ${DOCKER_REPOSITORY}:${VERSION}
-  - docker push ${DOCKER_REPOSITORY}:latest ${DOCKER_REPOSITORY}:${VERSION}
+
+deploy:
+  - provider: script
+    script: bin/dockerhub.sh
+    on:
+      branch: master
+      repo: ${DOCKER_REPOSITORY}

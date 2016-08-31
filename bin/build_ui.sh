@@ -5,6 +5,8 @@
 #
 # @author bwnyasse
 ##
+
+cd ..
 CURRENT=$(pwd)
 INTEGRATION_PATH=$CURRENT/integ
 UI_PATH=$CURRENT/ui

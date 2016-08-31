@@ -50,6 +50,7 @@ elif $FLAG_S; then
     launchOption='-s'
 fi
 
+cd ..
 CURRENT=$(pwd)
 INTEGRATION_PATH=$CURRENT/integ
 
