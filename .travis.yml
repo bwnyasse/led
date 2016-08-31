@@ -57,7 +57,7 @@ before_deploy:
   #- echo -n $GIT_TAG > public/version
   #- git commit -m "Set build VERSION number" public/version
   - git tag $SNAPSHOT_VERSION -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-  - git push --quiet https://$GITHUBKEY@github.com/bwnyasse/fluentd-led $SNAPSHOT_VERSION > /dev/null 2>&1
+  #- git push --quiet https://$GITHUBKEY@github.com/bwnyasse/fluentd-led $SNAPSHOT_VERSION > /dev/null 2>&1
 
 deploy:
     provider: script
