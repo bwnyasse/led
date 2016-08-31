@@ -49,7 +49,7 @@ script:
   - count=$(docker ps -aq -f status="running" -s | wc -l)
   - if [[  $count != 4 ]]; then echo "Expected 5 running containers" && exit 1 ; fi
 
-after_success:
+before_deploy:
   # CREATE GIT TAG
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
