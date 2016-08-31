@@ -24,7 +24,7 @@ before_install:
   - docker --version
 
   # Add Travis commit to Dockerfile
-  - echo "ENV GIT_SHA ${TRAVIS_COMMIT}" >> images/led/Dockerfile
+  # echo "ENV GIT_SHA ${TRAVIS_COMMIT}" >> images/led/Dockerfile
 
   # Installing docker-compose
   - sudo rm /usr/local/bin/docker-compose
