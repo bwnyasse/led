@@ -60,8 +60,8 @@ before_deploy:
   - git push --quiet https://$GITHUBKEY@github.com/bwnyasse/fluentd-led $SNAPSHOT_VERSION > /dev/null 2>&1
 
 deploy:
-  - provider: script
-    script: bin/dockerhub.sh
+    provider: script
+    script: /bin/bash bin/dockerhub.sh
+    skip_cleanup: true
     on:
       branch: master
-      repo: bwnyasse/fluentd-led
