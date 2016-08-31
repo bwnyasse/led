@@ -4,6 +4,7 @@ language: ruby
 
 env:
   global:
+     - CURRENT=$(pwd)
      - DOCKER_REPOSITORY=bwnyasse/fluentd-led
 
      # Uncomment this for release and comment SNAPSHOT_VERSION
@@ -37,11 +38,13 @@ before_install:
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
 
 install:
+  - cd $CURRENT/images/led
   - docker pull ${DOCKER_REPOSITORY}:latest || true
-  - cd images/led && docker build -t ${DOCKER_REPOSITORY}:${SNAPSHOT_VERSION} --pull=true .
+  - docker build -t ${DOCKER_REPOSITORY}:${SNAPSHOT_VERSION} --pull=true .
 
 script:
-  - docker-compose -f integ/led.yml up --build --force-recreate --remove-orphans -d
-  - docker-compose -f integ/service.yml up --build --force-recreate -d
+  - cd $CURRENT/integ
+  - docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
+  - docker-compose -f service.yml up --build --force-recreate -d
   - count=$(docker ps -aq -f status="running" -s | wc -l)
   - if [[  $count != 5 ]]; then echo "Expected 5 running containers" && exit 1 ; fi
