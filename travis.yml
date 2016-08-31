@@ -1,0 +1,47 @@
+sudo: required
+
+language: ruby
+
+env:
+  global:
+     - DOCKER_REPOSITORY=bwnyasse/fluentd-led
+
+     # Uncomment this for release and comment SNAPSHOT_VERSION
+     # - RELEASE_VERSION=2.3.5.0
+
+     # Comment this for release and uncomment RELEASE_VERSION
+     - SNAPSHOT_VERSION=0.1.1-build-${TRAVIS_COMMIT}
+
+     # Tools Var
+     - DOCKER_COMPOSE_VERSION=1.8.0
+
+services:
+  - docker
+
+before_install:
+  # Check current docker engine version
+  - docker --version
+
+  # Add Travis commit to Dockerfile
+  - echo "ENV GIT_SHA ${TRAVIS_COMMIT}" >> images/led/Dockerfile
+
+  # Installing docker-compose
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  # set env vars in the build settings to interact with repositories
+  # see https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
+  - echo "Testing Docker Hub credentials"
+  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+
+install:
+  - docker pull ${DOCKER_REPOSITORY}:latest || true
+  - docker build -t ${DOCKER_REPOSITORY}:${SNAPSHOT_VERSION} --pull=true .
+
+script:
+  - docker-compose -f integ/led.yml up --build --force-recreate --remove-orphans -d
+  - docker-compose -f integ/service.yml up --build --force-recreate -d
+  - count=$(docker ps -aq -f status="running" -s | wc -l)
+  - if [[  $count != 5 ]]; then echo "Expected 5 running containers" && exit 1 ; fi
