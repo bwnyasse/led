@@ -42,9 +42,6 @@ install:
   - docker pull ${DOCKER_REPOSITORY}:latest || true
   - docker build -t ${DOCKER_REPOSITORY} --pull=true .
 
-before_script:
-  - env > .env
-  
 script:
   - cd $CURRENT/integ
   - docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
