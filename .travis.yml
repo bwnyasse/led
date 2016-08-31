@@ -11,7 +11,7 @@ env:
      # - RELEASE_VERSION=2.3.5.0
 
      # Comment this for release and uncomment RELEASE_VERSION
-     - SNAPSHOT_VERSION=0.1.1-build-${TRAVIS_COMMIT}
+     - SNAPSHOT_VERSION=0.1.1-build-${TRAVIS_COMMIT:0:12}
      - VERSION=${SNAPSHOT_VERSION}
      # Tools Var
      - DOCKER_COMPOSE_VERSION=1.8.0
@@ -58,10 +58,12 @@ before_deploy:
   # - export GIT_TAG=build-$TRAVIS_BRANCH-$(date -u "+%Y-%m-%d")-$TRAVIS_BUILD_NUMBER
   #- echo -n $GIT_TAG > public/version
   #- git commit -m "Set build VERSION number" public/version
-  - git tag $SNAPSHOT_VERSION -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
+  - git tag $VERSION -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
+  - git push origin $VERSION
   #- git push --quiet https://$GITHUBKEY@github.com/bwnyasse/fluentd-led $SNAPSHOT_VERSION > /dev/null 2>&1
 
 deploy:
+    # Deploy to docker hub
     provider: script
     script: ./bin/dockerhub.sh
     skip_cleanup: true
