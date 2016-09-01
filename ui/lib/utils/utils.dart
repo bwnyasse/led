@@ -11,10 +11,10 @@ class Utils {
 
   // Regex
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(
-      r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) (.*)");
+      r"^(^.*m)?( +)?(\d{4}-\d{2}-\d{2})?( +)?(\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) ([^\s]+) ([\s\S]*)");
 
   static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(
-      r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})?(\+|\-)?(\d{0,4})?( +)?(I|E|F|D|W)?( +)?(.*)");
+      r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})?(\+|\-)?(\d{0,4})?( +)?(I|E|F|D|W)?( +)?([\s\S]*)");
 
   // container Type
   static String CONTAINER_TYPE_WILDFLY = "wildfly";
