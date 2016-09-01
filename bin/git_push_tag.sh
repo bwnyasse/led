@@ -25,7 +25,7 @@ git config user.name "builds@travis-ci.com"
 git config user.email "Travis CI"
 
 git remote add origin "https://$GH_TOKEN@github.com/bwnyasse/fluent-led.git"
-git fecth upstream
+git fetch upstream
 
 # Add Travis commit to Dockerfile
 sed -i '$ d' images/led/Dockerfile && echo 'Travis Build - GIT_SHA ${TRAVIS_COMMIT}' >> images/led/Dockerfile
