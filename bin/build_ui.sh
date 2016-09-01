@@ -5,6 +5,7 @@
 #
 # @author bwnyasse
 ##
+set -e
 
 cd ..
 CURRENT=$(pwd)

@@ -5,17 +5,19 @@
 #author		       :bwnyasse
 #==================================================================================================#
 
-set -e
-
 echo "Starting ... "
-
 
 #== Generate the env.js for env var management from the GUI
 /bin/sh /env.sh > /var/www/js/env.js
 
 #== Uncomment this line to display env to stdout
-#cat  /var/www/js/env.js
+cat  /var/www/js/env.js
 
-#== Effective start: lighttpd + fluentd
-lighttpd -f /etc/lighttpd/lighttpd.conf && \
-fluentd -c /fluentd/etc/fluent.conf -p /fluentd/plugins $FLUENTD_OPT
+#== Effective start: lighttpd
+lighttpd -f /etc/lighttpd/lighttpd.conf
+
+#== Effective start: ElasticSearch
+/bin/sh /opt/elasticsearch/bin/elasticsearch &
+
+  #== Effective start: fluentd
+  fluentd -c /fluentd/etc/fluent.conf -p /fluentd/plugins $FLUENTD_OPT
