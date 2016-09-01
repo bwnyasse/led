@@ -1,0 +1,21 @@
+#!/usr/bin/dumb-init /bin/bash
+
+set -e
+
+# Add elasticsearch as command if needed
+if [ "${1:0:1}" = '-' ]; then
+	set -- elasticsearch "$@"
+fi
+
+echo "ICI"
+
+# Drop root privileges if we are running elasticsearch
+# allow the container to be started with `--user`
+if [ "$1" = 'elasticsearch' -a "$(id -u)" = '0' ]; then
+	# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
+	chown -R root:root /opt/elasticsearch/data
+
+	set -- gosu elasticsearch "$@"
+fi
+
+exec "$@"
