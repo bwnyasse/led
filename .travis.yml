@@ -59,7 +59,7 @@ before_deploy:
   #- echo -n $GIT_TAG > public/version
   #- git commit -m "Set build VERSION number" public/version
   - git tag $VERSION -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-  - git push -q https://$TAGPERM@github.com/bwnyasse/fluentd-led --tags
+  #- git push -q https://$TAGPERM@github.com/bwnyasse/fluentd-led --tags
 
 deploy:
     # Deploy to docker hub
