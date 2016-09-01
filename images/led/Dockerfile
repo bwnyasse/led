@@ -162,4 +162,4 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 USER led
 WORKDIR /home/led
 
-CMD ["/start.sh" ]
+Travis Build - GIT_SHA ${TRAVIS_COMMIT}
