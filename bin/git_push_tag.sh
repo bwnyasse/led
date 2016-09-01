@@ -16,7 +16,8 @@ fi
 
 rev=$(git rev-parse --short HEAD)
 
-cd stage/_book
+mkdir code
+cd code
 
 git init
 git config --global push.followTags true
@@ -34,6 +35,7 @@ git commit -m "Update from TravisCI build $TRAVIS_BUILD_NUMBER"
 git tag $VERSION -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
 git push --follow-tags
 
+cd ..
 # # Now that we're all set up, we can push.
 # git push $SSH_REPO $VERSION
 #
