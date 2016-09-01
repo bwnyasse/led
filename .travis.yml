@@ -12,7 +12,7 @@ env:
 
      # Comment this for release and uncomment RELEASE_VERSION
      - CURRENT_DATE=$(date -u "+%Y%m%d")
-     - SNAPSHOT_VERSION=0.1.1-build-$CURRENT_DATE-${TRAVIS_COMMIT:0:12}
+     - SNAPSHOT_VERSION=0.2.0-SNAPSHOT
      - VERSION=${SNAPSHOT_VERSION}
      # Tools Var
      - DOCKER_COMPOSE_VERSION=1.8.0
