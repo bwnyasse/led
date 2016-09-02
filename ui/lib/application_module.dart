@@ -28,6 +28,7 @@ import 'package:date/date.dart' as external_date_lib;
 
 import 'package:fluentd_log_explorer/utils/utils.dart';
 
+part 'components/footer_cmp.dart';
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
 part 'components/navbar_right_cmp.dart';
@@ -39,6 +40,7 @@ part 'models/models.dart';
 
 class ApplicationModule extends Module {
   ApplicationModule() {
+    bind(FooterCmp);
     bind(ContainerMenuListCmp);
     bind(ContainerLogCmp);
     bind(NavbarRightCmp);

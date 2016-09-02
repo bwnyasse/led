@@ -13,18 +13,15 @@
 part of fluentd_log_explorer;
 
 @Component(
-    selector: 'navbar-brand-cmp',
+    selector: 'footer-cmp',
     templateUrl:
-    'packages/fluentd_log_explorer/components/navbar_brand_cmp.html',
+    'packages/fluentd_log_explorer/components/footer_cmp.html',
     useShadowDom: false)
-class NavbarBrandCmp {
+class FooterCmp {
 
-  String brandName;
   String version;
 
-  NavbarBrandCmp(){
-    brandName = jsinterop.APP_NAME;
+  FooterCmp(){
     version = jsinterop.APP_VERSION;
   }
-
 }

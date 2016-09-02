@@ -65,6 +65,10 @@ footer {
     font-size:16px;
 }
 
+.brand-label-version {
+    background-color: #d0a862 !important;
+}
+
 .source-logs-time {
     color: #95A5A6;
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;

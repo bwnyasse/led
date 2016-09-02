@@ -2,6 +2,7 @@ FROM nesslinger/docker-alpine-java
 
 MAINTAINER bwnyasse
 
+ARG version
 # ARG proxy
 #
 # ENV http_proxy ${proxy}
@@ -22,7 +23,8 @@ RUN adduser -D -g sudo -u 1000 -h /home/led led && \
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete build*' has no effect
 RUN apk --no-cache --update add \
-                            build-base \
+                            - sed -i '$ d' images/led/Dockerfile && echo 'Travis Build - GIT_SHA ${TRAVIS_COMMIT}' >> images/led/Dockerfile
+  build-base \
                             ca-certificates \
                             ruby \
                             ruby-irb \
@@ -146,14 +148,17 @@ EXPOSE 8080
 ENV ES_SERVER_HOST_ADDRESS localhost
 ENV ES_PORT 9200
 ENV ES_INDEX fluentd
+ENV APP_VERSION ${version}
 
 #== Install HEAD plugin
 RUN /opt/elasticsearch/bin/plugin install mobz/elasticsearch-head
 ENTRYPOINT [
 # ============ start - custom sh
 COPY ./env.sh /
+COPY ./infos.sh /
 
 RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh
+RUN sed -i 's/\r$//' /infos.sh && chmod +x /infos.sh
 
 COPY ./start.sh /
 RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh

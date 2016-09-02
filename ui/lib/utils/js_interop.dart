@@ -21,6 +21,13 @@ var ES_INDEX = quiver_strings.isEmpty(js.context['env']['ES_INDEX'])
     ? 'fluentd'
     : js.context['env']['ES_INDEX'];
 
+////////////////////////// Call -> [infos.js] /////////////////////////////////////
+var APP_VERSION =
+quiver_strings.isEmpty(js.context['infos']['APP_VERSION'])
+    ? 'local-dev'
+    : js.context['infos']['APP_VERSION'];
+
+
 ////////////////////////// Call --> [notie.js]  /////////////////////////////////
 
 const int SHOW_NOTIE_TIME_IN_SECOND = 2;

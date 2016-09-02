@@ -40,8 +40,8 @@ before_install:
 install:
   - cd $CURRENT/images/led
   - docker pull ${DOCKER_REPOSITORY}:latest || true
-  - docker build -t ${DOCKER_REPOSITORY} --pull=true .
-  - docker build -t ${DOCKER_REPOSITORY}:${VERSION}  .
+  - docker build -t ${DOCKER_REPOSITORY} --pull=true --build-arg version=${VERSION} .
+  - docker build -t ${DOCKER_REPOSITORY}:${VERSION} --build-arg version=${VERSION} .
 
 script:
   - cd $CURRENT/integ

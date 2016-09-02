@@ -8,11 +8,13 @@ set -e
 
 echo "Starting ... "
 
-#== Generate the env.js for env var management from the GUI
+#== Generate the.js file from the GUI
 /bin/sh /env.sh > /var/www/js/env.js
+/bin/sh /infos.sh > /var/www/js/infos.js
 
 #== Uncomment this line to display env to stdout
 cat  /var/www/js/env.js
+cat  /var/www/js/infos.js
 
 #== Effective start: lighttpd
 lighttpd -f /etc/lighttpd/lighttpd.conf

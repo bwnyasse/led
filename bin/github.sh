@@ -25,8 +25,7 @@ then
   git pull origin master
 
   GIT_TAG=$VERSION-${TRAVIS_COMMIT:0:12}
-  # Add Travis commit to Dockerfile
-  #sed -i '$ d' images/led/Dockerfile && echo 'Travis Build - GIT_SHA ${TRAVIS_COMMIT}' >> images/led/Dockerfile
+
 
   #git add -u
   #git commit -m "Update from TravisCI build $TRAVIS_BUILD_NUMBER"
