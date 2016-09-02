@@ -1,10 +1,9 @@
 #!/bin/bash
-#
-# @description
-# Build everything for dev and create latest docker images locally
-#
-# @author bwnyasse
-##
+#===================================================================================================#
+#title           :build_all_dev.sh
+#description     :Build everything for dev and create latest docker images locally
+#author		       :bwnyasse
+#==================================================================================================#
 
 cd ..
 CURRENT=$(pwd)

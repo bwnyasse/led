@@ -45,7 +45,7 @@ script:
 
 before_deploy:
    # CREATE GIT TAG
-  - ./bin/git_push_tag.sh
+  - ./bin/github.sh
 
 deploy:
 

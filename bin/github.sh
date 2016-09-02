@@ -1,11 +1,9 @@
 #!/bin/bash
-#
-# @description
-# Push Tag to github
-#
-# @author bwnyasse
-##
-
+#============================================================================================================#
+#title           :dockerhub.sh
+#description     :Enable action remetly on github
+#author		       :bwnyasse
+#===========================================================================================================#
 set -o errexit -o nounset
 
 # Push tag only if it's not a SNAPSHOT build

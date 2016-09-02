@@ -1,5 +1,8 @@
 name: 'fluentd_log_explorer'
-version: 0.0.1
+
+# Intentional remove version because the version is related to LED version
+# See DRAFT_VERSION_STRATEGY.md doc
+# version: 0.0.1
 
 author: <bwnyasse>
 

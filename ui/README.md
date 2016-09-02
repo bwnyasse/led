@@ -1,1 +1,3 @@
-#Sample UI to display data from ES
+#LED UI 
+
+This project is the GUI that displays log.

@@ -74,7 +74,6 @@ class ElasticSearchService extends AbstractRestService {
   }
 
   ensureLogAnalyzed(String index) {
-    //TODO : Extract type in variable
     String url = '$ES_URL$index/$ES_TYPE$MAPPING_PREFIX';
     _post(url,
         sendData: JSON.encode(ElasticSearchQueryDSL._dslEnsureLogAnalyzed()));

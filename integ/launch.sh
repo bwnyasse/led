@@ -1,11 +1,9 @@
 #!/bin/bash
-#
-# @description
-# Script used to launch integration
-#
-# @author bwnyasse
-##
-
+#============================================================================================================#
+#title           :build_ui.sh
+#description     :Script used to launch integration
+#author		       :bwnyasse
+#===========================================================================================================#
 FLAG_M=false
 FLAG_S=false
 

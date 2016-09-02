@@ -1,10 +1,9 @@
 #!/bin/bash
-#
-# @description
-# Script used to build UI from Dart2JS compilation and update the files for LED docker image
-#
-# @author bwnyasse
-##
+#============================================================================================================#
+#title           :build_ui.sh
+#description     :Script used to build UI from Dart2JS compilation and update the files for LED docker image
+#author		       :bwnyasse
+#===========================================================================================================#
 set -e
 
 cd ..

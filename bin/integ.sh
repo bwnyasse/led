@@ -1,11 +1,9 @@
 #!/bin/bash
-#
-# @description
-# Script used to launch integration
-#
-# @author bwnyasse
-##
-
+#============================================================================================================#
+#title           :integ.sh
+#description     :Script used to launch integration
+#author		       :bwnyasse
+#===========================================================================================================#
 FLAG_M=false
 FLAG_S=false
 
