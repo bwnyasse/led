@@ -1,6 +1,10 @@
 sudo: required
 
-language: ruby
+language: dart
+
+dart:
+  # Install the latest stable release
+  - stable
 
 env:
   global:
@@ -28,6 +32,10 @@ before_install:
   # see https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
   - echo "Testing Docker Hub credentials"
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+
+before_install:
+   # update UI
+  - ./bin/build_ui.sh
 
 install:
   - cd $CURRENT/images/led
