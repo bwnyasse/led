@@ -40,7 +40,7 @@ script:
   - docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
   - docker-compose -f service.yml up --build --force-recreate -d
   - count=$(docker ps -aq -f status="running" -s | wc -l)
-  - if [[  $count != 4 ]]; then echo "Expected 5 running containers" && exit 1 ; fi
+  - if [[  $count != 3 ]]; then echo "Expected 3 running containers" && exit 1 ; fi
   - cd $CURRENT
 
 before_deploy:
