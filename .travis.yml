@@ -6,16 +6,10 @@ env:
   global:
      - CURRENT=$(pwd)
      - DOCKER_REPOSITORY=bwnyasse/fluentd-led
-
-     # Uncomment this for release and comment SNAPSHOT_VERSION
-     # - RELEASE_VERSION=2.3.5.0
-
-     # Comment this for release and uncomment RELEASE_VERSION
-     - CURRENT_DATE=$(date -u "+%Y%m%d")
-     - SNAPSHOT_VERSION=0.2.0-SNAPSHOT
-     - VERSION=${SNAPSHOT_VERSION}
-     # Tools Var
      - DOCKER_COMPOSE_VERSION=1.8.0
+
+     # LED build version - also used to tag github repo and docker hub image
+     - VERSION=0.2.0-SNAPSHOT
 
 services:
   - docker

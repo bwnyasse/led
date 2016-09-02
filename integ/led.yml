@@ -1,31 +1,13 @@
 version: '2'
 services:
 
-    # Elastic Search
-    elasticsearch:
-      image: bwnyasse/elasticsearch-head
-      container_name: elasticsearch
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-      volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /etc/timezone:/etc/timezone:ro
-
-    # LED
+    # Basic LED
     fluentd-led:
       image: bwnyasse/fluentd-led
       container_name: fluentd-led
       ports:
         - 24224:24224
         - 8080:8080
-      environment:
-        - ES_SERVER_HOST_ADDRESS=localhost
-        - ES_CONTAINER_HOST_ADDRESS=elasticsearch
-        - ES_PORT=9200
-        - ES_INDEX=fluentd
-      depends_on:
-        - elasticsearch
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro

@@ -8,7 +8,8 @@
 
 set -o errexit -o nounset
 
-if [ "$TRAVIS_BRANCH" == "master" ]
+# Push tag only if it's not a SNAPSHOT build
+if  [[ "$TRAVIS_BRANCH" == "master" && "$VERSION" != *"SNAPSHOT"* ]]
 then
   #echo "This commit was made against the $TRAVIS_BRANCH and the master! No deploy!"
   rev=$(git rev-parse --short HEAD)

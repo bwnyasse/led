@@ -6,6 +6,5 @@
 #==================================================================================================#
 echo "env = {"
 echo "  ES_SERVER_HOST_ADDRESS: '$ES_SERVER_HOST_ADDRESS',"
-echo "  ES_PORT: '$ES_PORT',"
-echo "  ES_INDEX: '$ES_INDEX'"
+echo "  ES_PORT: '$ES_PORT'"
 echo "}"
