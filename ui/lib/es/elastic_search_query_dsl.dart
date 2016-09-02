@@ -46,7 +46,7 @@ class ElasticSearchQueryDSL {
       };
 
   static _dslLogs(String containerName, Level level, String histo,
-          String filterValue) =>
+          String filterValue,int from) =>
       {
         "query": {
           "bool": {
@@ -62,7 +62,7 @@ class ElasticSearchQueryDSL {
             "should": []
           },
         },
-        "from": 0,
+        "from": from,
         "size": DEFAULT_MAX_FETCH_LOGS_SIZE,
         "sort": {ES_FIELD_TIME_NANO: "desc"},
         "aggs": _dslCommonAggregation()

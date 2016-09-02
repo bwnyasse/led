@@ -64,7 +64,7 @@
 
     <hr>
 
-    <div class="row source-logs-row" ng-hide="service.sourceLogsByContainerName.isEmpty">
+    <div class="row source-logs-row" ng-hide="service.sourceLogsByContainerName.isEmpty" infinite-scroll="onPageInfiniteScroll()">
         <table class="table">
 
             <tbody>

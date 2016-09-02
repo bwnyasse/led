@@ -187,6 +187,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.3"
+  ng_infinite_scroll:
+    description:
+      name: ng_infinite_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   observe:
     description:
       name: observe

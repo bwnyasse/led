@@ -123,4 +123,7 @@ class ContainerLogCmp extends ShadowRootAware {
       level: service.currentLogLevel,
       histo: service.currentHisto,
       filter: service.currentFilterValue);
+
+  onPageInfiniteScroll() => service.getLogsByContainerNameOnFiniteScroll();
+
 }

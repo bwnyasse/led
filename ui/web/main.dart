@@ -12,6 +12,7 @@
  */
 import 'package:angular/application_factory.dart';
 import 'package:fluentd_log_explorer/application_module.dart';
+import 'package:ng_infinite_scroll/ng_infinite_scroll.dart';
 
 ///
 /// Project Entry point.
@@ -21,5 +22,6 @@ import 'package:fluentd_log_explorer/application_module.dart';
 void main() {
   applicationFactory()
     ..addModule(new ApplicationModule())
+    ..addModule(new InfiniteScrollModule())
     ..run();
 }

@@ -32,6 +32,8 @@ class ElasticSearchService extends AbstractRestService {
   Level currentLogLevel;
   String currentHisto;
   String currentFilterValue;
+  int logTotal;
+  int logFrom = 0;
 
   Set<String> indexes = new Set();
   List<String> containers = [];
@@ -105,19 +107,26 @@ class ElasticSearchService extends AbstractRestService {
   }
 
   getLogsByContainerName(String containerName,
-      {Level level: null, String histo: null, String filter: null}) async {
+      {Level level: null, String histo: null, String filter: null, bool clearCache:true}) async {
     currentContainerName = containerName;
     currentLogLevel = level;
     currentHisto = histo;
     currentFilterValue = filter;
     String url = "$ES_URL$currentIndex$SEARCH_PREFIX";
-    Map dsl =
-        ElasticSearchQueryDSL._dslLogs(containerName, level, histo, filter);
 
-    sourceLogsByContainerName.clear();
+    if(clearCache){
+      sourceLogsByContainerName.clear();
+      logFrom = 0;
+    } else {
+      logFrom = logFrom + ElasticSearchQueryDSL.DEFAULT_MAX_FETCH_LOGS_SIZE;
+    }
+
+    Map dsl =
+        ElasticSearchQueryDSL._dslLogs(containerName, level, histo, filter,logFrom);
 
     _post(url, sendData: JSON.encode(dsl)).then((HttpRequest response) {
       Map jsonResponse = JSON.decode(response.responseText);
+      logTotal = jsonResponse['hits']['total'];
       List listHists = jsonResponse['hits']['hits'];
       List inputList = [];
       listHists.forEach((hists) {
@@ -127,30 +136,39 @@ class ElasticSearchService extends AbstractRestService {
       });
       sourceLogsByContainerName.addAll(inputList);
 
-      // update level
-      levels.clear();
-      List b1 = jsonResponse['aggregations']
-          [ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
-      b1.forEach((json) {
-        levels.add(new Level(
-            value: json['key'],
-            displayedValue: Utils.getLevelFormat(
-                listHists[0]['_source']['container_type'], json['key'])));
-      });
+      if(clearCache) {
+        // update level
+        levels.clear();
+        List b1 = jsonResponse['aggregations']
+        [ElasticSearchQueryDSL.ES_AGG_LOG_LEVEL]['buckets'];
+        b1.forEach((json) {
+          levels.add(new Level(
+              value: json['key'],
+              displayedValue: Utils.getLevelFormat(
+                  listHists[0]['_source']['container_type'], json['key'])));
+        });
 
-      // Update date histo
-      dateHisto.clear();
-      List b2 = jsonResponse['aggregations']
-          [ElasticSearchQueryDSL.ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
-      b2.forEach((json) {
-        // Add only 4 ( means last hour )
-        if (dateHisto.length < 4) {
-          if (json['doc_count'] != 0) {
-            dateHisto.add(json['key_as_string']);
+        // Update date histo
+        dateHisto.clear();
+        List b2 = jsonResponse['aggregations']
+        [ElasticSearchQueryDSL.ES_AGG_DATE_HISTOGRAM_AGGREGATION]['buckets'];
+        b2.forEach((json) {
+          // Add only 4 ( means last hour )
+          if (dateHisto.length < 4) {
+            if (json['doc_count'] != 0) {
+              dateHisto.add(json['key_as_string']);
+            }
           }
-        }
-      });
+        });
+      }
     });
+  }
+
+
+  getLogsByContainerNameOnFiniteScroll(){
+    if(sourceLogsByContainerName.length < logTotal){
+      getLogsByContainerName(currentContainerName,level:currentLogLevel,histo:currentHisto,filter: currentFilterValue,clearCache: false);
+    }
   }
 
   retryUpdateLogFormat(

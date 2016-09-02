@@ -10,7 +10,7 @@ LED wants to keep everything as simple as possible. But it is in very early stag
 
 The following picture shows you a quick look of LED.
 
-![](current_4.png?raw=true)
+![](current_5.png?raw=true)
 
 ## How to use it ?
 
