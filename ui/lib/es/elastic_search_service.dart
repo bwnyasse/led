@@ -42,7 +42,7 @@ class ElasticSearchService extends AbstractRestService {
 
   ElasticSearchService() {
     _pingES();
-    _getIndexes();
+    getIndexes();
   }
 
   _pingES() {
@@ -55,7 +55,7 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
-  _getIndexes() async {
+  getIndexes() async {
     indexes.clear();
     _get(INDEX_URL).then((response) {
       Map jsonResponse = JSON.decode(response.responseText);

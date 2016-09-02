@@ -1,4 +1,5 @@
 <div class="col-md-3">
+
     <div ng-hide="service.indexes.isEmpty">
         <div ng-hide="service.indexes.isEmpty">
             <p class="lead"><i class="ion-ios-calendar-outline"></i> Log History</p>
@@ -18,7 +19,7 @@
             <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
             <div class="list-group">
                 <a ng-repeat="container in service.containers" href="" ng-click="getLogs(container)"
-                   class="list-group-item docker-container-name">{{container}}</a>
+                   class="menu-container-name list-group-item docker-container-name">{{container}}</a>
             </div>
         </div>
 

@@ -64,7 +64,7 @@
 
     <hr>
 
-    <div class="row source-logs-row">
+    <div class="row source-logs-row" ng-hide="service.sourceLogsByContainerName.isEmpty">
         <table class="table">
 
             <tbody>
@@ -80,7 +80,12 @@
             </tbody>
         </table>
 
+    </div>
+    <div class="row source-logs-row" ng-show="service.sourceLogsByContainerName.isEmpty">
+        <table class="table">
 
+           <!-- <span class="label label-warning no-source-logs">No log to display</span> -->
+        </table>
     </div>
 </div>
 <div ng-show="service.indexes.isEmpty || service.containers.isEmpty">

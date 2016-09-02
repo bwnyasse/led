@@ -4,12 +4,13 @@ body {
 }
 
 .width-full {
-    width:100%;
+    width: 100%;
 }
 
 .color-white {
-    color:#FFF;
+    color: #FFF;
 }
+
 .thumbnail img {
     width: 100%;
 }
@@ -45,12 +46,23 @@ footer {
 
 .selected-alert-data {
     text-align: center;
-    font-size: 24px;
+    font-size: 18px;
     text-transform: uppercase;
+    padding: 10px;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .source-logs-row {
     font-size: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.no-source-logs {
+    font-size:16px;
 }
 
 .source-logs-time {
@@ -99,7 +111,7 @@ pre {
 }
 
 .level-debug-label {
-    background-color: #6dd4c0;
+    background-color: #6DD4C0;
 }
 
 .level-trace-label {
@@ -126,7 +138,7 @@ pre {
 }
 
 .level-debug-menu {
-    border-left: 7px solid #6dd4c0;
+    border-left: 7px solid #6DD4C0;
     text-transform: uppercase;
 }
 
@@ -185,4 +197,12 @@ pre {
 
 .menu-icon {
     font-size: 32px;
+}
+
+.menu-container-name {
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

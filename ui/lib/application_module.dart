@@ -30,6 +30,8 @@ import 'package:fluentd_log_explorer/utils/utils.dart';
 
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
+part 'components/navbar_right_cmp.dart';
+part 'components/navbar_brand_cmp.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_service.dart';
 part 'rest/abstract_rest_service.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_query_dsl.dart';
@@ -39,6 +41,8 @@ class ApplicationModule extends Module {
   ApplicationModule() {
     bind(ContainerMenuListCmp);
     bind(ContainerLogCmp);
+    bind(NavbarRightCmp);
+    bind(NavbarBrandCmp);
     bind(ElasticSearchService);
     // Routing Mechanism
 //    bind(RouteInitializerFn, toImplementation: MRouter);

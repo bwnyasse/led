@@ -45,7 +45,7 @@ class ContainerMenuListCmp {
 
   getIndexAsLogHistory(String index) {
     String logDate = index.replaceAll(ElasticSearchService.INDEX_PREFIX, '');
-    var strictDate = new DateFormat('y.MM.d');
+    var strictDate = new DateFormat('yyyy.MM.dd');
     DateTime today = new DateTime.now();
     DateTime yesterday = external_date_lib.Date.yesterday(today);
     if (quiver_strings.equalsIgnoreCase(
