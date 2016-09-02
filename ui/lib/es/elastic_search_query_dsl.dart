@@ -13,6 +13,9 @@
 part of fluentd_log_explorer;
 
 class ElasticSearchQueryDSL {
+
+  static String DEFAULT_MAX_FETCH_LOGS_SIZE = 50;
+
   static String INTERVAL_DATE_HISTOGRAM_AGGREGATION = "15m";
 
   // ES field
@@ -60,7 +63,7 @@ class ElasticSearchQueryDSL {
           },
         },
         "from": 0,
-        "size": 5000,
+        "size": DEFAULT_MAX_FETCH_LOGS_SIZE,
         "sort": {ES_FIELD_TIME_NANO: "desc"},
         "aggs": _dslCommonAggregation()
       };
