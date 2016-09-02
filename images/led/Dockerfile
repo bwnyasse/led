@@ -23,8 +23,7 @@ RUN adduser -D -g sudo -u 1000 -h /home/led led && \
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete build*' has no effect
 RUN apk --no-cache --update add \
-                            - sed -i '$ d' images/led/Dockerfile && echo 'Travis Build - GIT_SHA ${TRAVIS_COMMIT}' >> images/led/Dockerfile
-  build-base \
+                            build-base \
                             ca-certificates \
                             ruby \
                             ruby-irb \
