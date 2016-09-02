@@ -149,7 +149,7 @@ ENV ES_INDEX fluentd
 
 #== Install HEAD plugin
 RUN /opt/elasticsearch/bin/plugin install mobz/elasticsearch-head
-
+ENTRYPOINT [
 # ============ start - custom sh
 COPY ./env.sh /
 
@@ -161,5 +161,5 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 
 USER led
 WORKDIR /home/led
-
-CMD ["/start.sh" ]
+ENTRYPOINT ["/start.sh" ]
+CMD [""]
