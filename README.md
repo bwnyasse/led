@@ -19,7 +19,7 @@ LED **setup** will be very easy for you.
 
 ### Logging Driver
 
-LED assumes that you are using the fluentd logging driver to send container logs to the Fluentd collector as structured log data.
+LED assumes that you are using the [fluentd](http://www.fluentd.org/) logging driver to send container logs to the Fluentd collector as structured log data.
 
 
 ## How to use it ?
@@ -29,13 +29,14 @@ LED assumes that you are using the fluentd logging driver to send container logs
 #### 1- Launch container
 
 LED requires the following ports to be published:
- - **8080**: used for the hosted web server that serves led ui
- - **24224**: default port by fluentd for TCP forwarding
- - **9200**: used by internal instance of elasticsearch
 
+ - **8080** : used by the hosted web server to serves led ui
+ - **24224**: default port used by fluentd for TCP forwarding
+ - **9200** : used by internal instance of elasticsearch
 
-    docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led:0.2.0
-
+<pre>
+ docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led:0.2.0
+</pre>
 
 *Navigate to localhost:8080 to see a basic running instance of LED.*
 
@@ -92,7 +93,7 @@ The following table displayed fluent tag requires by LED to match service with l
       | wildfly       |        wildfly.docker.{{.Name }}        |
       | MongoDB       |        mongo.docker.{{.Name }}          |
 
-For example, the following command will connect a wildfly container to LED
+For example, the following command will connect a mongodb container to LED
 
         docker run -d \
             -v /etc/localtime:/etc/localtime:ro \
