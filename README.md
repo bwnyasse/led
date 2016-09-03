@@ -34,7 +34,7 @@ LED requires the following ports to be published:
  - **9200**: used by internal instance of elasticsearch
 
 
-    docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led
+    docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led:0.2.0
 
 
 *Navigate to localhost:8080 to see a basic running instance of LED.*
@@ -66,7 +66,7 @@ Launching led as follow :
           -p 8080:8080 \
           -p 24224:24224 \
           -p 9200:9200 \
-          bwnyasse/fluentd-led
+          bwnyasse/fluentd-led:0.2.0
 
 Connecting wildlfy as follow :
 
