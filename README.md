@@ -8,46 +8,79 @@ The goal is to provide an easy process for exploring and visualizing container l
 
 LED wants to keep everything as simple as possible. But it is in very early stage.
 
-The following picture shows you a quick look of LED.
+The following picture shows you a quick look of a running LED instance.
 
 ![](current_5.png?raw=true)
-
-## How to use it ?
 
 LED is designed for microservice architecture builds with [docker](https://www.docker.com/).
 
 If you are already familiar with [elastic stack](https://www.elastic.co/fr/webinars/introduction-elk-stack),
 LED **setup** will be very easy for you.
 
-#### Logging Driver
+### Logging Driver
 
 LED assumes that you are using the fluentd logging driver to send container logs to the Fluentd collector as structured log data.
 
-#### Storage
 
-LED requires a running instance of elasticsearch that allows cross origin to store container logs. You can use this [image](https://hub.docker.com/r/bwnyasse/elasticsearch-head/)
+## How to use it ?
 
-#### Launch
+### Basic ( on localhost )
 
-1- To launch and connect LED to a running instance of elasticsearch :
+#### 1- Launch container
 
-<pre>
-docker run \
-      -v /etc/localtime:/etc/localtime:ro \
-      -v /etc/timezone:/etc/timezone:ro \
-      -p 8080:8080 \
-      -p 24224:24224 \
-      -e ES_SERVER_HOST_ADDRESS='server_host_value' \
-      -e ES_CONTAINER_HOST_ADDRESS='container_host_value' \
-      -e ES_PORT='your_es_port_value' \
-      bwnyasse/fluentd-led
-</pre>
+LED requires the following ports to be published:
+ - **8080**: used for the hosted web server that serves led ui
+ - **24224**: default port by fluentd for TCP forwarding
+ - **9200**: used by internal instance of elasticsearch
 
-TODO: Explain ES_SERVER_HOST_ADDRESS vs ES_CONTAINER_HOST_ADDRESS
 
-2- Connect your container :
+    docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led
 
-**At this stage of project, LED works well with the default log format of the following service** :
+
+*Navigate to localhost:8080 to see a basic running instance of LED.*
+
+#### 2- Add container logs
+
+The following command will connect a wildfly container to LED
+
+    docker run -d \
+        --name=wildfly_server \
+        --log-driver=fluentd \
+        --log-opt tag="wildfly.docker.{{.Name}}" \
+        jboss/wildfly:10.0.0.Final
+
+*Navigate to localhost:8080 to see your container logs in LED*
+
+**That's it !!**
+
+## Important : Setting the Timezone in a Docker image
+
+Time in your running container may be out of sync with your host and can cause you troubles when exploring your logs.  
+To avoid this behavoir , one of the good pratices is to read-only mount your host /etc/timezone and /etc/localtime in your container.
+
+Launching led as follow :
+
+    docker run -d \
+          -v /etc/localtime:/etc/localtime:ro \
+          -v /etc/timezone:/etc/timezone:ro \
+          -p 8080:8080 \
+          -p 24224:24224 \
+          -p 9200:9200 \
+          bwnyasse/fluentd-led
+
+Connecting wildlfy as follow :
+
+    docker run -d \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
+        --name=wildfly_server_sync \
+        --log-driver=fluentd \
+        --log-opt tag="wildfly.docker.{{.Name}}" \
+        jboss/wildfly:10.0.0.Final
+
+## Current State ( v0.2.0)
+
+**At this stage of project, LED works only with the default log format of the following service** :
 
   - Jboss Wildfly & Wildfly Swarm
   - MongoDB
@@ -59,65 +92,18 @@ The following table displayed fluent tag requires by LED to match service with l
       | wildfly       |        wildfly.docker.{{.Name }}        |
       | MongoDB       |        mongo.docker.{{.Name }}          |
 
-For example , the following command will connect a wildfly container to LED
+For example, the following command will connect a wildfly container to LED
 
-        docker run -dit \
+        docker run -d \
+            -v /etc/localtime:/etc/localtime:ro \
+            -v /etc/timezone:/etc/timezone:ro \
+            --name=mongo_db \
             --log-driver=fluentd \
-            --log-opt tag="wildfly.docker.{{.Name}}" \
-            jboss/wildfly:10.0.0.Final
+            --log-opt tag="mongo.docker.{{.Name}}" \
+            mongo:3.2.8
 
-3- Using docker-compose ( recommanded )
-
-It is very easy to launch everything with [docker-compose](https://docs.docker.com/compose/). The following snippet of docker-compose  shows you how to setup everything for mongodb container
-
-    version: '2'
-    services:
-
-        #-- Storage using ES that allows CROSS origin
-        elasticsearch:
-          image: bwnyasse/elasticsearch-head
-          container_name: elasticsearch
-          ports:
-            - "9200:9200"
-            - "9300:9300"
-          volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
-
-        #-- Effective service for LED
-        fluentd-led:
-          image: bwnyasse/fluentd-led
-          container_name: fluentd-led
-          ports:
-            - 24224:24224
-            - 8080:8080
-          environment:
-            - ES_SERVER_HOST_ADDRESS=localhost
-            - ES_CONTAINER_HOST_ADDRESS=elasticsearch
-            - ES_PORT=9200
-            - ES_INDEX=fluentd
-          depends_on:
-            - elasticsearch
-          volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
-            -
-        #-- MongoDb Instance
-        mongodb:
-          image: mongo:3.2.8
-          ports:
-            - "27017:27017"
-            - "28017:28017"
-          container_name: mongodb
-          logging:
-            driver: fluentd
-            options:
-              tag: "mongo.docker.{{.Name }}"
-          volumes:
-            - /etc/localtime:/etc/localtime:ro
-
-
-## TODO:
-- Better wiki & documentation
-- LED needs feedback
+## More to come ... ( see [issues](https://github.com/bwnyasse/fluentd-led/issues) ) :
+- Better wiki & documentation :
+  - how to connect external elasticsearch instance
+  - log storage strategy
 - Add another services and make LED more generic. Actually, only Wildfly & MongoDB are well implemented in LED.
