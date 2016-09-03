@@ -13,7 +13,7 @@ env:
      - DOCKER_COMPOSE_VERSION=1.8.0
 
      # LED build version - also used to tag github repo and docker hub image
-     - VERSION=0.2.1-SNAPSHOT
+     - VERSION=0.3.0-SNAPSHOT
 
 services:
   - docker
