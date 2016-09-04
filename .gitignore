@@ -34,4 +34,4 @@ pubspec.lock # (Remove this pattern if you wish to check in your lock file)
 doc/api/
 
 #fluentd-es
-/www/
+images/led/www/
