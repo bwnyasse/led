@@ -32,7 +32,7 @@ class ContainerLogCmp extends ShadowRootAware {
   getMessageCss(Input input) {
     String css = '';
     String level = getLevel(input);
-    if (level != null) {
+    if (quiver_strings.isNotEmpty(level)) {
       if (level.contains(Utils.LABEL_WARNING)) {
         return 'log-warning';
       } else if (level.contains(Utils.LABEL_ERROR)) {

@@ -63,8 +63,7 @@ RUN gem install fluent-plugin-elasticsearch && \
     gem install fluent-plugin-better-timestamp && \
     gem install fluent-plugin-color-stripper
 
-COPY fluentd/manage/wildfly.conf /fluentd/etc/
-COPY fluentd/manage/mongo.conf /fluentd/etc/
+ADD fluentd/manage /fluentd/etc/
 
 COPY fluentd/fluent.conf /fluentd/etc/
 # ============ end - fluent configuration
