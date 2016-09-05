@@ -79,9 +79,9 @@ class ContainerLogCmp extends ShadowRootAware {
   }
 
   getTime(Input input) {
-    if (quiver_strings.isNotEmpty(input.time_forward)) {
-      return input.time_forward;
-    }
+    // if (quiver_strings.isNotEmpty(input.time_forward)) {
+    //   return input.time_forward;
+    // }
     String time = input.timestamp;
     DateTime dateTime = DateTime.parse(time);
     DateTime date = new DateTime.fromMillisecondsSinceEpoch(
