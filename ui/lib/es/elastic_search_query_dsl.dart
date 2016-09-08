@@ -25,6 +25,7 @@ class ElasticSearchQueryDSL {
   static String ES_FIELD_LOG_LEVEL = "level";
   static String ES_FIELD_LOG_TIME_FORWARD = "time_forward";
   static String ES_FIELD_LOG_MESSAGE = "message";
+  static String ES_FIELD_LOG_LOG = "log";
   static String ES_FIELD_LOG_SUFFIX = "suffix";
 
   // ES Aggre
@@ -91,7 +92,7 @@ class ElasticSearchQueryDSL {
           ? {}
           : {
               "wildcard": {
-                ES_FIELD_LOG_MESSAGE: filterValue.toLowerCase() + "*"
+                ES_FIELD_LOG_LOG: "*" + filterValue.toLowerCase() + "*"
               }
             };
 
