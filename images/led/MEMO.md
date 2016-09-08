@@ -1,4 +1,4 @@
-#wildlfy SWARM 
+#wildlfy SWARM
   format /^(^.*m)?(\d{4}-\d{2}-\d{2})? (?<time>\d{1,2}:\d{1,2}:\d{1,2},\d{1,3}) (?<level>[^\s]+) (?<message>.*)/
 
 ## Online format regex checker
@@ -26,9 +26,30 @@ http://fluentular.herokuapp.com/
         "aggs": {
           "fluentd": {
             "terms": {
-              "field": "container_name"
-            }
-          }
+              "field": "container_name"docker run -d \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/timezone:/etc/timezone:ro \
+    --name=mysql_sync \
+    -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+    --log-driver=fluentd \
+    --log-opt tag="default.docker.{{.Name}}" \
+    mysql:5.6
+
+docker run -d \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/timezone:/etc/timezone:ro \
+    --name=wildfly_server_default_sync \
+    --log-driver=fluentd \
+    --log-opt tag="default.docker.{{.Name}}" \
+    jboss/wildfly:10.0.0.Final
+
+docker run -d \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/timezone:/etc/timezone:ro \
+    --name=wildfly_server_formatted_sync \
+    --log-driver=fluentd \
+    --log-opt tag="wildfly.docker.{{.Name}}" \
+    jboss/wildfly:10.0.0.Final
         }
       }
 
@@ -65,3 +86,30 @@ http://fluentular.herokuapp.com/
        "field": "newValue"
      }
     }
+
+## Create containers
+
+    docker run -d \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
+        --name=mysql_sync \
+        -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+        --log-driver=fluentd \
+        --log-opt tag="default.docker.{{.Name}}" \
+        mysql:5.6
+
+    docker run -d \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
+        --name=wildfly_server_default_sync \
+        --log-driver=fluentd \
+        --log-opt tag="default.docker.{{.Name}}" \
+        jboss/wildfly:10.0.0.Final
+
+    docker run -d \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
+        --name=wildfly_server_formatted_sync \
+        --log-driver=fluentd \
+        --log-opt tag="wildfly.docker.{{.Name}}" \
+        jboss/wildfly:10.0.0.Final
