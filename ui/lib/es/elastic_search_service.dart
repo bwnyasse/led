@@ -75,6 +75,8 @@ class ElasticSearchService extends AbstractRestService {
     });
   }
 
+  refresh() => quiver_strings.isEmpty(currentIndex) ? getIndexes() : getContainersByIndex(currentIndex);
+
   ensureLogAnalyzed(String index) {
     String url = '$ES_URL$index/$ES_TYPE$MAPPING_PREFIX';
     _post(url,

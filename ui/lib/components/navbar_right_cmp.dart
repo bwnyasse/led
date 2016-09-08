@@ -23,5 +23,5 @@ class NavbarRightCmp {
 
   NavbarRightCmp(this.service);
 
-  refresh() => service.getIndexes();
+  refresh() => service.refresh();
 }
