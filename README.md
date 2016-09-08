@@ -65,9 +65,9 @@ The following table show you fluent tag requires by LED to match service and if 
 
         | Service       |            Fluentd Tag                  |         Display Log Level        |
         | ------------- |-----------------------------------------|----------------------------------|
-        | wildfly       |    **wildfly**.docker.{{.Name }}        |            **true**              |
-        | MongoDB       |    **mongo**.docker.{{.Name }}          |            **true**              |
-        |       *       |    **default**.docker.{{.Name }}        |            **false**             |      
+        | wildfly       |    wildfly.docker.{{.Name }}            |            true                  |
+        | MongoDB       |    mongo.docker.{{.Name }}              |            true                  |
+        |   *           |    default.docker.{{.Name }}            |            false                 |      
 
 ## Important : Setting the Timezone in a Docker image
 
