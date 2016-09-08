@@ -12,6 +12,7 @@ services:
       ports:
         - 24224:24224
         - 8080:8080
+        - 9200:9200
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
