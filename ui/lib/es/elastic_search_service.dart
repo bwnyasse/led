@@ -32,7 +32,7 @@ class ElasticSearchService extends AbstractRestService {
   Level currentLogLevel;
   String currentHisto;
   String currentFilterValue;
-  int logTotal;
+  int logTotal = 0;
   int logFrom = 0;
 
   Set<String> indexes = new Set();
@@ -61,8 +61,8 @@ class ElasticSearchService extends AbstractRestService {
     indexes.clear();
     _get(INDEX_URL).then((response) {
       Map jsonResponse = JSON.decode(response.responseText);
-      indexes.addAll(jsonResponse.keys.toList());
-
+      var sortedResponseList = jsonResponse.keys.toList()..sort();
+      indexes.addAll(sortedResponseList.reversed.toList());
       // Ensure Log analyzed for all indexes
       indexes.forEach((value) {
         ensureLogAnalyzed(value);
