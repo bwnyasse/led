@@ -40,34 +40,19 @@ LED requires the following ports to be published:
 
 #### 2- Add container logs
 
-The following command will connect a mysql container to LED.  ( See the [official documentation](https://docs.docker.com/engine/admin/logging/overview/#/fluentd-options) for more infos )
+The following command will connect the docker hello-world container to LED.  ( See the [official documentation](https://docs.docker.com/engine/admin/logging/overview/#/fluentd-options) for more infos )
 
     docker run -d \
-        --name=mysql_db \
-        -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+        --name=hello_world_container \
         --log-driver=fluentd \
         --log-opt tag="default.docker.{{.Name}}" \
-        mysql:5.6
+        hello-world
 
 *Navigate to localhost:8080 to see your container logs in LED*
 
 **That's it !!**
 
-#### 3- Log visualization and manage Tag option
-
-**Sometimes , it is more better to filter logs by level. At this stage of project, LED display log level only with the default log format of the following services** :
-
-  - Jboss Wildfly & Wildfly Swarm
-  - MongoDB
-
-The following table show you fluent tag requires by LED to match service and if the log level is displayed or not
-
-
-        | Service       |            Fluentd Tag                  |         Display Log Level        |
-        | ------------- |-----------------------------------------|----------------------------------|
-        | wildfly       |    wildfly.docker.{{.Name }}            |            true                  |
-        | MongoDB       |    mongo.docker.{{.Name }}              |            true                  |
-        |   *           |    default.docker.{{.Name }}            |            false                 |      
+   
 
 ## Important : Setting the Timezone in a Docker image
 
@@ -84,6 +69,33 @@ Launching led as follow :
           -p 9200:9200 \
           bwnyasse/fluentd-led:0.2.0
 
+Connecting a mysql as follow :
+
+    docker run -d \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
+        --name=mysql_db \
+        -e MYSQL_ROOT_PASSWORD=my-secret-pw \
+        --log-driver=fluentd \
+        --log-opt tag="default.docker.{{.Name}}" \
+        mysql
+
+####  Manage Tag option
+
+**Sometimes , it is more better to filter logs by level. At this stage of project, LED display log level only with the default log format of the following services** :
+
+  - Jboss Wildfly & Wildfly Swarm
+  - MongoDB
+
+The following table show you fluent tag requires by LED to match service and if the log level is displayed or not
+
+
+        | Service       |            Fluentd Tag                  |         Display Log Level        |
+        | ------------- |-----------------------------------------|----------------------------------|
+        | wildfly       |    wildfly.docker.{{.Name }}            |            true                  |
+        | MongoDB       |    mongo.docker.{{.Name }}              |            true                  |
+        |   *           |    default.docker.{{.Name }}            |            false                 |   
+        
 Connecting wildlfy as follow :
 
     docker run -d \
