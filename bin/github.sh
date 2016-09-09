@@ -25,7 +25,7 @@ then
   git pull origin master
 
   #GIT_TAG=$VERSION-${TRAVIS_COMMIT:0:12}
-  GIT_TAG=$VERSION
+  GIT_TAG=v$VERSION
 
   #git add -u
   #git commit -m "Update from TravisCI build $TRAVIS_BUILD_NUMBER"
