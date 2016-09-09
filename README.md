@@ -67,7 +67,7 @@ Launching led as follow :
           -p 8080:8080 \
           -p 24224:24224 \
           -p 9200:9200 \
-          bwnyasse/fluentd-led:0.2.0
+          bwnyasse/fluentd-led:0.3.0
 
 Connecting a mysql as follow :
 
