@@ -6,7 +6,7 @@
 
 The goal is to provide an easy process for exploring and visualizing container logs.
 
-LED wants to keep everything as simple as possible. But it is in very early stage.
+LED wants to keep everything as simple as possible. **But it is in very early stage**
 
 The following picture shows you a quick look of a running LED instance.
 
