@@ -50,6 +50,6 @@ fi
 
 cd ..
 CURRENT=$(pwd)
-INTEGRATION_PATH=$CURRENT/integ
+INTEGRATION_PATH=$CURRENT/integ/dev
 
 cd $INTEGRATION_PATH && ./launch.sh $launchOption

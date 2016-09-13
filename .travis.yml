@@ -44,7 +44,7 @@ install:
   - docker build -t ${DOCKER_REPOSITORY}:${VERSION} --build-arg version=${VERSION} .
 
 script:
-  - cd $CURRENT/integ
+  - cd $CURRENT/integ/dev
   - docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
   - docker-compose -f service.yml up --build --force-recreate -d
   - count=$(docker ps -aq -f status="running" -s | wc -l)

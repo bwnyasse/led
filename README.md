@@ -80,7 +80,7 @@ Connecting a mysql as follow :
         --log-opt tag="default.docker.{{.Name}}" \
         mysql
 
-####  Manage Tag option
+##  Manage Tag option
 
 **Sometimes , it is more better to filter logs by level. At this stage of project, LED display log level only with the default log format of the following services** :
 
@@ -116,9 +116,67 @@ Connecting MongoDB as follow :
         --log-opt tag="mongo.docker.{{.Name}}" \
         mongo:3.2.8
 
+# Quick Test !
+
+You can test LED easily using [Docker compose](https://docs.docker.com/compose), with this docker-compose.yml file:
+
+    version: '2'
+    services:
+
+        led:
+          image: bwnyasse/fluentd-led:0.3.0
+          container_name: led
+          ports:
+            - 24224:24224
+            - 8080:8080
+            - 9200:9200
+          volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+
+        hello-world:
+          image: hello-world
+          container_name: hello_world
+          logging:
+            driver: fluentd
+            options:
+              tag: "default.docker.{{.Name }}"
+              fluentd-address: localhost:24224
+          depends_on:
+            - led
+          volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+
+        wildfly:
+          image: jboss/wildfly:10.0.0.Final
+          container_name: wildfly_app_server
+          logging:
+            driver: fluentd
+            options:
+              tag: "wildfly.docker.{{.Name }}"
+              fluentd-address: localhost:24224
+          depends_on:
+            - led
+          volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+
+        mongodb:
+          image: mongo:3.2.8
+          ports:
+            - "27017:27017"
+            - "28017:28017"
+          container_name: mongo_app_db
+          logging:
+            driver: fluentd
+            options:
+              tag: "mongo.docker.{{.Name }}"
+              fluentd-address: localhost:24224
+          depends_on:
+            - led
+          volumes:
+            - /etc/localtime:/etc/localtime:ro
+
 
 ## More to come ... ( see [issues](https://github.com/bwnyasse/fluentd-led/issues) ) :
-- Better wiki & documentation :
-  - how to connect external elasticsearch instance
-  - log storage strategy
-- Add another services and make LED more generic. Actually, only Wildfly & MongoDB are well implemented in LED.
