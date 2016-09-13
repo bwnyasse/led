@@ -10,7 +10,7 @@ LED wants to keep everything as simple as possible. **But it is in very early st
 
 The following picture shows you a quick look of a running LED instance.
 
-![](current_5.png?raw=true)
+![](doc/current_5.png?raw=true)
 
 LED is designed for microservice architecture builds with [docker](https://www.docker.com/).
 
@@ -52,7 +52,7 @@ The following command will connect the docker hello-world container to LED.  ( S
 
 **That's it !!**
 
-   
+
 
 ## Important : Setting the Timezone in a Docker image
 
@@ -95,7 +95,7 @@ The following table show you fluent tag requires by LED to match service and if 
         | wildfly       |    wildfly.docker.{{.Name }}            |            true                  |
         | MongoDB       |    mongo.docker.{{.Name }}              |            true                  |
         |   *           |    default.docker.{{.Name }}            |            false                 |   
-        
+
 Connecting wildlfy as follow :
 
     docker run -d \
