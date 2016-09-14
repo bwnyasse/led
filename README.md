@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/bwnyasse/fluentd-led.svg?branch=master)](https://travis-ci.org/bwnyasse/fluentd-led)
 
-# Fluentd - Log Explorer for Docker aka  **[LED](https://hub.docker.com/r/bwnyasse/fluentd-led/)**
+# Log Explorer for Docker aka  **[LED](https://hub.docker.com/r/bwnyasse/fluentd-led/)**
 
 ## Purpose
 
