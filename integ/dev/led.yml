@@ -6,9 +6,11 @@ version: '2'
 services:
 
     # Basic LED
-    fluentd-led:
-      image: bwnyasse/fluentd-led
-      container_name: fluentd-led
+    led:
+      #image: bwnyasse/led
+      build:
+        context: ../../images/led
+      container_name: led
       ports:
         - 24224:24224
         - 8080:8080

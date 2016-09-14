@@ -26,7 +26,8 @@ class Input {
         this.level = new Level(
             value: map['_source']['level'],
             displayedValue: Utils.getLevelFormat(
-                map['_source']['container_type'], map['_source']['level'])),
+                map['_source']['container_type'], map['_source']['level']),
+            log: map['_source']['log']),
         this.message = map['_source']['message'],
         this.time_forward = map['_source']['time_forward'],
         this.timestamp = map['_source']['@timestamp'];
@@ -47,6 +48,26 @@ class Input {
 class Level {
   String displayedValue;
   String value;
+  String log;
+  Level({this.value, this.displayedValue,this.log});
 
-  Level({this.value, this.displayedValue});
+  getRenderedValue() {
+    if(quiver_strings.isEmpty(displayedValue)) {
+      // TODO: Better degraded mode
+      if (log.contains(Utils.LABEL_INFO)) {
+        return Utils.LABEL_INFO;
+      } else if (log.contains(Utils.LABEL_WARNING)) {
+        return Utils.LABEL_WARNING;
+      } else if (log.contains(Utils.LABEL_ERROR)) {
+        return Utils.LABEL_ERROR;
+      } else if (log.contains(Utils.LABEL_FATAL)) {
+        return Utils.LABEL_FATAL;
+      } else if (log.contains(Utils.LABEL_DEBUG)) {
+        return Utils.LABEL_DEBUG;
+      } else if (log.contains(Utils.LABEL_TRACE)) {
+        return Utils.LABEL_TRACE;
+      }
+    }
+    return displayedValue;
+  }
 }

@@ -38,11 +38,11 @@ services:
       build:
         context: ./custom
       container_name: custom_container
-      # logging:
-      #   driver: fluentd
-      #   options:
-      #     tag: "default.docker.{{.Name }}"
-      #     fluentd-address: localhost:24224
+      logging:
+        driver: fluentd
+        options:
+          tag: "default.docker.{{.Name }}"
+          fluentd-address: localhost:24224
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro

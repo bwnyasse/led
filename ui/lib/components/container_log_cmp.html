@@ -69,11 +69,13 @@
 
             <tbody>
             <tr ng-repeat="input in service.sourceLogsByContainerName">
-                <td><span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span></td>
+                <td>
+                    <span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span>
+                </td>
                 <td>
                     <div class="source-logs-time">{{getTime(input)}}</div>
                 </td>
-                <td>
+                <td class="width-full">
                     <pre class="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
                 </td>
             </tr>
