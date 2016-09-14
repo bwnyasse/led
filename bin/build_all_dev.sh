@@ -16,7 +16,7 @@ $CURRENT/build_ui.sh
 
 ## Build fluentd LED docker image
 ## Dev mode launch compose-explorer
-cd $IMAGES_PATH/led && docker build -t bwnyasse/fluentd-led .
+cd $IMAGES_PATH/led && docker build -t bwnyasse/led .
 
 # Clean
 #rm -rf $IMAGES_PATH/fluentd-led/www/

@@ -20,7 +20,7 @@ then
   git config user.name "builds@travis-ci.com"
   git config user.email "Travis CI"
 
-  git remote add origin "https://$GH_TOKEN@github.com/bwnyasse/fluentd-led.git"
+  git remote add origin "https://$GH_TOKEN@github.com/bwnyasse/led.git"
   git fetch origin
   git pull origin master
 
