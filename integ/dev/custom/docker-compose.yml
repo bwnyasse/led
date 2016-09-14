@@ -1,0 +1,8 @@
+version: '2'
+services:
+
+  test-busybox:
+    build:
+      context: .
+      args:
+        proxy: http://utilservnexus:5XgmKC!zNj91Ys8qobTaG-@fw-t-net.mipih.net:3128

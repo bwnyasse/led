@@ -22,9 +22,19 @@ usage() {
 }
 
 function launchCompose {
-  docker-compose -f led.yml up --build --force-recreate --remove-orphans -d && \
+  docker-compose -f led.yml up --build --force-recreate --remove-orphans -d
+
+	while ! curl localhost:9200/
+	do
+  echo "$(date) - still waiting for ES to be up and running"
+  sleep 1
+	done
+	echo "$(date) - ES is up and running"
+
   docker-compose -f service.yml up --build --force-recreate -d
 }
+
+
 
 #################
 ### Read options
