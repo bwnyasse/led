@@ -3,6 +3,14 @@ body {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.l-float-right {
+    float: right;
+}
+
+.l-float-left {
+    float: left;
+}
+
 .width-full {
     width: 100%;
 }
@@ -62,11 +70,16 @@ footer {
 }
 
 .no-source-logs {
-    font-size:16px;
+    font-size: 16px;
+}
+
+.brand-name {
+    font-size:28px;
 }
 
 .brand-label-version {
-    background-color: #d0a862 !important;
+    background-color: #D0A862 !important;
+    font-size:12px;
 }
 
 .source-logs-time {
