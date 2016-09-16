@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
             <div class="bs-component">
-                <div class="alert alert-dismissible {{getSelectedAlertLevelCss()}} color-white">
+                <div class="alert alert-dismissible color-white" style="{{getSelectedAlertLevelCss()}}">
                     <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
                     <div>
                         <i class="icon ion-ios-speedometer-outline"></i> Level :
@@ -70,13 +70,13 @@
             <tbody>
             <tr ng-repeat="input in service.sourceLogsByContainerName">
                 <td>
-                    <span class="label  {{getLevelCss(input)}}">{{getLevel(input)}}</span>
+                    <span class="label" style="{{getLevelCss(input)}}">{{getLevel(input)}}</span>
                 </td>
                 <td>
                     <div class="source-logs-time">{{getTime(input)}}</div>
                 </td>
                 <td class="width-full">
-                    <pre class="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
+                    <pre style="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
                 </td>
             </tr>
             </tbody>

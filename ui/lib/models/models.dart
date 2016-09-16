@@ -54,18 +54,18 @@ class Level {
   getRenderedValue() {
     if(quiver_strings.isEmpty(displayedValue)) {
       // TODO: Better degraded mode
-      if (log.contains(Utils.LABEL_INFO)) {
-        return Utils.LABEL_INFO;
-      } else if (log.contains(Utils.LABEL_WARNING)) {
-        return Utils.LABEL_WARNING;
-      } else if (log.contains(Utils.LABEL_ERROR)) {
-        return Utils.LABEL_ERROR;
-      } else if (log.contains(Utils.LABEL_FATAL)) {
-        return Utils.LABEL_FATAL;
-      } else if (log.contains(Utils.LABEL_DEBUG)) {
-        return Utils.LABEL_DEBUG;
-      } else if (log.contains(Utils.LABEL_TRACE)) {
-        return Utils.LABEL_TRACE;
+      if (log.contains(LConfiguration.LABEL_INFO)) {
+        return LConfiguration.LABEL_INFO;
+      } else if (log.contains(LConfiguration.LABEL_WARNING)) {
+        return LConfiguration.LABEL_WARNING;
+      } else if (log.contains(LConfiguration.LABEL_ERROR)) {
+        return LConfiguration.LABEL_ERROR;
+      } else if (log.contains(LConfiguration.LABEL_FATAL)) {
+        return LConfiguration.LABEL_FATAL;
+      } else if (log.contains(LConfiguration.LABEL_DEBUG)) {
+        return LConfiguration.LABEL_DEBUG;
+      } else if (log.contains(LConfiguration.LABEL_TRACE)) {
+        return LConfiguration.LABEL_TRACE;
       }
     }
     return displayedValue;

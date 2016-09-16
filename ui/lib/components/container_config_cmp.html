@@ -1,0 +1,85 @@
+<div class="page-content">
+
+
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8">
+        <h3> Global Settings</h3>
+        <br />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Level</h3>
+            </div>
+            <div class="panel-body">
+
+                <p>Specify the pattern to resolve the log severity. For example , if a log contains the pattern <strong>WARN</strong>,
+                    LED will display it as a <strong>WARNING</strong> message</p>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Pattern <i>(if log contains)</i> </th>
+                        <th>Color</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="levelConfig in levelConfigurations">
+                        <td class="col-md-2">
+                            <span class="label label-default">{{levelConfig.name}}</span>
+                        </td>
+                        <td class="col-md-4">
+                            <input type="text" class="form-control" ng-model="levelConfig.pattern" value="{{levelConfig.pattern}}">
+                        </td>
+                        <td class="col-md-4">
+                            <input class="form-control jscolor" ng-model="levelConfig.color" value="{{levelConfig.color}}">
+                        </td>
+                        <td class="col-md-4">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button ng-click="register()" class="btn btn-default l-float-right">Save</button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Log Format</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Container log tag</th>
+                        <th>Log Format</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="logTagFormat in getLogTagFormat">
+                        <td class="col-md-2">
+                            <span class="label label-default">{{logTagFormat.service}}</span>
+                        </td>
+                        <td class="col-md-4">
+                            <span class="label label-default">{{logTagFormat.tag}}</span>
+                        </td>
+                        <td class="col-md-4">
+                            <span class="label label-default">{{logTagFormat.format}}</span>
+                        </td>
+                        <td class="col-md-4">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-2">
+    </div>
+
+</div>

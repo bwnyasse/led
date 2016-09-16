@@ -15,32 +15,21 @@ part of fluentd_log_explorer;
 @Component(
     selector: 'container-menu-list-cmp',
     templateUrl:
-        'packages/fluentd_log_explorer/components/container_menu_list_cmp.html',
+    'packages/fluentd_log_explorer/components/container_menu_list_cmp.html',
     useShadowDom: false)
 class ContainerMenuListCmp {
   ElasticSearchService service;
+  LConfiguration configuration;
 
-  ContainerMenuListCmp(this.service);
+  ContainerMenuListCmp(this.service, this.configuration);
 
   getLevelCss(String level) {
     String css = '';
     if (level != null) {
       level = level.toUpperCase();
-      if (level.contains(Utils.LABEL_INFO)) {
-        return 'level-info-menu';
-      } else if (level.contains(Utils.LABEL_WARNING)) {
-        return 'level-warning-menu';
-      } else if (level.contains(Utils.LABEL_ERROR)) {
-        return 'level-error-menu';
-      } else if (level.contains(Utils.LABEL_DEBUG)) {
-        return 'level-debug-menu';
-      } else if (level.contains(Utils.LABEL_TRACE)) {
-        return 'level-trace-menu';
-      } else if (level.contains(Utils.LABEL_FATAL)) {
-        return 'level-fatal-menu';
-      }
-      return css;
+      css = configuration.getCssLevelMenu(level);
     }
+    return css;
   }
 
   getIndexAsLogHistory(String index) {
@@ -77,6 +66,6 @@ class ContainerMenuListCmp {
   }
 
   changeIndex() => new Future(() {
-        service.getContainersForCurrentIndex();
-      });
+    service.getContainersForCurrentIndex();
+  });
 }

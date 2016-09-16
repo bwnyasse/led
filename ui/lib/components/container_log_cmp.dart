@@ -19,8 +19,9 @@ part of fluentd_log_explorer;
     useShadowDom: false)
 class ContainerLogCmp extends ShadowRootAware {
   ElasticSearchService service;
+  LConfiguration configuration;
 
-  ContainerLogCmp(this.service);
+  ContainerLogCmp(this.service,this.configuration);
 
   displayedContainerId() => service.currentContainerId != null
       ? 'id: ' + service.currentContainerId.substring(0, 9) + '...'
@@ -33,13 +34,7 @@ class ContainerLogCmp extends ShadowRootAware {
     String css = '';
     String level = getLevel(input);
     if (quiver_strings.isNotEmpty(level)) {
-      if (level.contains(Utils.LABEL_WARNING)) {
-        return 'log-warning';
-      } else if (level.contains(Utils.LABEL_ERROR)) {
-        return 'log-error';
-      } else if (level.contains(Utils.LABEL_FATAL)) {
-        return 'log-fatal';
-      }
+      css = configuration.getCssLevelLogMessage(level);
     }
     return css;
   }
@@ -51,6 +46,7 @@ class ContainerLogCmp extends ShadowRootAware {
     if (service.hasCurrentLogLevel()) {
       String level = service.currentLogLevel.getRenderedValue().toUpperCase();
       css = _effectiveGetLevelCss(level);
+      print(css);
     }
 
     return css;
@@ -61,19 +57,7 @@ class ContainerLogCmp extends ShadowRootAware {
   _effectiveGetLevelCss(level) {
     String css = 'label-default';
     if (level != null) {
-      if (level.contains(Utils.LABEL_INFO)) {
-        return 'level-info-label';
-      } else if (level.contains(Utils.LABEL_WARNING)) {
-        return 'level-warning-label';
-      } else if (level.contains(Utils.LABEL_ERROR)) {
-        return 'level-error-label';
-      } else if (level.contains(Utils.LABEL_FATAL)) {
-        return 'level-fatal-label';
-      } else if (level.contains(Utils.LABEL_DEBUG)) {
-        return 'level-debug-label';
-      } else if (level.contains(Utils.LABEL_TRACE)) {
-        return 'level-trace-label';
-      }
+       css = configuration.getCssLevelLabel(level);
     }
     return css;
   }

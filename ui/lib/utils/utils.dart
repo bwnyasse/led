@@ -1,13 +1,7 @@
 import 'package:quiver/strings.dart' as quiver_strings;
 
 class Utils {
-  // Level contains Label
-  static String LABEL_ERROR = "ERR";
-  static String LABEL_WARNING = "WAR";
-  static String LABEL_INFO = "INFO";
-  static String LABEL_DEBUG = "DEBUG";
-  static String LABEL_TRACE = "TRACE";
-  static String LABEL_FATAL = "FATAL";
+
 
   // Regex
   static RegExp LOG_FORMAT_REGEXP_WILDFLY = new RegExp(
@@ -15,6 +9,9 @@ class Utils {
 
   static RegExp LOG_FORMAT_REGEXP_MONGO = new RegExp(
       r"^(\d{4}-\d{2}-\d{2})T?( +)?(\d{1,2}:\d{1,2}:\d{1,2}.\d{1,3})?(\+|\-)?(\d{0,4})?( +)?(I|E|F|D|W)?( +)?([\s\S]*)");
+
+  static RegExp LOG_FORMAT_REGEXP_DEFAULT = new RegExp(
+      r"^( +)?([\s\S]*)");
 
   // container Type
   static String CONTAINER_TYPE_WILDFLY = "wildfly";

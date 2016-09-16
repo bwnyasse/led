@@ -46,3 +46,6 @@ showNotieError(String message) {
 
 @JS("notie.alert")
 external String notieAlert(int styleNumber, String message, int timeInSecond);
+
+@JS("initJSC")
+external String initJSC();
