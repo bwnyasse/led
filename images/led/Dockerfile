@@ -171,12 +171,7 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 # =========== end - custom sh
 
 # ============= Server Config Directory
-RUN mkdir -p /home/led/config && \
-    mkdir -p /home/led/server && \
-    chown -R led:led/home/led/config && \
-    chown -R led:led/home/led/server
-
-ADD server/target/*swarm.jar /home/led/server/app.jar
+ADD server/target/*swarm.jar /home/led/app.jar
 
 USER led
 WORKDIR /home/led
