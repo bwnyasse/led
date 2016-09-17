@@ -33,9 +33,14 @@ before_install:
   - echo "Testing Docker Hub credentials"
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
 
+  # install maven
+  - sudo apt-get install maven
+
 before_install:
    # update UI
   - ./bin/build_ui.sh
+  # build server
+  - ./bin/build_server.sh
 
 install:
   - cd $CURRENT/images/led

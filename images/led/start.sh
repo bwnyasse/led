@@ -19,6 +19,9 @@ cat  /var/www/js/infos.js
 #== Effective start: lighttpd
 lighttpd -f /etc/lighttpd/lighttpd.conf
 
+#== Effective Start Server
+java -jar /home/led/server/app.jar -Dswarm.http.port=8081 &
+
 #== Effective start: ElasticSearch
 /bin/sh /opt/elasticsearch/bin/elasticsearch &
 
