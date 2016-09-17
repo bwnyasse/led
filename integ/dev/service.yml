@@ -34,18 +34,18 @@ services:
     #     - /etc/timezone:/etc/timezone:ro
 
     # Custom
-    custom-container:
-      build:
-        context: ./custom
-      container_name: custom_container
-      logging:
-        driver: fluentd
-        options:
-          tag: "default.docker.{{.Name }}"
-          fluentd-address: localhost:24224
-      volumes:
-        - /etc/localtime:/etc/localtime:ro
-        - /etc/timezone:/etc/timezone:ro
+    # custom-container:
+    #   build:
+    #     context: ./custom
+    #   container_name: custom_container
+    #   logging:
+    #     driver: fluentd
+    #     options:
+    #       tag: "default.docker.{{.Name }}"
+    #       fluentd-address: localhost:24224
+    #   volumes:
+    #     - /etc/localtime:/etc/localtime:ro
+    #     - /etc/timezone:/etc/timezone:ro
 
     # Mongo Db Instance
     mongodb:
