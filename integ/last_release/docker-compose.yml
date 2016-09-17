@@ -3,13 +3,15 @@ services:
 
     # Basic LED
     led:
-      image: bwnyasse/fluentd-led:0.3.0
+      image: bwnyasse/led
       container_name: led
       ports:
         - 24224:24224
         - 8080:8080
+        - 7777:8081
         - 9200:9200
       volumes:
+        - $PWD:/home/led
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
 

@@ -8,9 +8,6 @@ ARG version
 # ENV http_proxy ${proxy}
 # ENV https_proxy ${proxy}
 
-RUN adduser -D -g sudo -u 1000 -h /home/led led && \
-    chown -R led:led /home/led
-
 #==================================================================================
 #==================================================================================
 # ============ Fluentd SETUP
@@ -39,17 +36,13 @@ RUN apk --no-cache --update add \
 RUN mkdir -p /fluentd/log && \
 
     # configuration/plugins path (default: copied from .)
-    mkdir -p /fluentd/etc /fluentd/plugins && \
+    mkdir -p /fluentd/etc /fluentd/plugins
 
-    chown -R led:led /fluentd
-
-USER led
-WORKDIR /home/led
 
 # Tell ruby to install packages as user
 RUN echo "gem: --user-install --no-document" >> ~/.gemrc
-ENV PATH /home/led/.gem/ruby/2.3.0/bin:$PATH
-ENV GEM_PATH /home/led/.gem/ruby/2.3.0:$GEM_PATH
+ENV PATH /root/.gem/ruby/2.3.0/bin:$PATH
+ENV GEM_PATH /root/.gem/ruby/2.3.0:$GEM_PATH
 
 ENV FLUENTD_OPT=""
 ENV FLUENTD_CONF="fluent.conf"
@@ -78,13 +71,11 @@ EXPOSE 24224 5140
 
 # ============== Inspiring from https://github.com/joschi/docker-alpine-elasticsearch/blob/master/Dockerfile
 
-USER root
 
 ENV ELASTICSEARCH_MAJOR 2.3
 ENV ELASTICSEARCH_VERSION 2.3.5
 ENV ELASTICSEARCH_URL_BASE https://download.elasticsearch.org/elasticsearch/elasticsearch
 ENV PATH /opt/elasticsearch/bin:$PATH
-
 
 
 RUN set -ex \
@@ -105,10 +96,9 @@ RUN set -ex \
 		/opt/elasticsearch/data \
 		/opt/elasticsearch/logs \
 		/opt/elasticsearch/config \
-		/opt/elasticsearch/config/scripts; do mkdir -p "$path"; done \
+		/opt/elasticsearch/config/scripts; do mkdir -p "$path"; done
 	# && addgroup elasticsearch \
 	# && adduser -D -G elasticsearch -h /opt/elasticsearch elasticsearch \
-	&& chown -R led:led /opt/elasticsearch
 
 COPY es/config /opt/elasticsearch/config
 
@@ -121,29 +111,49 @@ EXPOSE 9200 9300
 # ============ ElasticSearch DUMP SETUP
 #==================================================================================
 #==================================================================================
-RUN apk add --update nodejs && rm -rf /var/cache/apk/*
-RUN npm install --global --production --no-optional elasticdump@$ELASTICSEARCH_DUMP_VERSION
+RUN apk add --update nodejs
 
 #==================================================================================
 #==================================================================================
 # ============ lighttpd SETUP
 #==================================================================================
 #==================================================================================
-RUN apk add --update \
-    lighttpd \
-  && rm -rf /var/cache/apk/*
+# RUN apk add --update \
+#     lighttpd \
+#   && rm -rf /var/cache/apk/*
+#
+# RUN adduser www-data -G www-data -H -s /bin/false -D
+#
+# USER led
+# ADD www /var/www/
+# USER root
+#
+# RUN chown -R led:led /var/www/
+#
+# COPY lighttpd/lighttpd.conf /etc/lighttpd/
+#
+# EXPOSE 8080
 
-RUN adduser www-data -G www-data -H -s /bin/false -D
+#==================================================================================
+#==================================================================================
+# ============ NGINX SETUP
+#==================================================================================
+#==================================================================================
+# Install nginx
+RUN apk add --update nginx && \
+    rm -rf /var/cache/apk/* && \
+    adduser www-data -G www-data -H -s /bin/false -D && \
+    chown -R www-data:www-data /var/lib/nginx
 
-USER led
 ADD www /var/www/
-USER root
 
-RUN chown -R led:led /var/www/
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/includes/ /etc/nginx/includes/
+COPY nginx/404.html /var/www/
 
-COPY lighttpd/lighttpd.conf /etc/lighttpd/
-
-EXPOSE 8080
+# Expose the ports for nginx
+EXPOSE 8080 443
 
 #==================================================================================
 #==================================================================================
@@ -172,9 +182,6 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 
 # ============= Server Config Directory
 ADD server/target/*swarm.jar /home/led/app.jar
-
-USER led
-WORKDIR /home/led
 
 ENTRYPOINT ["/start.sh" ]
 CMD [""]

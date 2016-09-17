@@ -16,14 +16,17 @@ echo "Starting ... "
 cat  /var/www/js/env.js
 cat  /var/www/js/infos.js
 
+#== Effective start: nginx
+/bin/sh -c nginx -g daemon off;
+
 #== Effective start: lighttpd
-lighttpd -f /etc/lighttpd/lighttpd.conf
+#lighttpd -f /etc/lighttpd/lighttpd.conf
 
 #== Effective Start Server
-java -jar /home/led/app.jar -Dswarm.http.port=8081 &
+java -jar /home/led/app.jar -Dswarm.bind.address=127.0.0.1 -Dswarm.http.port=7777 &
 
 #== Effective start: ElasticSearch
-/bin/sh /opt/elasticsearch/bin/elasticsearch &
+/bin/sh /opt/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true &
 
   #== Effective start: fluentd
   fluentd -c /fluentd/etc/fluent.conf -p /fluentd/plugins $FLUENTD_OPT

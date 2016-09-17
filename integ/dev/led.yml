@@ -13,8 +13,10 @@ services:
       container_name: led
       ports:
         - 24224:24224
+        - 8082:8082
         - 8080:8080
-        - 9200:9200
+        - 7777:7777
+        # - 9200:9200
       volumes:
         - /etc/localtime:/etc/localtime:ro
         - /etc/timezone:/etc/timezone:ro
