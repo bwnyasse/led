@@ -46,7 +46,6 @@ class ContainerLogCmp extends ShadowRootAware {
     if (service.hasCurrentLogLevel()) {
       String level = service.currentLogLevel.getRenderedValue().toUpperCase();
       css = _effectiveGetLevelCss(level);
-      print(css);
     }
 
     return css;

@@ -41,7 +41,11 @@
                     </tr>
                     </tbody>
                 </table>
-                <button ng-click="register()" class="btn btn-default l-float-right">Save</button>
+                <div class="l-float-right">
+                    <a  ng-click="register()" class="btn btn-default">Save</a>
+                    <a  ng-click="restore()"  class="btn btn-danger">Reset to default</a>
+                </div>
+
             </div>
         </div>
 

@@ -32,5 +32,7 @@ class ContainerConfigCmp extends ShadowRootAware {
     jsinterop.initJSC();
   }
 
-  register() => print(levelConfigurations.toString());
+  register() =>  configuration.saveLevelConfig(levelConfigurations);
+  restore() =>  configuration.reloadDefaultLevelConfig();
+
 }

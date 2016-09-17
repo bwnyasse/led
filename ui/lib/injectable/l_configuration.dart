@@ -14,7 +14,9 @@
 part of fluentd_log_explorer;
 
 @Injectable()
-class LConfiguration {
+class LConfiguration extends AbstractRestService {
+
+  static String CONFIG_REST_URL = "http://localhost:8080/server/_api/configuration";
 
   // Default Manage Level contains Label
   static String LABEL_ERROR = "ERROR";
@@ -24,56 +26,93 @@ class LConfiguration {
   static String LABEL_TRACE = "TRACE";
   static String LABEL_FATAL = "FATAL";
 
+  List logTagFormat = [];
+  List levelsLogMessageConfiguration = [];
+  List levelsConfiguration = [];
 
-  List getLogTagFormat() {
-    List logTagFormat = [];
+  LConfiguration(){
+    loadLevelConfig();
+    //
     logTagFormat.add(new LogTagFormat(service:"Wildfly / Wildfly Swarm",tag:"wildfly.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_WILDFLY.pattern));
     logTagFormat.add(new LogTagFormat(service:"MongoDB",tag:"mongo.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_MONGO.pattern));
     logTagFormat.add(new LogTagFormat(service:"*",tag:"default.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_DEFAULT.pattern));
-    return logTagFormat;
+
   }
 
-  List getLevelsLogMessageConfiguration() {
-    List levelsConfiguration = [];
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'ERROR', pattern: LABEL_ERROR, color: '#D9534F'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'WARNING', pattern: LABEL_WARNING, color: '#F0AD4E'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'FATAL', pattern: LABEL_FATAL, color: '#973A37'));
-    return levelsConfiguration;
+  reloadDefaultLevelConfig() async {
+    _get(CONFIG_REST_URL + '/default').then((response) {
+      _updateLevelConfig(response.responseText);
+    });
   }
 
-  List getLevelsConfiguration() {
-    List levelsConfiguration = [];
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'ERROR', pattern: LABEL_ERROR, color: '#D9534F'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'WARNING', pattern: LABEL_WARNING, color: '#F0AD4E'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'INFO', pattern: LABEL_INFO, color: '#5BC0DE'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'DEBUG', pattern: LABEL_DEBUG, color: '#6DD4C0'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'TRACE', pattern: LABEL_TRACE, color: '#FAE6C9'));
-    levelsConfiguration.add(new LevelConfiguration(
-        name: 'FATAL', pattern: LABEL_FATAL, color: '#973A37'));
-    return levelsConfiguration;
+  loadLevelConfig() async {
+    _get(CONFIG_REST_URL).then((response) {
+      _updateLevelConfig(response.responseText);
+    });
   }
+
+  saveLevelConfig(List levelConfigurationsToSave) async {
+    Map json = new Map();
+    List levelsToSave = [];
+    levelConfigurationsToSave.forEach((level) =>levelsToSave.add(level.toJson()));
+    json['levels'] = levelsToSave;
+
+    _post(CONFIG_REST_URL,sendData: JSON.encode(json)).then((response) {
+      _updateLevelConfig(response.responseText);
+    });
+  }
+
+  _updateLevelConfig(var responseText) async {
+    levelsLogMessageConfiguration.clear();
+    levelsConfiguration.clear();
+
+    Map jsonResponse = JSON.decode(responseText);
+    List levels= jsonResponse['levels'];
+    levels.forEach((json) {
+      LevelConfiguration level = new LevelConfiguration.fromJson(json);
+      levelsConfiguration.add(level);
+      print(level.loggify);
+      if(level.loggify){
+        levelsLogMessageConfiguration.add(level);
+      }
+    });
+
+    jsinterop.initJSC();
+  }
+
+  List getLogTagFormat() => logTagFormat;
+
+  List getLevelsLogMessageConfiguration() => levelsLogMessageConfiguration;
+
+  List getLevelsConfiguration() =>  levelsConfiguration;
 
   String getCssLevelLogMessage(String level){
-    LevelConfiguration levelConfiguration = getLevelsLogMessageConfiguration().firstWhere((config) => level.contains(config.pattern));
-    return _getInlineCssLevelLogMessage(levelConfiguration.color);
+    List where = getLevelsLogMessageConfiguration().where((config) => level.contains(config.pattern));
+    if(where.isNotEmpty){
+      LevelConfiguration levelConfiguration = where.elementAt(0);
+      return levelConfiguration!=null ? _getInlineCssLevelLogMessage(_sanitizeColor(levelConfiguration.color)) : "";
+    }
+    return "";
+
   }
 
   String getCssLevelLabel(String level){
-    LevelConfiguration levelConfiguration = getLevelsConfiguration().firstWhere((config) => level.contains(config.pattern));
-    return _getInlineCssLevelLabel(levelConfiguration.color);
+    List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
+    if(where.isNotEmpty){
+      LevelConfiguration levelConfiguration =  where.elementAt(0);
+      return  levelConfiguration!=null ?  _getInlineCssLevelLabel(_sanitizeColor(levelConfiguration.color)): "";
+    }
+    return "";
+
   }
 
   String getCssLevelMenu(String level){
-    LevelConfiguration levelConfiguration = getLevelsConfiguration().firstWhere((config) => level.contains(config.pattern));
-    return _getInlineCssLevelMenu(levelConfiguration.color);
+    List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
+    if(where.isNotEmpty){
+      LevelConfiguration levelConfiguration =  where.elementAt(0);
+      return  levelConfiguration!=null ?  _getInlineCssLevelMenu(_sanitizeColor(levelConfiguration.color)): "";
+    }
+    return "";
   }
 
   _getInlineCssLevelMenu(String color) => '''
@@ -91,16 +130,33 @@ class LConfiguration {
     border: 1px solid;
   ''';
 
+  _sanitizeColor(String color) => color.contains('#') ? color : "#" + color;
 }
 
 class LevelConfiguration {
   String name;
   String pattern;
   String color;
+  bool loggify;
 
   LevelConfiguration({this.name, this.pattern, this.color});
+  LevelConfiguration.fromJson(Map json):
+      this.name= json['name'],
+      this.pattern= json['pattern'],
+      this.color= json['color'],
+      this.loggify= json['loggify'] == 'true';
 
-  toString() => " $name - $pattern - $color";
+
+  toJson() {
+    Map json = new Map();
+    json['name']= name;
+    json['pattern']= pattern;
+    json['color']= color;
+    json['loggify'] = loggify.toString();
+    return json;
+  }
+
+  toString() => " $name - $pattern - $color - $loggify";
 }
 
 class LogTagFormat {

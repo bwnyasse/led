@@ -16,7 +16,8 @@ part of fluentd_log_explorer;
 class ElasticSearchService extends AbstractRestService {
   static String ES_HOST = jsinterop.ES_SERVER_HOST_ADDRESS;
   static String ES_PORT = jsinterop.ES_PORT;
-  static String ES_URL = "http://$ES_HOST:$ES_PORT/";
+  //static String ES_URL = window.location.origin +"/es/";
+  static String ES_URL = "http://localhost:8080/es/";
   static String ES_TYPE = "fluentd";
 
   static String SEARCH_PREFIX = "/_search?pretty=true";
@@ -43,6 +44,7 @@ class ElasticSearchService extends AbstractRestService {
   Set<Input> sourceLogsByContainerName = new Set();
 
   ElasticSearchService() {
+    print(window.location.origin);
     _pingES();
     getIndexes();
   }

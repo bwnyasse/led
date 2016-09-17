@@ -181,7 +181,8 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 # =========== end - custom sh
 
 # ============= Server Config Directory
-ADD server/target/*swarm.jar /home/led/app.jar
+ADD server/conf /opt/led/conf/
+ADD server/target/*swarm.jar /opt/led/app.jar
 
 ENTRYPOINT ["/start.sh" ]
 CMD [""]

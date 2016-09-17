@@ -27,7 +27,7 @@ abstract class AbstractRestService {
     if (sendData == null) {
       httpRequest = HttpRequest.request(url, method: m);
     } else {
-      httpRequest = HttpRequest.request(url, method: m, sendData: sendData);
+      httpRequest = HttpRequest.request(url, method: m, sendData: sendData,requestHeaders: addContentTypeHeadersAsJson());
     }
 
     _addHttpRequestCatchError(httpRequest);

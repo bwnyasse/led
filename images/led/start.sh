@@ -23,7 +23,7 @@ cat  /var/www/js/infos.js
 #lighttpd -f /etc/lighttpd/lighttpd.conf
 
 #== Effective Start Server
-java -jar /home/led/app.jar -Dswarm.bind.address=127.0.0.1 -Dswarm.http.port=7777 &
+java -jar /opt/led/app.jar -Dswarm.bind.address=127.0.0.1 -Dswarm.http.port=7777 &
 
 #== Effective start: ElasticSearch
 /bin/sh /opt/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true &

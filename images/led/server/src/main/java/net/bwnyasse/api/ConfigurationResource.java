@@ -19,7 +19,7 @@ import net.bwnyasse.domain.GlobalConfiguration;
 @Path("/configuration")
 public class ConfigurationResource {
 
-	private static String DIR = "/home/led/";
+	private static String DIR = "/opt/led/conf/";
 
 	private static String DEFAULT_CONF_FILE = "config-default.json";
 	private static String CONF_FILE = "config.json";
@@ -27,7 +27,11 @@ public class ConfigurationResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public GlobalConfiguration config() throws Exception {
-		return new ObjectMapper().readValue(new File(DIR, CONF_FILE), GlobalConfiguration.class);
+		File file = new File(DIR, CONF_FILE);
+		if (!file.exists()) {
+			file = new File(DIR, DEFAULT_CONF_FILE);
+		}
+		return new ObjectMapper().readValue(file, GlobalConfiguration.class);
 	}
 
 	@GET

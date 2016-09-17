@@ -1,0 +1,40 @@
+{
+  "levels": [
+    {
+      "name": "TRACE",
+      "pattern": "TRACE",
+      "color": "#FAE6C9",
+      "loggify": "false"
+    },
+    {
+      "name": "INFO",
+      "pattern": "INFO",
+      "color": "#5BC0DE",
+      "loggify": "false"
+    },
+    {
+      "name": "DEBUG",
+      "pattern": "DEBUG",
+      "color": "#6DD4C0",
+      "loggify": "false"
+    },
+    {
+      "name": "WARNING",
+      "pattern": "WARN",
+      "color": "#F0AD4E",
+      "loggify": "true"
+    },
+    {
+      "name": "ERROR",
+      "pattern": "ERROR",
+      "color": "#D9534F",
+      "loggify": "true"
+    },
+    {
+      "name": "FATAL",
+      "pattern": "FATAL",
+      "color": "#973A37",
+      "loggify": "true"
+    }
+  ]
+}
