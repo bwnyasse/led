@@ -170,7 +170,13 @@ COPY ./start.sh /
 RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 # =========== end - custom sh
 
+# ============= Server Config Directory
+RUN mkdir -p /home/led/config && \
+
+    chown -R led:led/home/led/config
+
 USER led
 WORKDIR /home/led
+
 ENTRYPOINT ["/start.sh" ]
 CMD [""]
