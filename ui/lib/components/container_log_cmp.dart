@@ -73,8 +73,6 @@ class ContainerLogCmp extends ShadowRootAware {
     return strictDate.format(date).toString();
   }
 
-  getOutput(Input input) => input.source;
-
   getContainerNameAndId(Input input) =>
       input.container_name + " id:" + input.container_id;
 
@@ -86,10 +84,6 @@ class ContainerLogCmp extends ShadowRootAware {
       var strictDate = new DateFormat('HH:mm:ss');
       return "Since " + strictDate.format(date).toString();
     }
-  }
-
-  launchFilter() {
-    handler(null);
   }
 
   @override
