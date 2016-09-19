@@ -184,5 +184,7 @@ RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 ADD server/conf /opt/led/conf/
 ADD server/target/*swarm.jar /opt/led/app.jar
 
+VOLUME /opt/led/conf/
+
 ENTRYPOINT ["/start.sh" ]
 CMD [""]
