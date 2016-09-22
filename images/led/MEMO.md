@@ -113,3 +113,12 @@ docker run -d \
         --log-driver=fluentd \
         --log-opt tag="wildfly.docker.{{.Name}}" \
         jboss/wildfly:10.0.0.Final
+
+## Copy Index
+for i in {10..22}
+do
+  elasticdump \
+    --input=http://localhost:9200/fluentd-2016.09.23 \
+    --output=http://localhost:9200/fluentd-2016.09.$i \
+    --type=data
+done

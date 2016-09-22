@@ -111,7 +111,21 @@ EXPOSE 9200 9300
 # ============ ElasticSearch DUMP SETUP
 #==================================================================================
 #==================================================================================
-RUN apk add --update nodejs
+RUN apk add --update nodejs \
+    && rm -rf /var/cache/apk/* \
+    && npm install --global --production --no-optional elasticdump@$ELASTICSEARCH_DUMP_VERSION
+
+#==================================================================================
+#==================================================================================
+# ============ ElasticSearch Curator SETUP
+#==================================================================================
+#==================================================================================
+RUN apk add --update nodejs \
+  && apk add py-pip \
+  && pip install elasticsearch-curator==3.5.1
+
+COPY ./es/curator.sh /
+RUN sed -i 's/\r$//' /curator.sh && chmod +x /curator.sh
 
 #==================================================================================
 #==================================================================================
@@ -172,12 +186,13 @@ ENTRYPOINT [
 # ============ start - custom sh
 COPY ./env.sh /
 COPY ./infos.sh /
-
-RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh
-RUN sed -i 's/\r$//' /infos.sh && chmod +x /infos.sh
-
+COPY ./logger.sh /
 COPY ./start.sh /
-RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
+
+RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh \
+ && sed -i 's/\r$//' /infos.sh && chmod +x /infos.sh \
+ && sed -i 's/\r$//' /logger.sh && chmod +x /logger.sh \
+ && sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 # =========== end - custom sh
 
 # ============= Server Config Directory

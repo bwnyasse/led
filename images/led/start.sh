@@ -4,9 +4,12 @@
 #description     :This script is used as entry point for the container
 #author		       :bwnyasse
 #==================================================================================================#
+
+source logger.sh
+
 set -e
 
-echo "Starting ... "
+inf "Starting LED... "
 
 #== Generate the.js file from the GUI
 /bin/sh /env.sh > /var/www/js/env.js
@@ -15,6 +18,14 @@ echo "Starting ... "
 #== Uncomment this line to display env to stdout
 cat  /var/www/js/env.js
 cat  /var/www/js/infos.js
+
+#== Install Cron for elastic Curator ( run it every day at midnight )
+LOGFIFO='/var/log/cron.fifo'
+if [[ ! -e "$LOGFIFO" ]]; then
+    mkfifo "$LOGFIFO"
+fi
+echo -e "00 00 * * * /curator.sh > $LOGFIFO 2>&1" | crontab -
+crond
 
 #== Effective start: nginx
 /bin/sh -c nginx -g daemon off;
