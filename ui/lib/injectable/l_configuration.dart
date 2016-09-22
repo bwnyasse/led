@@ -116,20 +116,20 @@ class LConfiguration extends AbstractRestService {
     return "";
   }
 
-  _getInlineCssLevelMenu(String color) => '''
-    border-left: 7px solid $color;
-    text-transform: uppercase;
-  ''';
+  _getInlineCssLevelMenu(String color) => '''{
+    'border-left': '7px solid $color',
+    'text-transform': 'uppercase'
+    }''';
 
-  _getInlineCssLevelLabel(String color) => '''
-     background-color: $color;
-  ''';
+  _getInlineCssLevelLabel(String color) => '''{
+     'background-color': '$color'
+   }''';
 
-  _getInlineCssLevelLogMessage(String color) => '''
-    color: $color;
-    font-weight: bold;
-    border: 1px solid;
-  ''';
+  _getInlineCssLevelLogMessage(String color) => '''{
+    'color': '$color',
+    'font-weight': 'bold',
+    'border': '1px solid'
+  }''';
 
   _sanitizeColor(String color) => color.contains('#') ? color : "#" + color;
 }
