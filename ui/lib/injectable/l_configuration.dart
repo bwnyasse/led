@@ -16,8 +16,8 @@ part of fluentd_log_explorer;
 @Injectable()
 class LConfiguration extends AbstractRestService {
 
-  //static String CONFIG_REST_URL = "http://localhost:8080/server/_api/configuration";
-  static String CONFIG_REST_URL = window.location.origin +"/server/_api/configuration";
+  static String CONFIG_REST_URL = "http://localhost:8080/server/_api/configuration";
+  //static String CONFIG_REST_URL = window.location.origin +"/server/_api/configuration";
 
   // Default Manage Level contains Label
   static String LABEL_ERROR = "ERROR";
@@ -91,7 +91,7 @@ class LConfiguration extends AbstractRestService {
     List where = getLevelsLogMessageConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration = where.elementAt(0);
-      return levelConfiguration!=null ? _getInlineCssLevelLogMessage(_sanitizeColor(levelConfiguration.color)) : "";
+      return levelConfiguration!=null ? _getInlineCssLevelLogMessage(levelConfiguration.color) : "";
     }
     return "";
 
@@ -101,7 +101,7 @@ class LConfiguration extends AbstractRestService {
     List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration =  where.elementAt(0);
-      return  levelConfiguration!=null ?  _getInlineCssLevelLabel(_sanitizeColor(levelConfiguration.color)): "";
+      return  levelConfiguration!=null ?  _getInlineCssLevelLabel(levelConfiguration.color): "";
     }
     return "";
 
@@ -111,7 +111,7 @@ class LConfiguration extends AbstractRestService {
     List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration =  where.elementAt(0);
-      return  levelConfiguration!=null ?  _getInlineCssLevelMenu(_sanitizeColor(levelConfiguration.color)): "";
+      return  levelConfiguration!=null ?  _getInlineCssLevelMenu(levelConfiguration.color): "";
     }
     return "";
   }
@@ -119,11 +119,11 @@ class LConfiguration extends AbstractRestService {
   _getInlineCssLevelMenu(String color) => '''{
     'border-left': '7px solid $color',
     'text-transform': 'uppercase'
-    }''';
+  }''';
 
   _getInlineCssLevelLabel(String color) => '''{
-     'background-color': '$color'
-   }''';
+    'background-color': '$color'
+  }''';
 
   _getInlineCssLevelLogMessage(String color) => '''{
     'color': '$color',
@@ -131,7 +131,6 @@ class LConfiguration extends AbstractRestService {
     'border': '1px solid'
   }''';
 
-  _sanitizeColor(String color) => color.contains('#') ? color : "#" + color;
 }
 
 class LevelConfiguration {
@@ -152,7 +151,8 @@ class LevelConfiguration {
     Map json = new Map();
     json['name']= name;
     json['pattern']= pattern;
-    json['color']= color;
+    String sanitizeColor = color.replaceAll("#","");
+    json['color']= "#" + sanitizeColor;
     json['loggify'] = loggify.toString();
     return json;
   }
