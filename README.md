@@ -11,7 +11,7 @@ LED wants to keep everything as simple as possible. **But it is in very early st
 
 The following picture shows you a quick look of a running LED instance.
 
-![](doc/current_5.png?raw=true)
+![](doc/current_v0.4.png?raw=true)
 
 LED is designed for microservice architecture builds with [docker](https://www.docker.com/).
 

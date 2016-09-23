@@ -7,9 +7,9 @@ services:
 
     # Basic LED
     led:
-      #image: bwnyasse/led
-      build:
-        context: ../../images/led
+      image: bwnyasse/led
+      # build:
+      #   context: ../../images/led
       container_name: led
       ports:
         - 24224:24224
