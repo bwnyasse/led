@@ -114,11 +114,11 @@ Use the settings page, to modify the level color. The following picture give you
 The following table show you fluent tag requires by LED to match service and if the log level is displayed or not
 
 
-  | Service     |    Log Tag                    |  Display Log Level |
-  | ------------|-------------------------------|--------------------|
-  | wildfly     |    wildfly.docker.{{.Name }}  |      true          |
-  | MongoDB     |    mongo.docker.{{.Name }}    |      true          |
-  |   *         |    default.docker.{{.Name }}  |      false         |   
+| Service     |    Log Tag                    |  Display Log Level |
+| ------------|-------------------------------|--------------------|
+| wildfly     |    wildfly.docker.{{.Name }}  |      true          |
+| MongoDB     |    mongo.docker.{{.Name }}    |      true          |
+|   *         |    default.docker.{{.Name }}  |      false         |   
 
 Connecting wildlfy as follow :
 
