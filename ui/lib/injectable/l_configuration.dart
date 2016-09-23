@@ -16,8 +16,8 @@ part of fluentd_log_explorer;
 @Injectable()
 class LConfiguration extends AbstractRestService {
 
-  static String CONFIG_REST_URL = "http://localhost:8080/server/_api/configuration";
-  //static String CONFIG_REST_URL = window.location.origin +"/server/_api/configuration";
+  //static String CONFIG_REST_URL = "http://localhost:8080/server/_api/configuration";
+  static String CONFIG_REST_URL = window.location.origin +"/server/_api/configuration";
 
   // Default Manage Level contains Label
   static String LABEL_ERROR = "ERROR";

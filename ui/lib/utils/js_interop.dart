@@ -8,7 +8,7 @@ import 'package:quiver/strings.dart' as quiver_strings;
 ////////////////////////// Call -> [env.js] /////////////////////////////////////
 var APP_NAME =
     quiver_strings.isEmpty(js.context['env']['APP_NAME'])
-        ? 'Fluentd'
+        ? ''
         : js.context['env']['APP_NAME'];
 var ES_SERVER_HOST_ADDRESS =
     quiver_strings.isEmpty(js.context['env']['ES_SERVER_HOST_ADDRESS'])
@@ -24,7 +24,7 @@ var ES_INDEX = quiver_strings.isEmpty(js.context['env']['ES_INDEX'])
 ////////////////////////// Call -> [infos.js] /////////////////////////////////////
 var APP_VERSION =
 quiver_strings.isEmpty(js.context['infos']['APP_VERSION'])
-    ? 'local-dev'
+    ? 'development'
     : js.context['infos']['APP_VERSION'];
 
 
