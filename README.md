@@ -141,4 +141,4 @@ Connecting MongoDB as follow :
         mongo:3.2.8
 
 
-## More to come ... ( see [issues](https://github.com/bwnyasse/fluentd-led/issues) ) :
+## More to come ... ( see [issues](https://github.com/bwnyasse/led/issues) ) :
