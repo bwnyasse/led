@@ -16,11 +16,11 @@ The following picture shows you a quick look of a running LED instance.
 LED is designed for microservice architecture builds with [docker](https://www.docker.com/).
 
 If you are already familiar with [elastic stack](https://www.elastic.co/fr/webinars/introduction-elk-stack),
-LED **setup** will be very easy for you.
+LED **understanding** will be very easy for you.
 
 ### Logging Driver
 
-LED assumes that you are using the [fluentd](http://www.fluentd.org/) logging driver to send container logs to the Fluentd collector as structured log data.
+LED assumes that you are using [docker logging driver](https://docs.docker.com/engine/admin/logging/fluentd/) to send container logs to the [Fluentd](http://www.fluentd.org/) collector as structured log data.
 
 
 ## How to use it ?
@@ -29,12 +29,11 @@ LED assumes that you are using the [fluentd](http://www.fluentd.org/) logging dr
 
 LED requires the following ports to be published:
 
- - **8080** : used by the hosted web server to serves led ui
+ - **8080** : used by the hosted web server to serves led
  - **24224**: default port used by fluentd for TCP forwarding
- - **9200** : used by internal instance of elasticsearch
 
 <pre>
- docker run -d -p 8080:8080 -p 24224:24224 -p 9200:9200 bwnyasse/fluentd-led:0.3.0
+ docker run -d -p 8080:8080 -p 24224:24224 bwnyasse/led:0.4.0
 </pre>
 
 *Navigate to localhost:8080 to see a basic running instance of LED.*
@@ -54,7 +53,6 @@ The following command will connect the docker hello-world container to LED.  ( S
 **That's it !!**
 
 
-
 ## Important : Setting the Timezone in a Docker image
 
 Time in your running container may be out of sync with your host and can cause you troubles when exploring your logs.  
@@ -67,10 +65,9 @@ Launching led as follow :
           -v /etc/timezone:/etc/timezone:ro \
           -p 8080:8080 \
           -p 24224:24224 \
-          -p 9200:9200 \
-          bwnyasse/fluentd-led:0.3.0
+          bwnyasse/led:0.4.0
 
-Connecting a mysql as follow :
+Connecting a mysql database as follow :
 
     docker run -d \
         -v /etc/localtime:/etc/localtime:ro \
@@ -80,6 +77,32 @@ Connecting a mysql as follow :
         --log-driver=fluentd \
         --log-opt tag="default.docker.{{.Name}}" \
         mysql
+
+##  Customize your running instance of LED
+
+##### - Using Environment variables
+
+| Name          |            Description                  |
+| ------------- |-----------------------------------------|
+| APP_NAME      |   Use to customize application name     |  
+
+
+**Example:**
+
+    docker run -d \
+          -v /etc/localtime:/etc/localtime:ro \
+          -v /etc/timezone:/etc/timezone:ro \
+          -p 8080:8080 \
+          -p 24224:24224 \
+          -e APP_NAME=Wolverine
+          bwnyasse/led
+
+
+##### - Level color
+
+Use the settings page, to modify the level color. The following picture give you a quick look of current available level Configuration
+
+![](doc/settings_1.png?raw=true)
 
 ##  Manage Tag option
 
@@ -91,11 +114,11 @@ Connecting a mysql as follow :
 The following table show you fluent tag requires by LED to match service and if the log level is displayed or not
 
 
-        | Service       |            Fluentd Tag                  |         Display Log Level        |
-        | ------------- |-----------------------------------------|----------------------------------|
-        | wildfly       |    wildfly.docker.{{.Name }}            |            true                  |
-        | MongoDB       |    mongo.docker.{{.Name }}              |            true                  |
-        |   *           |    default.docker.{{.Name }}            |            false                 |   
+  | Service     |    Log Tag                    |  Display Log Level |
+  | ------------|-------------------------------|--------------------|
+  | wildfly     |    wildfly.docker.{{.Name }}  |      true          |
+  | MongoDB     |    mongo.docker.{{.Name }}    |      true          |
+  |   *         |    default.docker.{{.Name }}  |      false         |   
 
 Connecting wildlfy as follow :
 
