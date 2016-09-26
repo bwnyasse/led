@@ -33,7 +33,7 @@ LED requires the following ports to be published:
  - **24224**: default port used by fluentd for TCP forwarding
 
 <pre>
- docker run -d -p 8080:8080 -p 24224:24224 bwnyasse/led:0.4.0
+ docker run -d -p 8080:8080 -p 24224:24224 bwnyasse/led:0.5.0
 </pre>
 
 *Navigate to localhost:8080 to see a basic running instance of LED.*
@@ -65,7 +65,7 @@ Launching led as follow :
           -v /etc/timezone:/etc/timezone:ro \
           -p 8080:8080 \
           -p 24224:24224 \
-          bwnyasse/led:0.4.0
+          bwnyasse/led:0.5.0
 
 Connecting a mysql database as follow :
 
@@ -104,7 +104,7 @@ Assuming LED , that we have the following requirements:
           -e APP_NAME=Wolverine \
           -e APP_CONTEXT_URL=MY_HOST:MY_PORT \
           -e ES_CURATOR_SCHEDULE=*/5 * * * * 
-          bwnyasse/led
+          bwnyasse/led:0.5.0
 </pre>
 
 ##### - Level color
