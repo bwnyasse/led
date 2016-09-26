@@ -82,19 +82,28 @@ Connecting a mysql database as follow :
 
 ##### - Using Environment variables
 
-| Name          |            Description                  |
-| ------------- |-----------------------------------------|
-| APP_NAME      |   Use to customize application name     |  
-
+| Name                |        Description                  | Default Value             |
+| --------------------|-------------------------------------|---------------------------|
+| APP_NAME            |  Customize application name         |                           |
+| APP_CONTEXT_URL     |  Define application context url. For example if you are running under a reverse proxy, we must give the right app url (host:port)   |                           |
+| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \*
+( midnight)|
 
 **Example:**
+
+Assuming LED , that we have the following requirements:
+- Wolverine as Application Name
+- LED will run under a reverse proxy and will be available to MY_HOST:MY_PORT
+- We want to trigger elastic search curation every 5 minutes
 
     docker run -d \
           -v /etc/localtime:/etc/localtime:ro \
           -v /etc/timezone:/etc/timezone:ro \
           -p 8080:8080 \
           -p 24224:24224 \
-          -e APP_NAME=Wolverine
+          -e APP_NAME=Wolverine \
+          -e APP_CONTEXT_URL=MY_HOST:MY_PORT \
+          -e ES_CURATOR_SCHEDULE=*/5 * * * * 
           bwnyasse/led
 
 
