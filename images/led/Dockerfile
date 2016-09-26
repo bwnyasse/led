@@ -194,7 +194,7 @@ RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh \
  && sed -i 's/\r$//' /infos.sh && chmod +x /infos.sh \
  && sed -i 's/\r$//' /logger.sh && chmod +x /logger.sh \
  && sed -i 's/\r$//' /healthcheck.sh && chmod +x /healthcheck.sh \
- && sed -i 's/\r$//' /start.sh && chmod +x /start.sh 
+ && sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 # =========== end - custom sh
 
 # ============= Server Config Directory

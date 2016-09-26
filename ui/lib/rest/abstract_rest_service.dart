@@ -13,6 +13,9 @@
 part of fluentd_log_explorer;
 
 abstract class AbstractRestService {
+
+  static String CONTEXT_URL =  quiver_strings.isEmpty(jsinterop.APP_CONTEXT_URL)? window.location.origin : jsinterop.APP_CONTEXT_URL;
+
   Future<HttpRequest> _get(String url) async => _performServerCall(url, 'GET');
 
   Future<HttpRequest> _head(String url) async =>

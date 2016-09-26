@@ -42,14 +42,9 @@ docker run -d \
     --log-driver=fluentd \
     --log-opt tag="default.docker.{{.Name}}" \
     jboss/wildfly:10.0.0.Final
-
-docker run -d \
+run -d \
     -v /etc/localtime:/etc/localtime:ro \
     -v /etc/timezone:/etc/timezone:ro \
-    --name=wildfly_server_formatted_sync \
-    --log-driver=fluentd \
-    --log-opt tag="wildfly.docker.{{.Name}}" \
-    jboss/wildfly:10.0.0.Final
         }
       }
 
@@ -115,10 +110,10 @@ docker run -d \
         jboss/wildfly:10.0.0.Final
 
 ## Copy Index
-for i in {10..22}
+for i in {10..25}
 do
   elasticdump \
-    --input=http://localhost:9200/fluentd-2016.09.23 \
+    --input=http://localhost:9200/fluentd-2016.09.26 \
     --output=http://localhost:9200/fluentd-2016.09.$i \
     --type=data
 done

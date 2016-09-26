@@ -14,9 +14,7 @@ part of fluentd_log_explorer;
 
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
-  static String ES_HOST = jsinterop.ES_SERVER_HOST_ADDRESS;
-  static String ES_PORT = jsinterop.ES_PORT;
-  static String ES_URL = window.location.origin +"/es/";
+  static String ES_URL = AbstractRestService.CONTEXT_URL +"/es/";
   //static String ES_URL = "http://localhost:8080/es/";
   static String ES_TYPE = "fluentd";
 

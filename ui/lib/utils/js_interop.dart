@@ -20,7 +20,9 @@ var ES_PORT = quiver_strings.isEmpty(js.context['env']['ES_PORT'])
 var ES_INDEX = quiver_strings.isEmpty(js.context['env']['ES_INDEX'])
     ? 'fluentd'
     : js.context['env']['ES_INDEX'];
-
+var APP_CONTEXT_URL = quiver_strings.isEmpty(js.context['env']['APP_CONTEXT_URL'])
+    ? ''
+    : js.context['env']['APP_CONTEXT_URL'];
 ////////////////////////// Call -> [infos.js] /////////////////////////////////////
 var APP_VERSION =
 quiver_strings.isEmpty(js.context['infos']['APP_VERSION'])
