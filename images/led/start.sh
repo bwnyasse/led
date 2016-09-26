@@ -30,6 +30,7 @@ crond
 #== Effective start: nginx
 /bin/sh -c nginx -g daemon off;
 
+
 #== Effective start: lighttpd
 #lighttpd -f /etc/lighttpd/lighttpd.conf
 
@@ -38,6 +39,8 @@ java -jar /opt/led/app.jar -Dswarm.bind.address=127.0.0.1 -Dswarm.http.port=7777
 
 #== Effective start: ElasticSearch
 /bin/sh /opt/elasticsearch/bin/elasticsearch -Des.insecure.allow.root=true &
+
+/bin/sh /healthcheck.sh  &
 
   #== Effective start: fluentd
   fluentd -c /fluentd/etc/fluent.conf -p /fluentd/plugins $FLUENTD_OPT
