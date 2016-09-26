@@ -1,7 +1,7 @@
 #!/bin/bash
 #============================================================================================================#
 #title           :github.sh
-#description     :Enable action remetly on github
+#description     :Enable action remotely on github
 #author		       :bwnyasse
 #===========================================================================================================#
 set -o errexit -o nounset
@@ -20,7 +20,7 @@ then
   git config user.name "builds@travis-ci.com"
   git config user.email "Travis CI"
 
-  git remote add origin "https://$GH_TOKEN@github.com/bwnyasse/led.git"
+  git remote add origin "https://$GH_TOKEN@$GITHUB_REPOSITORY"
   git fetch origin
   git pull origin master
 

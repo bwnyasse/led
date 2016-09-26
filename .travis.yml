@@ -9,9 +9,9 @@ dart:
 env:
   global:
      - CURRENT=$(pwd)
+     - GITHUB_REPOSITORY=github.com/bwnyasse/led.git
      - DOCKER_REPOSITORY=bwnyasse/led
      - DOCKER_COMPOSE_VERSION=1.8.0
-
      # LED build version - also used to tag github repo and docker hub image
      - VERSION=0.5.0
 

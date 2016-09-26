@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>LED REST SERVER</name>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
@@ -27,7 +27,7 @@
 					<version>${version.wildfly-swarm}</version>
 					<configuration>
 						<jvmArguments>
-							<jvmArgument>-Xmx128m</jvmArgument>
+							<jvmArgument>-Xmx512m</jvmArgument>
 						</jvmArguments>
 					</configuration>
 					<executions>
