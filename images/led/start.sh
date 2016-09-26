@@ -24,7 +24,8 @@ LOGFIFO='/var/log/cron.fifo'
 if [[ ! -e "$LOGFIFO" ]]; then
     mkfifo "$LOGFIFO"
 fi
-echo -e "00 00 * * * /curator.sh > $LOGFIFO 2>&1" | crontab -
+echo -e "$ES_CURATOR_SCHEDULE /curator.sh > $LOGFIFO 2>&1" | crontab -
+inf "Schedule ES curator for $ES_CURATOR_SCHEDULE"
 crond
 
 #== Effective start: nginx

@@ -179,6 +179,7 @@ ENV ES_SERVER_HOST_ADDRESS localhost
 ENV ES_PORT 9200
 ENV ES_INDEX fluentd
 ENV APP_VERSION ${version}
+ENV ES_CURATOR_SCHEDULE 00 00 * * *
 
 #== Install HEAD plugin
 RUN /opt/elasticsearch/bin/plugin install mobz/elasticsearch-head
