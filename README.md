@@ -86,8 +86,7 @@ Connecting a mysql database as follow :
 | --------------------|-------------------------------------|---------------------------|
 | APP_NAME            |  Customize application name         |                           |
 | APP_CONTEXT_URL     |  Define application context url. For example if you are running under a reverse proxy, we must give the right app url (host:port)   |                           |
-| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \*
-( midnight)|
+| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \* ( midnight)|
 
 **Example:**
 
@@ -96,6 +95,7 @@ Assuming LED , that we have the following requirements:
 - LED will run under a reverse proxy and will be available to MY_HOST:MY_PORT
 - We want to trigger elastic search curation every 5 minutes
 
+<pre>
     docker run -d \
           -v /etc/localtime:/etc/localtime:ro \
           -v /etc/timezone:/etc/timezone:ro \
@@ -105,7 +105,7 @@ Assuming LED , that we have the following requirements:
           -e APP_CONTEXT_URL=MY_HOST:MY_PORT \
           -e ES_CURATOR_SCHEDULE=*/5 * * * * 
           bwnyasse/led
-
+</pre>
 
 ##### - Level color
 
