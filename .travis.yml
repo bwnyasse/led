@@ -9,19 +9,16 @@ dart:
 env:
   global:
      - CURRENT=$(pwd)
-     - GITHUB_REPOSITORY=github.com/bwnyasse/led.git
      - DOCKER_REPOSITORY=bwnyasse/led
      - DOCKER_COMPOSE_VERSION=1.8.0
+
      # LED build version - also used to tag github repo and docker hub image
-     - VERSION=0.5.0
+     - VERSION=0.6.0-SNAPSHOT
 
 services:
   - docker
 
 before_install:
-  # Travis issue workaround https://github.com/travis-ci/travis-ci/issues/4629
-  - rm ~/.m2/settings.xml
-
   # Check current docker engine version
   - docker --version
 
@@ -71,8 +68,3 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-
-cache:
-  directories:
-  - .autoconf
-  - $HOME/.m2
