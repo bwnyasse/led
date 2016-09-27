@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/bwnyasse/led.svg?branch=master)](https://travis-ci.org/bwnyasse/led)
 [![GitHub Tags](https://img.shields.io/github/tag/bwnyasse/led.svg)](https://github.com/bwnyasse/led)
 
-# Log Explorer for Docker aka  **[LED](https://hub.docker.com/r/bwnyasse/fluentd-led/)**
+# Logs Explorer for Docker aka  **[LED](https://hub.docker.com/r/bwnyasse/fluentd-led/)**
 
 ## Purpose
 
