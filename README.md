@@ -40,7 +40,7 @@ LED requires the following ports to be published:
 
 #### 2- Add container logs
 
-The following command will connect the docker hello-world container to LED.  ( See the [official documentation](https://docs.docker.com/engine/admin/logging/overview/#/fluentd-options) for more infos )
+The following command will connect the docker hello-world container to LED.  ( See the [official documentation](https://docs.docker.com/engine/admin/logging/overview/#/fluentd-options)  )
 
     docker run -d \
         --name=hello_world_container \
@@ -86,7 +86,7 @@ Connecting a mysql database as follow :
 | --------------------|-------------------------------------|---------------------------|
 | APP_NAME            |  Customize application name         |                           |
 | APP_CONTEXT_URL     |  Define application context url. For example if you are running under a reverse proxy, we must give the right app url (host:port)   |                           |
-| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \* ( midnight)|
+| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices. LED always curates data older than 7 days.          | 00 00 \* \* \*  ( midnight)|
 
 **Example:**
 
@@ -103,7 +103,7 @@ Assuming LED , that we have the following requirements:
           -p 24224:24224 \
           -e APP_NAME=Wolverine \
           -e APP_CONTEXT_URL=MY_HOST:MY_PORT \
-          -e ES_CURATOR_SCHEDULE=*/5 * * * * 
+          -e ES_CURATOR_SCHEDULE=*/5 * * * *
           bwnyasse/led:0.5.0
 </pre>
 
