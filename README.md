@@ -113,6 +113,13 @@ Use the settings page, to modify the level color. The following picture give you
 
 ![](doc/settings_1.png?raw=true)
 
+##### - Backing up data
+
+- Logs in LED ElasticSearch will be store in **/opt/elasticsearch/data**
+- LED configuration will be store in **/opt/led/conf**
+
+For more info check Docker docs section on [Managing data in containers(https://docs.docker.com/userguide/dockervolumes/)
+
 ##  Manage Tag option
 
 **Sometimes , it is more better to filter logs by level. At this stage of project, LED display log level only with the default log format of the following services** :
