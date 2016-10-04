@@ -33,7 +33,7 @@ LED requires the following ports to be published:
  - **24224**: default port used by fluentd for TCP forwarding
 
 <pre>
- docker run -d -p 8080:8080 -p 24224:24224 bwnyasse/led:0.5.0
+ docker run -d -p 8080:8080 -p 24224:24224 bwnyasse/led:0.6.0
 </pre>
 
 *Navigate to localhost:8080 to see a basic running instance of LED.*
@@ -65,7 +65,7 @@ Launching led as follow :
           -v /etc/timezone:/etc/timezone:ro \
           -p 8080:8080 \
           -p 24224:24224 \
-          bwnyasse/led:0.5.0
+          bwnyasse/led:0.6.0
 
 Connecting a mysql database as follow :
 
@@ -86,7 +86,8 @@ Connecting a mysql database as follow :
 | --------------------|-------------------------------------|---------------------------|
 | APP_NAME            |  Customize application name         |                           |
 | APP_CONTEXT_URL     |  Define application context url. For example if you are running under a reverse proxy, we must give the right app url (host:port)   |                           |
-| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices. LED always curates data older than 7 days.          | 00 00 \* \* \*  ( midnight)|
+| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \* ( midnight)|
+| ES_CURATOR_DAY_OLDER_THAN |  Curate elastic search indexes with day older than a specific value         | 7 |
 
 **Example:**
 
@@ -104,7 +105,7 @@ Assuming LED , that we have the following requirements:
           -e APP_NAME=Wolverine \
           -e APP_CONTEXT_URL=MY_HOST:MY_PORT \
           -e ES_CURATOR_SCHEDULE=*/5 * * * *
-          bwnyasse/led:0.5.0
+          bwnyasse/led:0.6.0
 </pre>
 
 ##### - Level color
