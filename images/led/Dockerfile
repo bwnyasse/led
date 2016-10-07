@@ -51,7 +51,7 @@ ENV FLUENTD_CONF="fluent.conf"
 # Install fluent plugins
 RUN gem install fluent-plugin-elasticsearch && \
     gem install fluent-plugin-parser && \
-    gem install fluent-plugin-concat && \
+    gem install fluent-plugin-concat -v 0.6.2 && \
     gem install fluent-plugin-record-reformer && \
     gem install fluent-plugin-better-timestamp && \
     gem install fluent-plugin-color-stripper
