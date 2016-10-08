@@ -9,6 +9,7 @@ dart:
 env:
   global:
      - CURRENT=$(pwd)
+     - GITHUB_REPOSITORY=github.com/bwnyasse/led.git
      - DOCKER_REPOSITORY=bwnyasse/led
      - DOCKER_COMPOSE_VERSION=1.8.0
 
