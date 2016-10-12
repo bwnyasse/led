@@ -49,12 +49,12 @@ ENV FLUENTD_CONF="fluent.conf"
 
 # ============ start - fluent configuration
 # Install fluent plugins
-RUN gem install fluent-plugin-elasticsearch && \
-    gem install fluent-plugin-parser && \
+RUN gem install fluent-plugin-elasticsearch -v 1.7.0 && \
+    gem install fluent-plugin-parser -v 0.6.1 && \
     gem install fluent-plugin-concat -v 0.6.2 && \
-    gem install fluent-plugin-record-reformer && \
-    gem install fluent-plugin-better-timestamp && \
-    gem install fluent-plugin-color-stripper
+    gem install fluent-plugin-record-reformer -v 0.8.2 && \
+    gem install fluent-plugin-better-timestamp -v 0.1.0 && \
+    gem install fluent-plugin-color-stripper -v 0.0.3
 
 ADD fluentd/manage /fluentd/etc/
 
@@ -180,7 +180,7 @@ ENV ES_PORT 9200
 ENV ES_INDEX fluentd
 ENV APP_VERSION ${version}
 ENV ES_CURATOR_DAY_OLDER_THAN 7
-ENV ES_CURATOR_SCHEDULE 00 00 * * *
+ENV ES_CURATOR_SCHEDULE 0 22 * * *
 
 #== Install HEAD plugin
 RUN /opt/elasticsearch/bin/plugin install mobz/elasticsearch-head
