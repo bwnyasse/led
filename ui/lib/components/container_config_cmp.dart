@@ -21,9 +21,10 @@ class ContainerConfigCmp extends ShadowRootAware {
 
   ElasticSearchService service;
   LConfiguration configuration;
+  LCurator curator;
   List levelConfigurations;
   List getLogTagFormat;
-  ContainerConfigCmp(this.service,this.configuration);
+  ContainerConfigCmp(this.service,this.configuration,this.curator);
 
   @override
   void onShadowRoot(ShadowRoot shadowRoot) {
@@ -34,5 +35,5 @@ class ContainerConfigCmp extends ShadowRootAware {
 
   register() =>  configuration.saveLevelConfig(levelConfigurations);
   restore() =>  configuration.reloadDefaultLevelConfig();
-
+  performCurator() => curator.callCurator();
 }

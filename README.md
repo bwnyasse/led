@@ -86,7 +86,7 @@ Connecting a mysql database as follow :
 | --------------------|-------------------------------------|---------------------------|
 | APP_NAME            |  Customize application name         |                           |
 | APP_CONTEXT_URL     |  Define application context url. For example if you are running under a reverse proxy, we must give the right app url (host:port)   |                           |
-| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 00 00 \* \* \* ( midnight)|
+| ES_CURATOR_SCHEDULE |  Schedule [curation](https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html) of old elastic indices         | 0 22 \* \* \* ( at 10pm )|
 | ES_CURATOR_DAY_OLDER_THAN |  Curate elastic search indexes with day older than a specific value         | 7 |
 
 **Example:**

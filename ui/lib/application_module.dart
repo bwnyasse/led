@@ -37,6 +37,7 @@ part 'components/navbar_right_cmp.dart';
 part 'components/navbar_brand_cmp.dart';
 part 'injectable/l_router.dart';
 part 'injectable/l_configuration.dart';
+part 'injectable/l_curator.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_service.dart';
 part 'rest/abstract_rest_service.dart';
 part 'package:fluentd_log_explorer/es/elastic_search_query_dsl.dart';
@@ -53,6 +54,7 @@ class ApplicationModule extends Module {
     bind(ElasticSearchService);
     bind(LRouter);
     bind(LConfiguration);
+    bind(LCurator);
 
     // Routing Mechanism
     bind(RouteInitializerFn, toImplementation: LRouter);
