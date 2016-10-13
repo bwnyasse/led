@@ -71,3 +71,7 @@ class Level {
     return displayedValue;
   }
 }
+
+class CleanCuratorConfig {
+  int olderThan = 7;
+}

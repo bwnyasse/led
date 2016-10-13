@@ -1,0 +1,6 @@
+RUN gem install fluent-plugin-elasticsearch -v 1.7.0 && \
+    gem install fluent-plugin-parser -v 0.6.1 && \
+    gem install fluent-plugin-concat -v 2.0.0 && \
+    gem install fluent-plugin-record-reformer -v 0.8.2 && \
+    gem install fluent-plugin-better-timestamp -v 0.1.0 && \
+    gem install fluent-plugin-color-stripper -v 0.0.3

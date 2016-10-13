@@ -15,7 +15,6 @@ part of fluentd_log_explorer;
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
   static String ES_URL = AbstractRestService.CONTEXT_URL +"/es/";
-  //static String ES_URL = "http://localhost:8080/es/";
   static String ES_TYPE = "fluentd";
 
   static String SEARCH_PREFIX = "/_search?pretty=true";

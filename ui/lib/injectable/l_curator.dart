@@ -17,8 +17,11 @@ class LCurator extends AbstractRestService {
 
   static String CURATOR_REST_URL = AbstractRestService.CONTEXT_URL +"/server/_api/curator";
 
+  CleanCuratorConfig cleanCuratorConfig = new CleanCuratorConfig();
+
   callCurator() async {
-    _get(CURATOR_REST_URL).then((response) {
+    String url = CURATOR_REST_URL + "/" + cleanCuratorConfig.olderThan.toString();
+    _get(url).then((response) {
       print(response.responseText);
     });
   }

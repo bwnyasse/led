@@ -6,6 +6,7 @@
 #==================================================================================================#
 
 source logger.sh
+source cron_curator_routine.sh
 
 set -e
 
@@ -20,17 +21,10 @@ cat  /var/www/js/env.js
 cat  /var/www/js/infos.js
 
 #== Install Cron for elastic Curator ( run it every day at midnight )
-LOGFIFO='/var/log/cron.fifo'
-if [[ ! -e "$LOGFIFO" ]]; then
-    mkfifo "$LOGFIFO"
-fi
-echo -e "$ES_CURATOR_SCHEDULE /curator.sh > $LOGFIFO 2>&1" | crontab -
-inf "Schedule ES curator for $ES_CURATOR_SCHEDULE"
-crond
+install_cron 
 
 #== Effective start: nginx
 /bin/sh -c nginx -g daemon off;
-
 
 #== Effective start: lighttpd
 #lighttpd -f /etc/lighttpd/lighttpd.conf

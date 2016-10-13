@@ -1,17 +1,10 @@
 <div class="page-content">
-
-
     <div class="col-md-2">
     </div>
-
-    <div class="col-md-8">
-        <h3> Curator </h3>
-        <a  ng-click="performCurator()" class="btn btn-default">Perform </a>
-    </div>
-
     <div class="col-md-8">
         <h3> Global Settings</h3>
-        <br />
+        <br/>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Level</h3>
@@ -25,7 +18,7 @@
                     <thead>
                     <tr>
                         <th>Severity</th>
-                        <th>Pattern <i>(if log contains)</i> </th>
+                        <th>Pattern <i>(if log contains)</i></th>
                         <th>Color</th>
                         <th></th>
                     </tr>
@@ -36,10 +29,12 @@
                             <span class="label label-default">{{levelConfig.name}}</span>
                         </td>
                         <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="levelConfig.pattern" value="{{levelConfig.pattern}}">
+                            <input type="text" class="form-control" ng-model="levelConfig.pattern"
+                                   value="{{levelConfig.pattern}}">
                         </td>
                         <td class="col-md-4">
-                            <input class="form-control jscolor" ng-model="levelConfig.color" value="{{levelConfig.color}}">
+                            <input class="form-control jscolor" ng-model="levelConfig.color"
+                                   value="{{levelConfig.color}}">
                         </td>
                         <td class="col-md-4">
                         </td>
@@ -47,8 +42,8 @@
                     </tbody>
                 </table>
                 <div class="l-float-right">
-                    <a  ng-click="register()" class="btn btn-default">Save</a>
-                    <a  ng-click="restore()"  class="btn btn-danger">Reset to default</a>
+                    <a ng-click="register()" class="btn btn-default">Save</a>
+                    <a ng-click="restore()" class="btn btn-danger">Reset to default</a>
                 </div>
 
             </div>
@@ -87,8 +82,35 @@
             </div>
         </div>
 
+        <h3> Clean Curator </h3>
+        <br/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Curate now</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            Remove logs indexes older than
+                        </td>
+                        <td class="col-md-2">
+                            <input type="text" class="form-control" ng-model="curator.cleanCuratorConfig.olderThan"
+                                   value="{{curator.cleanCuratorConfig.olderThan}}">
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="l-float-right">
+                    <a ng-click="performCurator()" class="btn btn-danger">Apply curator</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-2">
-    </div>
+
 
 </div>

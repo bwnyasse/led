@@ -125,7 +125,11 @@ RUN apk add --update nodejs \
   && pip install elasticsearch-curator==3.5.1
 
 COPY ./es/curator.sh /
+COPY ./es/cron_curator_routine.sh /
+COPY ./es/update_cron_curator.sh /
 RUN sed -i 's/\r$//' /curator.sh && chmod +x /curator.sh
+RUN sed -i 's/\r$//' /cron_curator_routine.sh && chmod +x /cron_curator_routine.sh
+RUN sed -i 's/\r$//' /update_cron_curator.sh && chmod +x /update_cron_curator.sh
 
 #==================================================================================
 #==================================================================================
