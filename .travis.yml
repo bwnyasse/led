@@ -67,5 +67,5 @@ deploy:
     provider: script
     script: ./bin/dockerhub.sh
     skip_cleanup: true
-    on:
-      branch: master
+    # on:
+    #   branch: master
