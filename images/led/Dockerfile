@@ -124,13 +124,6 @@ RUN apk add --update nodejs \
   && apk add py-pip \
   && pip install elasticsearch-curator==3.5.1
 
-COPY ./es/curator.sh /
-COPY ./es/cron_curator_routine.sh /
-COPY ./es/update_cron_curator.sh /
-RUN sed -i 's/\r$//' /curator.sh && chmod +x /curator.sh
-RUN sed -i 's/\r$//' /cron_curator_routine.sh && chmod +x /cron_curator_routine.sh
-RUN sed -i 's/\r$//' /update_cron_curator.sh && chmod +x /update_cron_curator.sh
-
 #==================================================================================
 #==================================================================================
 # ============ lighttpd SETUP
@@ -189,18 +182,30 @@ ENV ES_CURATOR_SCHEDULE 0 22 * * *
 #== Install HEAD plugin
 RUN /opt/elasticsearch/bin/plugin install mobz/elasticsearch-head
 ENTRYPOINT [
-# ============ start - custom sh
-COPY ./env.sh /
-COPY ./infos.sh /
-COPY ./logger.sh /
-COPY ./healthcheck.sh /
-COPY ./start.sh /
 
-RUN sed -i 's/\r$//' /env.sh && chmod +x /env.sh \
- && sed -i 's/\r$//' /infos.sh && chmod +x /infos.sh \
- && sed -i 's/\r$//' /logger.sh && chmod +x /logger.sh \
- && sed -i 's/\r$//' /healthcheck.sh && chmod +x /healthcheck.sh \
- && sed -i 's/\r$//' /start.sh && chmod +x /start.sh
+# ============ custom sh script
+RUN mkdir -p /opt/led/.led-scripts
+
+COPY scripts/env.sh /opt/led/.led-scripts/
+COPY scripts/infos.sh /opt/led/.led-scripts/
+COPY scripts/common.sh /opt/led/.led-scripts/
+COPY scripts/healthcheck.sh /opt/led/.led-scripts/
+COPY scripts/start.sh /opt/led/.led-scripts/
+COPY scripts/update_cron_curator.sh /opt/led/.led-scripts/
+COPY scripts/curator /bin/
+COPY scripts/motd /etc/motd
+
+RUN sed -i 's/\r$//' /opt/led/.led-scripts/env.sh && chmod +x /opt/led/.led-scripts/env.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/infos.sh && chmod +x /opt/led/.led-scripts/infos.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/common.sh && chmod +x /opt/led/.led-scripts/common.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/healthcheck.sh && chmod +x /opt/led/.led-scripts/healthcheck.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/start.sh && chmod +x /opt/led/.led-scripts/start.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/update_cron_curator.sh && chmod +x /opt/led/.led-scripts/update_cron_curator.sh \
+ && sed -i 's/\r$//' /bin/curator && chmod +x /bin/curator \
+ && sed -i 's/\r$//' /etc/motd && chmod +x /etc/motd \
+ && echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' >> /root/.bashrc
+
+ENV PATH="/opt/led/.led-scripts:${PATH}"
 # =========== end - custom sh
 
 # ============= Server Config Directory
@@ -209,5 +214,5 @@ ADD server/target/*swarm.jar /opt/led/app.jar
 
 VOLUME /opt/led/conf/
 
-ENTRYPOINT ["/start.sh" ]
+ENTRYPOINT ["start.sh" ]
 CMD [""]

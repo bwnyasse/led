@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #===================================================================================================#
 #title           :env.sh
 #description     :This script will generate a file used by the GUI to retrieve env var at runtime
