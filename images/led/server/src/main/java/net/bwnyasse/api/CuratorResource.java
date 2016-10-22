@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/curator")
 public class CuratorResource {
 
-	private static String CURATOR_COMMAND = "/bin/sh /curator.sh {0}";
+	private static String CURATOR_COMMAND = "/bin/bash -c led_curator {0}";
 
 	@Inject
 	private ExecuteShellComand shellCommand;

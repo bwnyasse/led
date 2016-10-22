@@ -25,7 +25,7 @@ log_error() {
 }
 
 log_error_and_exit() {
-  log_error $1
+  log_error "$1"
   exit 1
 }
 

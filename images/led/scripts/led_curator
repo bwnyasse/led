@@ -1,2 +1,3 @@
 #!/bin/bash
-curator --host localhost delete indices --older-than $ES_CURATOR_DAY_OLDER_THAN --time-unit days --timestring '%Y.%m.%d'
+OLDER_THAN=${1:-$ES_CURATOR_DAY_OLDER_THAN}
+curator --host localhost delete indices --older-than $OLDER_THAN --time-unit days --timestring '%Y.%m.%d'
