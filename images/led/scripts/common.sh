@@ -52,7 +52,7 @@ log() {
 
 install_curator_cron() {
   echo "Install Curator Cron with schedule $ES_CURATOR_SCHEDULE for older than $ES_CURATOR_DAY_OLDER_THAN days"
-  rm curator-cron 2>/dev/null
+  [[ -a curator-cron ]] && rm curator-cron 2>/dev/null
   log_info "Creating cron entry to start curator at: $ES_CURATOR_SCHEDULE for older than $ES_CURATOR_DAY_OLDER_THAN days"
   # Note: Must use tabs with indented 'here' scripts.
   cat <<-EOF >> curator-cron
