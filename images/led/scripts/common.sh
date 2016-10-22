@@ -57,8 +57,9 @@ install_curator_cron() {
     log_info "Creating cron entry to start curator at: $ES_CURATOR_SCHEDULE for older than $ES_CURATOR_DAY_OLDER_THAN days"
     # Note: Must use tabs with indented 'here' scripts.
     cat <<-EOF >> curator-cron
-$ES_CURATOR_SCHEDULE led_curator >> /var/log/led/curator.log 2>&1
+$ES_CURATOR_SCHEDULE led_curator > /var/log/led/curator.log 2>&1
 EOF
     crontab curator-cron
+    crond
   fi
 }
