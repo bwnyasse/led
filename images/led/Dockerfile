@@ -193,6 +193,7 @@ COPY scripts/common.sh /opt/led/.led-scripts/
 COPY scripts/healthcheck.sh /opt/led/.led-scripts/
 COPY scripts/start.sh /opt/led/.led-scripts/
 COPY scripts/update_cron_curator.sh /opt/led/.led-scripts/
+COPY scripts/get_cron_curator_value.sh /opt/led/.led-scripts/
 COPY scripts/led_curator /bin/
 COPY scripts/motd /etc/motd
 
@@ -202,6 +203,7 @@ RUN sed -i 's/\r$//' /opt/led/.led-scripts/env.sh && chmod +x /opt/led/.led-scri
  && sed -i 's/\r$//' /opt/led/.led-scripts/healthcheck.sh && chmod +x /opt/led/.led-scripts/healthcheck.sh \
  && sed -i 's/\r$//' /opt/led/.led-scripts/start.sh && chmod +x /opt/led/.led-scripts/start.sh \
  && sed -i 's/\r$//' /opt/led/.led-scripts/update_cron_curator.sh && chmod +x /opt/led/.led-scripts/update_cron_curator.sh \
+ && sed -i 's/\r$//' /opt/led/.led-scripts/get_cron_curator_value.sh && chmod +x /opt/led/.led-scripts/get_cron_curator_value.sh \
  && sed -i 's/\r$//' /bin/led_curator && chmod +x /bin/led_curator \
  && sed -i 's/\r$//' /etc/motd && chmod +x /etc/motd \
  && echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' >> /root/.bashrc
