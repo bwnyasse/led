@@ -15,12 +15,10 @@ usage() {
 # Retrievethe schedule , if not set , retrieve the default env var value
 SCHEDULE=${1:-$ES_CURATOR_SCHEDULE}
 [[ -n "$SCHEDULE" ]] || log_error_and_exit "Curator Cron schedule is not define"
-#export ES_CURATOR_SCHEDULE="$SCHEDULE"
 
 # Retrievethe schedule , if not set , retrieve the default env var value
 OLDER_THAN=${2:-$ES_CURATOR_DAY_OLDER_THAN}
 [[ -n $OLDER_THAN ]] || log_error_and_exit "Curator clean days value is not define"
-#export ES_CURATOR_DAY_OLDER_THAN=$OLDER_THAN
 
 crontab -r
 log_info "Update curator mechanism"

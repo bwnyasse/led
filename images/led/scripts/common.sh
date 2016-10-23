@@ -60,7 +60,8 @@ install_curator_cron() {
   # Note: Must use tabs with indented 'here' scripts.
   cat <<-EOF >> curator-cron
 OLDER_THAN=$olderThan
-$schedule led_curator $OLDER_THAN > /var/log/led/curator.log 2>&1
+CURRENT_SCHEDULE="$schedule"
+$CURRENT_SCHEDULE led_curator $OLDER_THAN > /var/log/led/curator.log 2>&1
 EOF
   crontab curator-cron
   crond
