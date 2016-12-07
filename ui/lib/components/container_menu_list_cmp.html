@@ -7,9 +7,9 @@
                 <!--<a ngFor="let index in service.indexes" href="" (click)="service.getContainersByIndex(index)"
                    class="list-group-item">{{index}}</a>-->
                 <select class="form-control" [(ngModel)]="service.currentIndex" ng-change="changeIndex()">
-                    <option ngFor="let index in service.indexes" ng-value="index">
+                  <!--  <option ngFor="let index in service.indexes" ng-value="index">
                         {{getIndexAsLogHistory(index)}}
-                    </option>
+                    </option>-->
                 </select>
             </div>
         </div>
@@ -29,8 +29,8 @@
 
             <div class="list-group">
                 <a ngFor="let level in service.levels" href="" (click)="getLogsByLevel(level)"
-                   class="list-group-item" [ngStyle]="getLevelCss(level.displayedValue)">
-                    {{level.displayedValue}}
+                 class="list-group-item" [ngStyle]="getLevelCss(level.displayedValue)">
+                {{level.displayedValue}}
                 </a>
             </div>
         </div>

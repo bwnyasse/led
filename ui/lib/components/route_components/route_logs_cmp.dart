@@ -15,6 +15,7 @@ part of led_ui;
 @Component(
     selector: 'route-logs-cmp',
     templateUrl: 'components/route_components/route_logs_cmp.html',
-    directives: const [ContainerMenuListCmp,ContainerLogCmp])
+    directives: const [ContainerMenuListCmp,ContainerLogCmp],
+    providers: const [ LConfiguration ])
 class RouteLogsCmp {
 }
