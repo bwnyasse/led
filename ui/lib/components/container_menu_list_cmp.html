@@ -29,7 +29,7 @@
 
             <div class="list-group">
                 <a *ngFor="let level in service.levels" href="" ng-click="getLogsByLevel(level)"
-                   class="list-group-item" ng-style="{{getLevelCss(level.displayedValue)}}">
+                   class="list-group-item" [ngClass]="{{getLevelCss(level.displayedValue)}}">
                     {{level.displayedValue}}
                 </a>
             </div>
