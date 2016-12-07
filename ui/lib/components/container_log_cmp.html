@@ -15,7 +15,7 @@
         <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
             <div class="bs-component">
                 <div class="alert alert-dismissible color-white" [ngClass]="{{getSelectedAlertLevelCss()}}">
-                    <button type="button" class="close" ng-click="service.clearLogLevel()">×</button>
+                    <button type="button" class="close" (click)="service.clearLogLevel()">×</button>
                     <div>
                         <i class="icon ion-ios-speedometer-outline"></i> Level :
                     </div>
@@ -28,7 +28,7 @@
         <div class="col-lg-3" ng-show="service.hasCurrentLogHisto()">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-default">
-                    <button type="button" class="close" ng-click="service.clearLogHisto()">×</button>
+                    <button type="button" class="close" (click)="service.clearLogHisto()">×</button>
                     <div>
                         <i class="icon ion-ios-time-outline"></i> Activities :
                     </div>
@@ -41,7 +41,7 @@
         <div class="col-lg-3" ng-show="service.hasCurrentFilterValue()">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-filter">
-                    <button type="button" class="close" ng-click="service.clearFilterValue()">×</button>
+                    <button type="button" class="close" (click)="service.clearFilterValue()">×</button>
                     <div>
                         <i class="glyphicon glyphicon-filter"></i> Filter :
                     </div>
