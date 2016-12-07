@@ -6,7 +6,7 @@
             <div class="list-group">
                 <!--<a *ngFor="let index in service.indexes" href="" ng-click="service.getContainersByIndex(index)"
                    class="list-group-item">{{index}}</a>-->
-                <select class="form-control" ng-model="service.currentIndex" ng-change="changeIndex()">
+                <select class="form-control" [(ngModel)]="service.currentIndex" ng-change="changeIndex()">
                     <option *ngFor="let index in service.indexes" ng-value="index">
                         {{getIndexAsLogHistory(index)}}
                     </option>

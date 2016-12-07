@@ -29,11 +29,11 @@
                             <span class="label label-default">{{levelConfig.name}}</span>
                         </td>
                         <td class="col-md-4">
-                            <input type="text" class="form-control" ng-model="levelConfig.pattern"
+                            <input type="text" class="form-control" [(ngModel)]="levelConfig.pattern"
                                    value="{{levelConfig.pattern}}">
                         </td>
                         <td class="col-md-4">
-                            <input class="form-control jscolor" ng-model="levelConfig.color"
+                            <input class="form-control jscolor" [(ngModel)]="levelConfig.color"
                                    value="{{levelConfig.color}}">
                         </td>
                         <td class="col-md-4">
@@ -96,7 +96,7 @@
                             <!--Remove logs indexes older than-->
                         <!--</td>-->
                         <!--<td class="col-md-2">-->
-                            <!--<input type="text" class="form-control" ng-model="curator.cleanCuratorConfig.olderThan"-->
+                            <!--<input type="text" class="form-control" [(ngModel)]="curator.cleanCuratorConfig.olderThan"-->
                                    <!--value="{{curator.cleanCuratorConfig.olderThan}}">-->
                         <!--</td>-->
                         <!--<td></td>-->
