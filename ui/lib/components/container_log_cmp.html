@@ -1,6 +1,6 @@
-<div ng-hide="service.indexes.isEmpty || service.containers.isEmpty">
+<div [class.hidden]="service.indexes.isEmpty || service.containers.isEmpty">
     <div class="row">
-        <div class="col-lg-3" ng-show="service.hasCurrentContainerName()">
+        <div class="col-lg-3" [class.hidden]="!service.hasCurrentContainerName()">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-success2">
                     <div>
@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3" ng-show="service.hasCurrentLogLevel()">
+        <div class="col-lg-3" [class.hidden]="!service.hasCurrentLogLevel()">
             <div class="bs-component">
                 <div class="alert alert-dismissible color-white" [ngClass]="{{getSelectedAlertLevelCss()}}">
                     <button type="button" class="close" (click)="service.clearLogLevel()">×</button>
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3" ng-show="service.hasCurrentLogHisto()">
+        <div class="col-lg-3" [class.hidden]="!service.hasCurrentLogHisto()">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-default">
                     <button type="button" class="close" (click)="service.clearLogHisto()">×</button>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3" ng-show="service.hasCurrentFilterValue()">
+        <div class="col-lg-3" [class.hidden]="!service.hasCurrentFilterValue()">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-filter">
                     <button type="button" class="close" (click)="service.clearFilterValue()">×</button>
@@ -64,7 +64,7 @@
 
     <hr>
 
-    <div class="row source-logs-row" ng-hide="service.sourceLogsByContainerName.isEmpty" infinite-scroll="onPageInfiniteScroll()">
+    <div class="row source-logs-row" [class.hidden]="service.sourceLogsByContainerName.isEmpty" infinite-scroll="onPageInfiniteScroll()">
         <table class="table">
 
             <tbody>
@@ -83,14 +83,14 @@
         </table>
 
     </div>
-    <div class="row source-logs-row" ng-show="service.sourceLogsByContainerName.isEmpty">
+    <div class="row source-logs-row" [class.hidden]="!service.sourceLogsByContainerName.isEmpty">
         <table class="table">
 
            <!-- <span class="label label-warning no-source-logs">No log to display</span> -->
         </table>
     </div>
 </div>
-<div ng-show="service.indexes.isEmpty || service.containers.isEmpty">
+<div [class.hidden]="!service.indexes.isEmpty || service.containers.isEmpty">
     <div class="alert alert-dismissible alert-warning col-lg-6">
         <h4>Warning : Nothing to display !</h4>
         <p>No ElasticSearch Index nor docker containers are available. </p>

@@ -1,7 +1,7 @@
 <div class="col-md-3">
 
-    <div ng-hide="service.indexes.isEmpty">
-        <div ng-hide="service.indexes.isEmpty">
+    <div [class.hidden]="service.indexes.isEmpty">
+        <div [class.hidden]="service.indexes.isEmpty">
             <p class="lead"><i class="ion-ios-calendar-outline"></i> Log History</p>
             <div class="list-group">
                 <!--<a *ngFor="let index in service.indexes" href="" (click)="service.getContainersByIndex(index)"
@@ -15,7 +15,7 @@
         </div>
         <hr/>
 
-        <div ng-hide="service.containers.isEmpty">
+        <div [class.hidden]="service.containers.isEmpty">
             <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
             <div class="list-group">
                 <a *ngFor="let container in service.containers" href="" (click)="getLogs(container)"
@@ -24,7 +24,7 @@
         </div>
 
         <hr/>
-        <div ng-hide="service.levels.isEmpty">
+        <div [class.hidden]="service.levels.isEmpty">
             <p class="lead"><i class="icon ion-ios-speedometer-outline"></i> Level</p>
 
             <div class="list-group">
@@ -36,7 +36,7 @@
         </div>
 
         <hr/>
-        <div ng-hide="service.dateHisto.isEmpty">
+        <div [class.hidden]="service.dateHisto.isEmpty">
             <p class="lead"><i class="icon ion-ios-time-outline"></i> Last Activities</p>
 
             <div class="list-group">
