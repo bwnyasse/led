@@ -68,7 +68,7 @@
         <table class="table">
 
             <tbody>
-            <tr ng-repeat="input in service.sourceLogsByContainerName">
+            <tr *ngFor="let input in service.sourceLogsByContainerName">
                 <td>
                     <span class="label" ng-style="{{getLevelCss(input)}}">{{getLevel(input)}}</span>
                 </td>

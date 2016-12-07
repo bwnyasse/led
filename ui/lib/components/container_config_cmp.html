@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="levelConfig in levelConfigurations">
+                    <tr *ngFor="let levelConfig in levelConfigurations">
                         <td class="col-md-2">
                             <span class="label label-default">{{levelConfig.name}}</span>
                         </td>
@@ -42,8 +42,8 @@
                     </tbody>
                 </table>
                 <div class="l-float-right">
-                    <a ng-click="register()" class="btn btn-default">Save</a>
-                    <a ng-click="restore()" class="btn btn-danger">Reset to default</a>
+                    <a (click)="register()" class="btn btn-default">Save</a>
+                    <a (click)="restore()" class="btn btn-danger">Reset to default</a>
                 </div>
 
             </div>
@@ -64,7 +64,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="logTagFormat in getLogTagFormat">
+                    <tr *ngFor="let logTagFormat in getLogTagFormat">
                         <td class="col-md-2">
                             <span class="label label-default">{{logTagFormat.service}}</span>
                         </td>
