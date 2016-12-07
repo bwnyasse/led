@@ -6,20 +6,15 @@
  * 
  * DO NOT ALTER OR REMOVE THIS HEADER.
  * 
- * Created on : 02/09/16
+ * Created on : 07/12/16
  * Author     : bwnyasse
  *  
  */
 part of led_ui;
 
 @Component(
-    selector: 'footer-cmp',
-    templateUrl: 'components/footer_cmp.html')
-class FooterCmp {
-
-  String version;
-
-  FooterCmp(){
-    version = jsinterop.APP_VERSION;
-  }
+    selector: 'route-logs-cmp',
+    templateUrl: 'components/route_components/route_logs_cmp.html',
+    directives: const [ContainerMenuListCmp,ContainerLogCmp])
+class RouteLogsCmp {
 }

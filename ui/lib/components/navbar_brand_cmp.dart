@@ -14,9 +14,7 @@ part of led_ui;
 
 @Component(
     selector: 'navbar-brand-cmp',
-    templateUrl:
-    'packages/fluentd_log_explorer/components/navbar_brand_cmp.html',
-    useShadowDom: false)
+    templateUrl: 'components/navbar_brand_cmp.html')
 class NavbarBrandCmp {
 
   String brandName;

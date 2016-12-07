@@ -14,9 +14,7 @@ part of led_ui;
 
 @Component(
     selector: 'navbar-right-cmp',
-    templateUrl:
-    'packages/fluentd_log_explorer/components/navbar_right_cmp.html',
-    useShadowDom: false)
+    templateUrl: 'components/navbar_right_cmp.html')
 class NavbarRightCmp {
 
   ElasticSearchService service;

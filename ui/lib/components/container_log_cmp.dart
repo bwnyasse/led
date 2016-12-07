@@ -14,10 +14,8 @@ part of led_ui;
 
 @Component(
     selector: 'container-log-cmp',
-    templateUrl:
-        'packages/fluentd_log_explorer/components/container_log_cmp.html',
-    useShadowDom: false)
-class ContainerLogCmp extends ShadowRootAware {
+    templateUrl: 'components/container_log_cmp.html')
+class ContainerLogCmp  {
   ElasticSearchService service;
   LConfiguration configuration;
 
@@ -87,7 +85,7 @@ class ContainerLogCmp extends ShadowRootAware {
   }
 
   @override
-  void onShadowRoot(ShadowRoot shadowRoot) {
+  void ngOnInit() {
     querySelector('#filter-input-id')
       ..onChange.listen(handler)
       ..onKeyDown.listen(handler)

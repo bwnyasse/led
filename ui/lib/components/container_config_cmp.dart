@@ -14,10 +14,8 @@ part of led_ui;
 
 @Component(
     selector: 'container-config-cmp',
-    templateUrl:
-    'packages/fluentd_log_explorer/components/container_config_cmp.html',
-    useShadowDom: false)
-class ContainerConfigCmp extends ShadowRootAware {
+    templateUrl: 'components/container_config_cmp.html')
+class ContainerConfigCmp extends OnInit {
 
   ElasticSearchService service;
   LConfiguration configuration;
@@ -27,7 +25,7 @@ class ContainerConfigCmp extends ShadowRootAware {
   ContainerConfigCmp(this.service,this.configuration,this.curator);
 
   @override
-  void onShadowRoot(ShadowRoot shadowRoot) {
+  void ngOnInit() {
     levelConfigurations= configuration.getLevelsConfiguration();
     getLogTagFormat= configuration.getLogTagFormat();
     jsinterop.initJSC();

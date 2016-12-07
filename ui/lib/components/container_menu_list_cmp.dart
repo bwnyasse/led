@@ -14,9 +14,7 @@ part of led_ui;
 
 @Component(
     selector: 'container-menu-list-cmp',
-    templateUrl:
-    'packages/fluentd_log_explorer/components/container_menu_list_cmp.html',
-    useShadowDom: false)
+    templateUrl: 'components/container_menu_list_cmp.html')
 class ContainerMenuListCmp {
   ElasticSearchService service;
   LConfiguration configuration;
