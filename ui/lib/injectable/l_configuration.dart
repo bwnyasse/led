@@ -11,7 +11,7 @@
  *
  */
 
-part of fluentd_log_explorer;
+part of led_ui;
 
 @Injectable()
 class LConfiguration extends AbstractRestService {

@@ -1,4 +1,4 @@
-import 'package:fluentd_log_explorer/utils/utils.dart';
+import 'package:led_ui/utils/utils.dart';
 import 'package:test/test.dart';
 import 'package:quiver/collection.dart' as quiver_collection;
 

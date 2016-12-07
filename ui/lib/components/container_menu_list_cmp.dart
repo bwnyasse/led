@@ -10,7 +10,7 @@
  * Author     : bwnyasse
  *
  */
-part of fluentd_log_explorer;
+part of led_ui;
 
 @Component(
     selector: 'container-menu-list-cmp',

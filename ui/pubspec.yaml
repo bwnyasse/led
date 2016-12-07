@@ -1,4 +1,4 @@
-name: 'fluentd_log_explorer'
+name: 'led_ui'
 
 # Intentional remove version because the version is related to LED version
 # See DRAFT_VERSION_STRATEGY.md doc
@@ -10,21 +10,27 @@ environment:
   sdk: '>=1.16.0 <2.0.0'
 
 dependencies:
-  angular: '1.1.2+2'
-  angular_ui: any
+  angular2: "^2.2.0"
+  browser:
+  #angular: '1.1.2+2'
+  #angular_ui: any
   dart_to_js_script_rewriter: "^1.0.1"
-  quiver: "^0.22.0"
+  quiver:
   xml2json: any
   jsonx: any
-  web_components: "0.12.0+4"
   js: ^0.6.0
-  date: "^0.1.0"
-  ng_infinite_scroll: any
+  date:
+  #ng_infinite_scroll: any
 dev_dependencies:
-  test: '0.12.2'
+  test:
 
 transformers:
-- angular
+- angular2:
+    platform_directives:
+    - package:angular2/common.dart#COMMON_DIRECTIVES
+    platform_pipes:
+     - package:angular2/common.dart#COMMON_PIPES
+    entry_points: web/main.dart
 - dart_to_js_script_rewriter
 - $dart2js:
     csp: true # Content Security Policy

@@ -10,18 +10,13 @@
  * Author     : bwnyasse
  *
  */
-import 'package:angular/application_factory.dart';
-import 'package:fluentd_log_explorer/application_module.dart';
-import 'package:ng_infinite_scroll/ng_infinite_scroll.dart';
+import 'package:angular2/platform/browser.dart';
+
+import 'package:led_ui/application_main_cmp.dart';
 
 ///
 /// Project Entry point.
 ///
-/// Define modules to be load.
-///
 void main() {
-  applicationFactory()
-    ..addModule(new ApplicationModule())
-    ..addModule(new InfiniteScrollModule())
-    ..run();
+  bootstrap(ApplicationMainCmp);
 }

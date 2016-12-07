@@ -1,4 +1,4 @@
-part of fluentd_log_explorer;
+part of led_ui;
 
 class Input {
   String index;
