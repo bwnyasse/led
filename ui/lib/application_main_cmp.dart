@@ -33,7 +33,6 @@ import 'package:date/date.dart' as external_date_lib;
 
 import 'utils/utils.dart';
 
-part 'rest/abstract_rest_service.dart';
 part 'components/route_components/route_config_cmp.dart';
 part 'components/route_components/route_logs_cmp.dart';
 part 'components/footer_cmp.dart';

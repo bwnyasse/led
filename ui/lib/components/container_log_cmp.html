@@ -14,7 +14,7 @@
         </div>
         <div class="col-lg-3" [class.hidden]="!service.hasCurrentLogLevel()">
             <div class="bs-component">
-                <div class="alert alert-dismissible color-white" [ngClass]="{{getSelectedAlertLevelCss()}}">
+                <div class="alert alert-dismissible color-white" [ngStyle]="getSelectedAlertLevelCss()">
                     <button type="button" class="close" (click)="service.clearLogLevel()">×</button>
                     <div>
                         <i class="icon ion-ios-speedometer-outline"></i> Level :
@@ -68,15 +68,15 @@
         <table class="table">
 
             <tbody>
-            <tr *ngFor="let input in service.sourceLogsByContainerName">
+            <tr ngFor="let input in service.sourceLogsByContainerName">
                 <td>
-                    <span class="label" [ngClass]="{{getLevelCss(input)}}">{{getLevel(input)}}</span>
+                    <span class="label" [ngStyle]="getLevelCss(input)">{{getLevel(input)}}</span>
                 </td>
                 <td>
                     <div class="source-logs-time">{{getTime(input)}}</div>
                 </td>
                 <td class="width-full">
-                    <pre [ngClass]="{{getMessageCss(input)}}">{{getMessage(input)}}</pre>
+                    <pre [ngStyle]="getMessageCss(input)">{{getMessage(input)}}</pre>
                 </td>
             </tr>
             </tbody>

@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let levelConfig in levelConfigurations">
+                    <tr ngFor="let levelConfig in levelConfigurations">
                         <td class="col-md-2">
                             <span class="label label-default">{{levelConfig.name}}</span>
                         </td>
@@ -64,7 +64,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let logTagFormat in getLogTagFormat">
+                    <tr ngFor="let logTagFormat in getLogTagFormat">
                         <td class="col-md-2">
                             <span class="label label-default">{{logTagFormat.service}}</span>
                         </td>

@@ -20,7 +20,7 @@ class ContainerConfigCmp extends OnInit {
   ElasticSearchService service;
   LConfiguration configuration;
   LCurator curator;
-  List levelConfigurations;
+  List levelConfigurations = [];
   List getLogTagFormat;
   ContainerConfigCmp(this.service,this.configuration,this.curator);
 
