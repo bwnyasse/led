@@ -15,6 +15,7 @@ part of led_ui;
 @Component(
     selector: 'route-config-cmp',
     templateUrl: 'components/route_components/route_config_cmp.html',
-    directives: const [ContainerConfigCmp])
+    directives: const [ContainerConfigCmp],
+    providers: const [ LConfiguration , LCurator])
 class RouteConfigCmp {
 }

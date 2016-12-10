@@ -14,7 +14,8 @@ part of led_ui;
 
 @Component(
     selector: 'container-log-cmp',
-    templateUrl: 'components/container_log_cmp.html')
+    templateUrl: 'components/container_log_cmp.html',
+    directives: const [ROUTER_DIRECTIVES])
 class ContainerLogCmp  {
   ElasticSearchService service;
   LConfiguration configuration;

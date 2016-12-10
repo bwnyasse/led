@@ -14,7 +14,8 @@ part of led_ui;
 
 @Component(
     selector: 'navbar-right-cmp',
-    templateUrl: 'components/navbar_right_cmp.html')
+    templateUrl: 'components/navbar_right_cmp.html',
+    directives: const [ROUTER_DIRECTIVES])
 class NavbarRightCmp {
 
   ElasticSearchService service;
