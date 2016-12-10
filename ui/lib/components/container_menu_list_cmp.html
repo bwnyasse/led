@@ -4,12 +4,12 @@
         <div [class.hidden]="service.indexes.isEmpty">
             <p class="lead"><i class="ion-ios-calendar-outline"></i> Log History</p>
             <div class="list-group">
-                <!--<a ngFor="let index in service.indexes" href="" (click)="service.getContainersByIndex(index)"
+                <!--<a *ngFor="let index of service.indexes" href="" (click)="service.getContainersByIndex(index)"
                    class="list-group-item">{{index}}</a>-->
                 <select class="form-control" [(ngModel)]="service.currentIndex" ng-change="changeIndex()">
-                  <!--  <option ngFor="let index in service.indexes" ng-value="index">
+                   <option *ngFor="let index of service.indexes" ng-value="index">
                         {{getIndexAsLogHistory(index)}}
-                    </option>-->
+                    </option>
                 </select>
             </div>
         </div>
@@ -18,8 +18,8 @@
         <div [class.hidden]="service.containers.isEmpty">
             <p class="lead"><i class="devicon-docker-plain colored menu-icon"></i> Docker containers</p>
             <div class="list-group">
-                <a ngFor="let container in service.containers" href="" (click)="getLogs(container)"
-                   class="menu-container-name list-group-item docker-container-name">{{container}}</a>
+                <li *ngFor="let container of service.containers" href="#" (click)="getLogs(container)"
+                   class="menu-pointer menu-container-name list-group-item docker-container-name"> {{container}}</li>
             </div>
         </div>
 
@@ -28,10 +28,11 @@
             <p class="lead"><i class="icon ion-ios-speedometer-outline"></i> Level</p>
 
             <div class="list-group">
-                <a ngFor="let level in service.levels" href="" (click)="getLogsByLevel(level)"
-                 class="list-group-item" [ngStyle]="getLevelCss(level.displayedValue)">
+
+                <li *ngFor="let level of service.levels" href="" (click)="getLogsByLevel(level)"
+                 class="menu-pointer list-group-item" [ngStyle]="getLevelCss(level.displayedValue)">
                 {{level.displayedValue}}
-                </a>
+                </li>
             </div>
         </div>
 
@@ -40,10 +41,9 @@
             <p class="lead"><i class="icon ion-ios-time-outline"></i> Last Activities</p>
 
             <div class="list-group">
-                <a ngFor="let histo in service.dateHisto" href="" (click)="getLogsByHisto(histo)"
-                   class="list-group-item histo-menu" ng-bind-html="getDuration(histo)">
-
-                </a>
+                <li *ngFor="let histo of service.dateHisto" href="" (click)="getLogsByHisto(histo)"
+                   class="menu-pointer list-group-item histo-menu" [innerHTML]="getDuration(histo)">
+                </li>
             </div>
         </div>
     </div>

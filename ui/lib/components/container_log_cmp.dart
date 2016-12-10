@@ -29,7 +29,7 @@ class ContainerLogCmp  {
       quiver_strings.isNotEmpty(input.message) ? input.message : input.log;
 
   getMessageCss(Input input) {
-    String css = '';
+    Map css = {};
     String level = getLevel(input);
     if (quiver_strings.isNotEmpty(level)) {
       css = configuration.getCssLevelLogMessage(level);
@@ -40,7 +40,7 @@ class ContainerLogCmp  {
   getLevel(Input input) => input.level.getRenderedValue();
 
   getSelectedAlertLevelCss() {
-    String css = "";
+    Map css = {};
     if (service.hasCurrentLogLevel()) {
       String level = service.currentLogLevel.getRenderedValue().toUpperCase();
       css = _effectiveGetLevelCss(level);
@@ -52,7 +52,7 @@ class ContainerLogCmp  {
   getLevelCss(Input input) => _effectiveGetLevelCss(getLevel(input));
 
   _effectiveGetLevelCss(level) {
-    String css = 'label-default';
+    Map css = {};
     if (level != null) {
        css = configuration.getCssLevelLabel(level);
     }

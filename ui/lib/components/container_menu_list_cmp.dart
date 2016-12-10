@@ -16,13 +16,15 @@ part of led_ui;
     selector: 'container-menu-list-cmp',
     templateUrl: 'components/container_menu_list_cmp.html')
 class ContainerMenuListCmp {
+
   ElasticSearchService service;
   LConfiguration configuration;
 
   ContainerMenuListCmp(this.service, this.configuration);
 
+
   getLevelCss(String level) {
-    String css = '';
+    Map css = {};
     if (level != null) {
       level = level.toUpperCase();
       css = configuration.getCssLevelMenu(level);

@@ -87,49 +87,50 @@ class LConfiguration extends AbstractRestService {
 
   List getLevelsConfiguration() =>  levelsConfiguration;
 
-  String getCssLevelLogMessage(String level){
+  Map getCssLevelLogMessage(String level){
     List where = getLevelsLogMessageConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration = where.elementAt(0);
       return levelConfiguration!=null ? _getInlineCssLevelLogMessage(levelConfiguration.color) : "";
     }
-    return "";
+    return {};
 
   }
 
-  String getCssLevelLabel(String level){
+  Map getCssLevelLabel(String level){
     List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration =  where.elementAt(0);
       return  levelConfiguration!=null ?  _getInlineCssLevelLabel(levelConfiguration.color): "";
     }
-    return "";
+    return {};
 
   }
 
-  String getCssLevelMenu(String level){
+  Map getCssLevelMenu(String level){
     List where = getLevelsConfiguration().where((config) => level.contains(config.pattern));
     if(where.isNotEmpty){
       LevelConfiguration levelConfiguration =  where.elementAt(0);
       return  levelConfiguration!=null ?  _getInlineCssLevelMenu(levelConfiguration.color): "";
     }
-    return "";
+    return {};
   }
 
-  _getInlineCssLevelMenu(String color) => '''{
+
+  _getInlineCssLevelMenu(String color) => {
     'border-left': '7px solid $color',
     'text-transform': 'uppercase'
-  }''';
+  };
 
-  _getInlineCssLevelLabel(String color) => '''{
+  _getInlineCssLevelLabel(String color) => {
     'background-color': '$color'
-  }''';
+  };
 
-  _getInlineCssLevelLogMessage(String color) => '''{
+  _getInlineCssLevelLogMessage(String color) => {
     'color': '$color',
     'font-weight': 'bold',
     'border': '1px solid'
-  }''';
+  };
 
 }
 

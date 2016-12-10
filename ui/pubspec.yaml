@@ -7,14 +7,12 @@ name: 'led_ui'
 author: <bwnyasse>
 
 environment:
-  sdk: '>=1.16.0 <2.0.0'
+  sdk: '>=1.19.0 <2.0.0'
 
 dependencies:
-  angular2: "^2.2.0"
-  browser:
-  #angular: '1.1.2+2'
-  #angular_ui: any
-  dart_to_js_script_rewriter: "^1.0.1"
+  angular2: ^2.2.0
+  http: ^0.11.0
+  stream_transformers: ^0.3.0
   quiver:
   xml2json: any
   jsonx: any
@@ -23,6 +21,8 @@ dependencies:
   #ng_infinite_scroll: any
 dev_dependencies:
   test:
+  browser: ^0.10.0
+  dart_to_js_script_rewriter: ^1.0.1
 
 transformers:
 - angular2:
@@ -31,10 +31,7 @@ transformers:
     platform_pipes:
     - 'package:angular2/common.dart#COMMON_PIPES'
     entry_points: web/main.dart
+    resolved_identifiers:
+        BrowserClient: 'package:http/browser_client.dart'
+        Client: 'package:http/http.dart'
 - dart_to_js_script_rewriter
-- $dart2js:
-    csp: true # Content Security Policy
-    checked: false
-    $exclude: bin
-    minify: true
-    commandLineOptions: ['--enable-experimental-mirrors','--trust-type-annotations', '--trust-primitives']

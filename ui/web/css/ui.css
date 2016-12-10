@@ -150,3 +150,7 @@ pre {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.menu-pointer {
+    cursor: pointer;
+}

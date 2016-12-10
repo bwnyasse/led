@@ -212,6 +212,8 @@ class ElasticSearchService extends AbstractRestService {
       currentLogLevel != null &&
       quiver_strings.isNotEmpty(currentLogLevel.value);
 
+  currentLogLevelDisplayValue() => currentLogLevel != null ? currentLogLevel.displayedValue : "";
+
   hasCurrentLogHisto() => quiver_strings.isNotEmpty(currentHisto);
 
   hasCurrentContainerName() =>

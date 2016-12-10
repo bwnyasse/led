@@ -20,7 +20,7 @@
                         <i class="icon ion-ios-speedometer-outline"></i> Level :
                     </div>
                     <div class="selected-alert-data ">
-                        <strong> {{service.currentLogLevel.displayedValue}}</strong>
+                        <strong> {{service.currentLogLevelDisplayValue()}}</strong>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
         <table class="table">
 
             <tbody>
-            <tr ngFor="let input in service.sourceLogsByContainerName">
+            <tr *ngFor="let input of service.sourceLogsByContainerName">
                 <td>
                     <span class="label" [ngStyle]="getLevelCss(input)">{{getLevel(input)}}</span>
                 </td>
@@ -90,7 +90,7 @@
         </table>
     </div>
 </div>
-<div [class.hidden]="!service.indexes.isEmpty || service.containers.isEmpty">
+<div [class.hidden]="service.indexes.isNotEmpty && service.containers.isNotEmpty">
     <div class="alert alert-dismissible alert-warning col-lg-6">
         <h4>Warning : Nothing to display !</h4>
         <p>No ElasticSearch Index nor docker containers are available. </p>
