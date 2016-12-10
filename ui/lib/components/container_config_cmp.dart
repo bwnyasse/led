@@ -15,7 +15,7 @@ part of led_ui;
 @Component(
     selector: 'container-config-cmp',
     templateUrl: 'components/container_config_cmp.html')
-class ContainerConfigCmp extends OnInit {
+class ContainerConfigCmp implements AfterViewInit {
 
   ElasticSearchService service;
   LConfiguration configuration;
@@ -24,14 +24,15 @@ class ContainerConfigCmp extends OnInit {
   List getLogTagFormat;
   ContainerConfigCmp(this.service,this.configuration,this.curator);
 
-  @override
-  void ngOnInit() {
-    levelConfigurations= configuration.getLevelsConfiguration();
-    getLogTagFormat= configuration.getLogTagFormat();
-    jsinterop.initJSC();
-  }
 
   register() =>  configuration.saveLevelConfig(levelConfigurations);
   restore() =>  configuration.reloadDefaultLevelConfig();
   performCurator() => curator.callCurator();
+
+  @override
+  ngAfterViewInit() {
+    levelConfigurations= configuration.getLevelsConfiguration();
+    getLogTagFormat= configuration.getLogTagFormat();
+    jsinterop.initJSC();
+  }
 }

@@ -23,6 +23,7 @@ import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
+import 'package:angular2/platform/common.dart';
 
 import 'package:intl/intl.dart';
 import 'utils/js_interop.dart' as jsinterop;
@@ -54,7 +55,9 @@ part 'models/models.dart';
     selector: 'application-main-cmp',
     templateUrl: 'application_main_cmp.html',
     directives: const [NavbarBrandCmp, NavbarRightCmp, FooterCmp, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
-    providers: const [ElasticSearchService, ROUTER_PROVIDERS])
+    providers: const [ElasticSearchService,
+    ROUTER_PROVIDERS,
+    const Provider(LocationStrategy, useClass: HashLocationStrategy)])
 @RouteConfig(const [
   const Route(
       name: ApplicationMainCmp.ROUTE_LOGS_NAME,
