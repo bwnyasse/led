@@ -15,11 +15,11 @@ part of led_ui;
 @Component(
     selector: 'container-log-cmp',
     templateUrl: 'components/container_log_cmp.html',
-    directives: const [ROUTER_DIRECTIVES])
-class ContainerLogCmp  {
+    directives: const [ROUTER_DIRECTIVES, FORM_DIRECTIVES])
+class ContainerLogCmp  implements OnInit {
   ElasticSearchService service;
   LConfiguration configuration;
-
+  
   ContainerLogCmp(this.service,this.configuration);
 
   displayedContainerId() => service.currentContainerId != null
