@@ -19,7 +19,6 @@ part of led_ui;
 class ContainerLogCmp  implements OnInit {
   ElasticSearchService service;
   LConfiguration configuration;
-  
   ContainerLogCmp(this.service,this.configuration);
 
   displayedContainerId() => service.currentContainerId != null

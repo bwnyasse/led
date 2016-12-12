@@ -72,7 +72,6 @@ class LConfiguration extends AbstractRestService {
     levels.forEach((json) {
       LevelConfiguration level = new LevelConfiguration.fromJson(json);
       levelsConfiguration.add(level);
-      print(level.loggify);
       if(level.loggify){
         levelsLogMessageConfiguration.add(level);
       }

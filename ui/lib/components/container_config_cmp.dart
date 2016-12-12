@@ -24,8 +24,11 @@ class ContainerConfigCmp implements AfterViewInit {
   List getLogTagFormat;
   ContainerConfigCmp(this.service,this.configuration,this.curator);
 
+  // FIXME: migrate to ng2, ngModel don't work with jscolor , so I add updateColor for binding
+  updateColor(name, value) =>
+    levelConfigurations.where((config) => quiver_strings.equalsIgnoreCase(config.name,name)).single.color = "#$value";
 
-  register() =>  configuration.saveLevelConfig(levelConfigurations);
+  register() => configuration.saveLevelConfig(levelConfigurations);
   restore() =>  configuration.reloadDefaultLevelConfig();
   performCurator() => curator.callCurator();
 
@@ -35,4 +38,5 @@ class ContainerConfigCmp implements AfterViewInit {
     getLogTagFormat= configuration.getLogTagFormat();
     jsinterop.initJSC();
   }
+
 }

@@ -13,7 +13,6 @@
 
                 <p>Specify the pattern to resolve the log severity. For example , if a log contains the pattern <strong>WARN</strong>,
                     LED will display it as a <strong>WARNING</strong> message</p>
-                {{levelConfigurations.length}}
                 <table class="table">
                     <thead>
                     <tr>
@@ -33,7 +32,7 @@
                                    value="{{levelConfig.pattern}}">
                         </td>
                         <td class="col-md-4">
-                            <input class="form-control jscolor" [(ngModel)]="levelConfig.color"
+                            <input class="form-control jscolor" #item (change)="updateColor(levelConfig.name, item.value)"
                                    value="{{levelConfig.color}}">
                         </td>
                         <td class="col-md-4">
