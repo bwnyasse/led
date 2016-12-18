@@ -34,13 +34,6 @@ public class ConfigurationResource {
 		return new ObjectMapper().readValue(file, GlobalConfiguration.class);
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/default")
-	public GlobalConfiguration defaultConfig() throws Exception {
-		return new ObjectMapper().readValue(new File(DIR, DEFAULT_CONF_FILE), GlobalConfiguration.class);
-	}
-
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

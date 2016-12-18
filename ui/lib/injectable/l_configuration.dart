@@ -29,10 +29,11 @@ class LConfiguration extends AbstractRestService {
 
   List logTagFormat = [];
   List levelsLogMessageConfiguration = [];
+  List nodesConfiguration = [];
   List levelsConfiguration = [];
 
   LConfiguration(){
-    loadLevelConfig();
+    loadConfig();
     //
     logTagFormat.add(new LogTagFormat(service:"Wildfly / Wildfly Swarm",tag:"wildfly.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_WILDFLY.pattern));
     logTagFormat.add(new LogTagFormat(service:"MongoDB",tag:"mongo.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_MONGO.pattern));
@@ -40,34 +41,42 @@ class LConfiguration extends AbstractRestService {
 
   }
 
-  reloadDefaultLevelConfig() async {
-    _get(CONFIG_REST_URL + '/default').then((response) {
-      _updateLevelConfig(response.responseText);
-    });
-  }
-
-  loadLevelConfig() async {
+  loadConfig() async {
     _get(CONFIG_REST_URL).then((response) {
-      _updateLevelConfig(response.responseText);
+      _updateConfig(response.responseText);
     });
   }
 
-  saveLevelConfig(List levelConfigurationsToSave) async {
+  saveConfig(List nodes, List levels) async {
     Map json = new Map();
+
+    List nodesToSave = [];
+    nodes.forEach((node) =>nodesToSave.add(node.toJson()));
+    json['nodes'] = nodesToSave;
+
     List levelsToSave = [];
-    levelConfigurationsToSave.forEach((level) =>levelsToSave.add(level.toJson()));
+    levels.forEach((level) =>levelsToSave.add(level.toJson()));
     json['levels'] = levelsToSave;
 
     _post(CONFIG_REST_URL,sendData: JSON.encode(json)).then((response) {
-      _updateLevelConfig(response.responseText);
+      _updateConfig(response.responseText);
     });
   }
 
-  _updateLevelConfig(var responseText) async {
+  _updateConfig(var responseText) async {
     levelsLogMessageConfiguration.clear();
     levelsConfiguration.clear();
+    nodesConfiguration.clear();
 
     Map jsonResponse = JSON.decode(responseText);
+    // Node
+    List nodes= jsonResponse['nodes'];
+    nodes.forEach((json) {
+      NodeConfiguration node = new NodeConfiguration.fromJson(json);
+      nodesConfiguration.add(node);
+    });
+
+    // Level
     List levels= jsonResponse['levels'];
     levels.forEach((json) {
       LevelConfiguration level = new LevelConfiguration.fromJson(json);
@@ -85,6 +94,8 @@ class LConfiguration extends AbstractRestService {
   List getLevelsLogMessageConfiguration() => levelsLogMessageConfiguration;
 
   List getLevelsConfiguration() =>  levelsConfiguration;
+
+  List getNodesConfiguration() =>  nodesConfiguration;
 
   Map getCssLevelLogMessage(String level){
     List where = getLevelsLogMessageConfiguration().where((config) => level.contains(config.pattern));
@@ -158,6 +169,37 @@ class LevelConfiguration {
   }
 
   toString() => " $name - $pattern - $color - $loggify";
+}
+
+class NodeConfiguration {
+  String id;
+  String name;
+  String host;
+  String port;
+
+  NodeConfiguration.empty():
+        this.id = new uuid.Uuid().v1().toString(),
+        this.name = '',
+        this.host = '',
+        this.port = '';
+
+  NodeConfiguration.fromJson(Map json):
+        this.id = new uuid.Uuid().v1().toString(),
+        this.name= json['name'],
+        this.host= json['host'],
+        this.port= json['port'].toString();
+
+  toJson() {
+    Map json = new Map();
+    json['name']= name;
+    json['host']= host;
+    json['port']= port;
+    return json;
+  }
+
+  isValid() => name.isNotEmpty && host.isNotEmpty && port.isNotEmpty;
+
+  toString() => " $name - $host:$port ";
 }
 
 class LogTagFormat {

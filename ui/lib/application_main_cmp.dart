@@ -27,6 +27,7 @@ import 'package:angular2/router.dart';
 import 'package:angular2/platform/common.dart';
 
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart' as uuid;
 import 'utils/js_interop.dart' as jsinterop;
 import 'package:quiver/strings.dart' as quiver_strings;
 import 'package:quiver/collection.dart' as quiver_collection;

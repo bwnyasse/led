@@ -7,6 +7,49 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
+                <h3 class="panel-title">Nodes</h3>
+            </div>
+            <div class="panel-body">
+
+                <p> <a (click)="addNodes()" class="btn btn-success">Add nodes </a>  to visualize infos with docker remote API</p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let node of nodesConfigurations">
+                        <td class="col-md-2">
+                            <input type="text" class="form-control" [(ngModel)]="node.name"
+                                   value="{{node.name}}">
+                        </td>
+                        <td class="col-md-4">
+                            <input type="text" class="form-control" [(ngModel)]="node.host"
+                                   value="{{node.host}}">
+                        </td>
+                        <td class="col-md-4">
+                            <input type="text" class="form-control" [(ngModel)]="node.port"
+                                   value="{{node.port}}">
+                        </td>
+                        <td class="col-md-4">
+                            <a (click)="removeNodes(node.id)" class="btn btn-danger btn-xs">remove</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="l-float-right">
+                    <a (click)="registerNodes()" class="btn btn-default">Save Nodes</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <h3 class="panel-title">Level</h3>
             </div>
             <div class="panel-body">
@@ -36,13 +79,13 @@
                                    value="{{levelConfig.color}}">
                         </td>
                         <td class="col-md-4">
+
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="l-float-right">
-                    <a (click)="register()" class="btn btn-default">Save</a>
-                    <a (click)="restore()" class="btn btn-danger">Reset to default</a>
+                    <a (click)="registerLevels()" class="btn btn-default">Save Levels</a>
                 </div>
 
             </div>

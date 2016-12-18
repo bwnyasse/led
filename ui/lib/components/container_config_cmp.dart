@@ -21,6 +21,7 @@ class ContainerConfigCmp implements AfterViewInit {
   LConfiguration configuration;
   LCurator curator;
   List levelConfigurations = [];
+  List nodesConfigurations = [];
   List getLogTagFormat;
   ContainerConfigCmp(this.service,this.configuration,this.curator);
 
@@ -28,12 +29,29 @@ class ContainerConfigCmp implements AfterViewInit {
   updateColor(name, value) =>
     levelConfigurations.where((config) => quiver_strings.equalsIgnoreCase(config.name,name)).single.color = "#$value";
 
-  register() => configuration.saveLevelConfig(levelConfigurations);
-  restore() =>  configuration.reloadDefaultLevelConfig();
+  removeNodes(String id) => nodesConfigurations.removeWhere((config) => quiver_strings.equalsIgnoreCase(id,config.id));
+
+  addNodes() => nodesConfigurations.add(new NodeConfiguration.empty());
+
+  registerNodes() {
+
+    bool isValid = true;
+    nodesConfigurations.forEach((NodeConfiguration config) {
+      isValid = isValid && config.isValid();
+      print(config);
+    });
+    isValid && _save();
+  }
+
+  registerLevels() => _save();
+
   performCurator() => curator.callCurator();
+
+  _save() => configuration.saveConfig(nodesConfigurations,levelConfigurations);
 
   @override
   ngAfterViewInit() {
+    nodesConfigurations = configuration.getNodesConfiguration();
     levelConfigurations= configuration.getLevelsConfiguration();
     getLogTagFormat= configuration.getLogTagFormat();
     jsinterop.initJSC();

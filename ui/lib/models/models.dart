@@ -72,6 +72,14 @@ class Level {
   }
 }
 
+class Node {
+  String name;
+  String host;
+  int port;
+
+  Node({this.name, this.host,this.port});
+}
+
 class CleanCuratorConfig {
   int olderThan = 7;
 }
