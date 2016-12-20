@@ -39,8 +39,10 @@ import 'utils/utils.dart';
 
 part 'components/route_components/route_config_cmp.dart';
 part 'components/route_components/route_logs_cmp.dart';
+part 'components/route_components/route_remote_api_cmp.dart';
 part 'components/footer_cmp.dart';
 part 'components/container_config_cmp.dart';
+part 'components/container_remote_api_cmp.dart';
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
 part 'components/navbar_right_cmp.dart';
@@ -70,7 +72,11 @@ part 'models/models.dart';
   const Route(
       name: ApplicationMainCmp.ROUTE_CONFIG_NAME,
       path: '/'  + ApplicationMainCmp.ROUTE_CONFIG_PATH,
-      component: RouteConfigCmp)
+      component: RouteConfigCmp),
+  const Route(
+      name: ApplicationMainCmp.ROUTE_REMOTE_API_NAME,
+      path: '/'  + ApplicationMainCmp.ROUTE_REMOTE_API_PATH,
+      component: RouteRemoteApiCmp)
 ])
 class ApplicationMainCmp {
 
@@ -78,5 +84,7 @@ class ApplicationMainCmp {
     static const String ROUTE_LOGS_NAME = 'Logs';
     static const String ROUTE_CONFIG_PATH = 'config';
     static const String ROUTE_CONFIG_NAME = 'Config';
+    static const String ROUTE_REMOTE_API_PATH = 'remoteapi';
+    static const String ROUTE_REMOTE_API_NAME = 'Remoteapi';
 
 }

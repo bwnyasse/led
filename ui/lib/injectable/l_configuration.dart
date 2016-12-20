@@ -27,6 +27,8 @@ class LConfiguration extends AbstractRestService {
   static String LABEL_TRACE = "TRACE";
   static String LABEL_FATAL = "FATAL";
 
+  String currentNodeIndex;
+
   List logTagFormat = [];
   List levelsLogMessageConfiguration = [];
   List nodesConfiguration = [];
@@ -75,6 +77,7 @@ class LConfiguration extends AbstractRestService {
       NodeConfiguration node = new NodeConfiguration.fromJson(json);
       nodesConfiguration.add(node);
     });
+    currentNodeIndex= nodesConfiguration.first.index;
 
     // Level
     List levels= jsonResponse['levels'];

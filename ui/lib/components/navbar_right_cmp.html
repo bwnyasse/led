@@ -1,12 +1,12 @@
 <ul class="nav navbar-nav navbar-right">
-    <li><a (click)="refresh()"> <i class="ion-ios-refresh-outline"></i> Refresh</a></li>
-    <li><a [routerLink]="['Config']"> <i class="ion-ios-gear-outline"></i> Settings </a></li>
-    <!--<li class="dropdown open">
-     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i class="ion-ios-gear-outline"></i> Settings <span class="caret"></span></a>
+    <li><a [routerLink]="['Logs']"> <i class="ion-ios-list-outline"></i> Logs </a></li>
+    <li><a [routerLink]="['Remoteapi']"> <i class="ion-ios-grid-view-outline"></i> Remote Explorer </a></li>
+    <li class="dropdown">
+     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"> Options <span class="caret"></span></a>
      <ul class="dropdown-menu" role="menu">
-       <li><a href="#">Layout</a></li>
+       <li><a (click)="refresh()"> <i class="ion-ios-refresh-outline"></i> Refresh</a></li>
        <li class="divider"></li>
-       <li><a href="#">Log format</a></li>
+       <li><a [routerLink]="['Config']"> <i class="ion-ios-gear-outline"></i> Settings </a></li>
      </ul>
-   </li>-->
+   </li>
 </ul>
