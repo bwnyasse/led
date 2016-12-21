@@ -15,7 +15,6 @@ part of led_ui;
 @Component(
     selector: 'route-remote-api-cmp',
     templateUrl: 'components/route_components/route_remote_api_cmp.html',
-    directives: const [ContainerRemoteApiCmp],
-    providers: const [ LConfiguration ])
+    directives: const [ContainerRemoteApiCmp])
 class RouteRemoteApiCmp {
 }

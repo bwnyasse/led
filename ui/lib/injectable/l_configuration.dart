@@ -34,7 +34,7 @@ class LConfiguration extends AbstractRestService {
   List nodesConfiguration = [];
   List levelsConfiguration = [];
 
-  LConfiguration(){
+  LConfiguration() {
     loadConfig();
     //
     logTagFormat.add(new LogTagFormat(service:"Wildfly / Wildfly Swarm",tag:"wildfly.docker.{{.Name }}",format:Utils.LOG_FORMAT_REGEXP_WILDFLY.pattern));
@@ -77,7 +77,7 @@ class LConfiguration extends AbstractRestService {
       NodeConfiguration node = new NodeConfiguration.fromJson(json);
       nodesConfiguration.add(node);
     });
-    currentNodeIndex= nodesConfiguration.first.index;
+    currentNodeIndex= nodesConfiguration.first.name;
 
     // Level
     List levels= jsonResponse['levels'];

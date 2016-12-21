@@ -11,12 +11,13 @@ environment:
 
 dependencies:
   angular2: ^2.2.0
-  http: ^0.11.0
+  http: ^0.11.2
   stream_transformers: ^0.3.0
   quiver:
   xml2json: any
   jsonx: any
   js: ^0.6.0
+  func: ^0.1.0
   date:
   #ng_infinite_scroll: any
   uuid:

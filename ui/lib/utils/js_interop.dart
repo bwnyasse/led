@@ -2,7 +2,7 @@
 library ui_jsinterop;
 
 import "package:js/js.dart";
-import 'dart:js' as js;
+import 'dart:js' as js; // TODO: Deprecated
 import 'package:quiver/strings.dart' as quiver_strings;
 
 ////////////////////////// Call -> [env.js] /////////////////////////////////////
@@ -34,20 +34,21 @@ quiver_strings.isEmpty(js.context['infos']['APP_VERSION'])
 
 const int SHOW_NOTIE_TIME_IN_SECOND = 2;
 
-showNotieSuccess(String message) {
-  notieAlert(1, message, SHOW_NOTIE_TIME_IN_SECOND);
-}
+showNotieSuccess(String message) =>  notieAlert(1, message, SHOW_NOTIE_TIME_IN_SECOND);
 
-showNotieWarning(String message) {
-  notieAlert(2, message, SHOW_NOTIE_TIME_IN_SECOND);
-}
+showNotieWarning(String message) => notieAlert(2, message, SHOW_NOTIE_TIME_IN_SECOND);
 
-showNotieError(String message) {
-  notieAlert(3, message, SHOW_NOTIE_TIME_IN_SECOND);
-}
+showNotieError(String message) => notieAlert(3, message, SHOW_NOTIE_TIME_IN_SECOND);
+
 
 @JS("notie.alert")
 external String notieAlert(int styleNumber, String message, int timeInSecond);
 
+////////////////////////// Call --> [led_jscolor.js]  /////////////////////////////////
 @JS("initJSC")
 external String initJSC();
+
+
+////////////////////////// Call --> [filesize.js]  /////////////////////////////////
+@JS("filesize")
+external String filesize(int value);

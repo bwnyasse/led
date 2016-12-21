@@ -115,6 +115,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.5"
+  func:
+    description:
+      name: func
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   glob:
     description:
       name: glob

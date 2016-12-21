@@ -6,15 +6,14 @@
  * 
  * DO NOT ALTER OR REMOVE THIS HEADER.
  * 
- * Created on : 07/12/16
+ * Created on : 21/12/16
  * Author     : bwnyasse
  *  
  */
+
 part of led_ui;
 
-@Component(
-    selector: 'route-logs-cmp',
-    templateUrl: 'components/route_components/route_logs_cmp.html',
-    directives: const [ContainerMenuListCmp,ContainerLogCmp])
-class RouteLogsCmp {
+@Pipe(name: 'humanSize')
+class HumanSize implements PipeTransform {
+  transform(dynamic value) => jsinterop.filesize(value);
 }

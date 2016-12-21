@@ -4,7 +4,8 @@
         <div>
             <p class="lead"><i class="ion-ios-calendar-outline"></i> Available Nodes</p>
             <div class="list-group">
-                <select class="form-control" [(ngModel)]="configuration.currentNodeIndex" (ngModelChange)="changeNodeIndex()">
+                <select class="form-control" [(ngModel)]="configuration.currentNodeIndex"
+                        (ngModelChange)="changeNodeIndex()">
                     <option *ngFor="let node of configuration.nodesConfiguration" [ngValue]="node.name">
                         {{node.name}}
                     </option>
@@ -19,29 +20,127 @@
 <div class="col-md-9">
 
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-12">
             <div class="bs-component">
                 <div class="alert alert-dismissible alert-success2">
                     <div>
-                        <i class="devicon-docker-plain "> </i> Docker Version 1.12.3
+                        <i class="ion-ios-timer-outline"> </i> Node Info :
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Hostname</th>
+                                <th>OS</th>
+                                <th>CPUs</th>
+                                <th>Mem</th>
+                                <th>Docker version</th>
+                                <th>Api Version</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ getRealHostName() }}</td>
+                                <td>{{ getOperatingSystem() }}</td>
+                                <td>{{ getCpuCount() }}</td>
+                                <td>{{ getMemTotal() | humanSize }}</td>
+                                <td>{{ getDockerVersion() }}</td>
+                                <td>{{ getApiVersion() }}</td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+
+        <div class="col-lg-6 menu-pointer" (click)="showContainer(true)">
             <div class="bs-component">
-                <div class="alert alert-dismissible alert-success2">
+                <div class="alert alert-dismissible alert-docker-remote-api">
                     <div>
-                        <i class="devicon-docker-plain "> </i> 12 Containers
+                        <i class="devicon-docker-plain "> </i> {{ getContainerCount() }} Containers
+
+                        <div class="l-float-right">
+                            <ul>
+                                <li>{{ getContainerRunningCount() }} Running</li>
+                                <li>{{ getContainerStoppedCount() }} Stopped</li>
+                                <li>{{ getContainerPausedCount() }} Paused</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 menu-pointer" (click)="showContainer(false)">
+            <div class="bs-component">
+                <div class="alert alert-dismissible alert-docker-remote-api">
+                    <div>
+                        <i class="devicon-docker-plain "> </i> {{ getImagesCount() }} Images
+
+                        <div class="l-float-right">
+                            <ul>
+                                <li>{{ getImagesTotalSizeCount() | humanSize }} </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-12" [class.hidden]="!showContainerBox && initShow">
             <div class="bs-component">
-                <div class="alert alert-dismissible alert-success2">
+                <hr>
+                <div class="alert alert-dismissible">
+                    Containers List
                     <div>
-                        <i class="devicon-docker-plain "> </i> 20 Images Containers
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Image</th>
+                                <th>State</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let container of containers">
+                                <td>{{ container.id }}</td>
+                                <td>{{ container.image }}</td>
+                                <td>{{ container.status }}</td>
+                                <td>{{ container.names }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" [class.hidden]="showContainerBox && initShow">
+            <div class="bs-component">
+                <hr>
+                <div class="alert alert-dismissible">
+                    Images list
+                    <div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tags</th>
+                                <th>Size</th>
+                                <th>Created</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let image of imagesInfo">
+                                <td>{{ image.id }}</td>
+                                <td>{{ image.repoTags }}</td>
+                                <td>{{ image.size | humanSize }}</td>
+                                <td>{{ image.created }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

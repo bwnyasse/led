@@ -14,6 +14,7 @@ part of led_ui;
 
 @Injectable()
 class ElasticSearchService extends AbstractRestService {
+
   static String ES_URL = AbstractRestService.CONTEXT_URL +"/es/";
   static String ES_TYPE = "fluentd";
 
