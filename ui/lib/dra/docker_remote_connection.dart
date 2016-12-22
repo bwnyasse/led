@@ -127,6 +127,21 @@ class DockerRemoteConnection {
     return response.map((e) => new Container.fromJson(e, apiVersion));
   }
 
+  /// Return low-level information of [container].
+  /// The passed [container] argument must have an existing id assigned.
+  /// Status Codes:
+  /// 200 – no error
+  /// 404 – no such container
+  /// 500 – server error
+  Future<ContainerInfo> container(Container container) async {
+    assert(
+    container != null && container.id != null && container.id.isNotEmpty);
+    final Map response =
+    await _request(RequestType.get, '/containers/${container.id}/json');
+//    print(response);
+    return new ContainerInfo.fromJson(response, apiVersion);
+  }
+
   Future<dynamic> _request(RequestType requestType, String path,
       {Map body, Map query, Map<String,
           String> headers, ResponsePreprocessor preprocessor}) async {

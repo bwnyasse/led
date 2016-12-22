@@ -1,0 +1,44 @@
+<hr>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Container Status  </h3>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li> <b>Id:</b> {{ getContainerId() }} </li>
+            <li> <b>Name:</b> {{ getContainerName() }} </li>
+            <li> <b>Image:</b> {{ getContainerImage() }} </li>
+            <li> <b>Status:</b> {{ getContainerStatus() }} </li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Container Details  </h3>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li> <b>Driver:</b> {{ getContainerDriver() }} </li>
+            <li> <b>CMD:</b> {{ getContainerCmd() }} </li>
+            <li> <b>Exposed Ports:</b> {{ getExposedPorts()}} </li>
+            <li> <b>ENV:</b> {{ getEnv() }} </li>
+        </ul>
+    </div>
+</div>
+
+<hr>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Container CPU Usage  </h3>
+    </div>
+    <div class="panel-body">
+        <ul>
+            <li> <b>Driver:</b> {{ getContainerDriver() }} </li>
+            <li> <b>CMD:</b> {{ getContainerCmd() }} </li>
+            <li> <b>Exposed Ports:</b> {{ getExposedPorts()}} </li>
+            <li> <b>ENV:</b> {{ getEnv() }} </li>
+        </ul>
+    </div>
+</div>

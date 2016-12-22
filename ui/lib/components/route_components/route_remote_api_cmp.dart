@@ -17,23 +17,16 @@ part of led_ui;
     templateUrl: 'components/route_components/route_remote_api_cmp.html',
     directives: const [ROUTER_DIRECTIVES],
     pipes: const [HumanSize, TruncateId])
-//@RouteConfig(const [
-//  const Route(
-//      name: 'Empty',
-//      path: '/',
-//      component: Empty,
-//      useAsDefault: true),
-//  const Route(
-//      name: 'Images',
-//      path: '/images/',
-//      component: ContainerRemoteApiImagesCmp)
-//])
 @RouteConfig(const [
   const Route(
       name: 'Containers',
       path: '/containers',
       component: RouteDockerContainersListCmp,
       useAsDefault: true),
+  const Route(
+      name: 'Container',
+      path: '/containers/:containerId',
+      component: RouteDockerContainerCmp),
   const Route(
       name: 'Images',
       path: '/images',
@@ -42,7 +35,6 @@ part of led_ui;
 class RouteRemoteApiCmp implements AfterContentInit  {
 
 
-  ElasticSearchService service;
   LConfiguration configuration;
   DockerRemoteControler dockerRemoteCtrl;
   DockerRemoteConnection connection;
@@ -51,7 +43,7 @@ class RouteRemoteApiCmp implements AfterContentInit  {
 
   InfoResponse infoResponse;
 
-  RouteRemoteApiCmp(this.service, this.configuration, this.dockerRemoteCtrl);
+  RouteRemoteApiCmp(this.configuration, this.dockerRemoteCtrl);
 
 
   @override

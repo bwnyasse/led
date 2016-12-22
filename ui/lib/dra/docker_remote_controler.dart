@@ -15,6 +15,7 @@ part of led_ui;
 @Injectable()
 class DockerRemoteControler {
 
+  DockerRemoteConnection currentConnection;
   List<Container> currentContainers = [];
   List<ImageInfo> currentImagesInfo = [];
 
@@ -31,6 +32,7 @@ class DockerRemoteControler {
       dockerRemoteConnections[key] = connection;
       await connection.init();
     }
+    currentConnection = connection;
     return connection;
   }
 

@@ -576,7 +576,7 @@ class ImageInfo {
   }
 }
 
-class ContainerInfo {
+class ContainerInfo  extends AsJsonReponse {
   String _appArmorProfile;
   String get appArmorProfile => _appArmorProfile;
 
@@ -656,7 +656,7 @@ class ContainerInfo {
   bool _updateDns;
   bool get updateDns => _updateDns;
 
-  ContainerInfo.fromJson(Map json, Version apiVersion) {
+  ContainerInfo.fromJson(Map json, Version apiVersion): super.fromJson(json, apiVersion) {
     _appArmorProfile = json['AppArmorProfile'];
     _appliedVolumesFrom = json['AppliedVolumesFrom'];
     _args = _toUnmodifiableListView(json['Args']);
@@ -753,7 +753,7 @@ class VolumesRw {
   }
 }
 
-class NetworkSettings {
+class NetworkSettings extends AsJsonReponse{
   String _bridge;
   String get bridge => _bridge;
 
@@ -808,7 +808,7 @@ class NetworkSettings {
   UnmodifiableListView _secondaryIPv6Addresses;
   UnmodifiableListView get secondaryIPv6Addresses => _secondaryIPv6Addresses;
 
-  NetworkSettings.fromJson(Map json, Version apiVersion) {
+  NetworkSettings.fromJson(Map json, Version apiVersion): super.fromJson(json, apiVersion) {
     if (json == null) {
       return;
     }
@@ -859,6 +859,10 @@ class NetworkSettings {
 }
 
 class State {
+
+  String _status;
+  String get status => _status;
+
   bool _dead;
   bool get dead => _dead;
 
@@ -893,7 +897,7 @@ class State {
     if (json == null) {
       return;
     }
-
+    _status = json['Status'];
     _dead = json['Dead'];
     _error = json['Error'];
     _exitCode = json['ExitCode'];
@@ -1071,7 +1075,7 @@ class Config {
 }
 
 /// See [HostConfigRequest] for documentation of the members.
-class HostConfig {
+class HostConfig extends AsJsonReponse{
   List<String> _binds;
   List<String> get binds => _toUnmodifiableListView(_binds);
 
@@ -1172,9 +1176,9 @@ class HostConfig {
   List _volumesFrom;
   List get volumesFrom => _toUnmodifiableListView(_volumesFrom);
 
-  HostConfig();
+  HostConfig(): super.fromJson(null, null);
 
-  HostConfig.fromJson(Map json, Version apiVersion) {
+  HostConfig.fromJson(Map json, Version apiVersion) : super.fromJson(json, apiVersion) {
     if (json == null) {
       return;
     }
@@ -1214,8 +1218,8 @@ class HostConfig {
     _privileged = json['Privileged'];
     _publishAllPorts = json['PublishAllPorts'];
     _readonlyRootFs = json['ReadonlyRootfs'];
-    _restartPolicy =
-    new RestartPolicy.fromJson(json['RestartPolicy'], apiVersion);
+//  TODO:  _restartPolicy =
+//    new RestartPolicy.fromJson(json['RestartPolicy'], apiVersion);
     _securityOpt = json['SecurityOpt'];
     _ulimits = json['Ulimits'];
     _utsMode = json['UTSMode'];
@@ -1309,15 +1313,15 @@ enum RestartPolicyVariant { doNotRestart, always, onFailure }
 ///  giving up. The default is not to restart. (optional) An ever increasing
 ///  delay (double the previous delay, starting at 100mS) is added before each
 ///  restart to prevent flooding the server.
-class RestartPolicy {
+class RestartPolicy extends AsJsonReponse {
   RestartPolicyVariant _variant;
   RestartPolicyVariant get variant => _variant;
   int _maximumRetryCount;
   int get maximumRetryCount => _maximumRetryCount;
 
-  RestartPolicy(this._variant, this._maximumRetryCount);
+  RestartPolicy(this._variant, this._maximumRetryCount) : super.fromJson(null, null);
 
-  RestartPolicy.fromJson(Map json, Version apiVersion) {
+  RestartPolicy.fromJson(Map json, Version apiVersion) : super.fromJson(json, apiVersion) {
     if (json == null) {
       return;
     }

@@ -44,6 +44,7 @@ part 'components/empty.dart';
 part 'components/nested_route/container_remote_api_images_cmp.dart';
 part 'components/nested_route/route_docker_containers_list_cmp.dart';
 part 'components/nested_route/route_docker_images_list_cmp.dart';
+part 'components/nested_route/route_docker_container_cmp.dart';
 part 'components/route_components/route_config_cmp.dart';
 part 'components/route_components/route_logs_cmp.dart';
 part 'components/route_components/route_remote_api_cmp.dart';

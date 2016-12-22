@@ -15,7 +15,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let container of dockerRemoteCtrl.currentContainers">
-                        <td><a [routerLink]="['Images']">{{ container.id | truncateId }}</a></td>
+                        <td><a [routerLink]="['Container', {'containerId': container.id }]">{{ container.id | truncateId }}</a></td>
                         <td>{{ container.image }}</td>
                         <td [ngClass]="containerStatusColor(container.status)">{{ container.status }}</td>
                         <td>{{ container.names }}</td>
