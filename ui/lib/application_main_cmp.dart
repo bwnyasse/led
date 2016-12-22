@@ -40,12 +40,15 @@ import 'utils/utils.dart';
 import 'utils/js_interop.dart' as jsinterop;
 
 
+part 'components/empty.dart';
+part 'components/nested_route/container_remote_api_images_cmp.dart';
+part 'components/nested_route/route_docker_containers_list_cmp.dart';
+part 'components/nested_route/route_docker_images_list_cmp.dart';
 part 'components/route_components/route_config_cmp.dart';
 part 'components/route_components/route_logs_cmp.dart';
 part 'components/route_components/route_remote_api_cmp.dart';
 part 'components/footer_cmp.dart';
 part 'components/container_config_cmp.dart';
-part 'components/container_remote_api_cmp.dart';
 part 'components/container_menu_list_cmp.dart';
 part 'components/container_log_cmp.dart';
 part 'components/navbar_right_cmp.dart';
@@ -61,36 +64,36 @@ part 'dra/models.dart';
 part 'dra/docker_remote_connection.dart';
 part 'dra/docker_remote_controler.dart';
 
-
 @Component(
     selector: 'application-main-cmp',
     templateUrl: 'application_main_cmp.html',
-    directives: const [NavbarBrandCmp, NavbarRightCmp, FooterCmp, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
-    providers: const [ElasticSearchService,LConfiguration, LCurator, DockerRemoteControler,
-    ROUTER_PROVIDERS,
-    const Provider(LocationStrategy, useClass: HashLocationStrategy)])
+    directives: const [
+      NavbarBrandCmp,
+      NavbarRightCmp,
+      FooterCmp,
+      CORE_DIRECTIVES,
+      FORM_DIRECTIVES,
+      ROUTER_DIRECTIVES
+    ],
+    providers: const [
+      ElasticSearchService, LConfiguration, LCurator, DockerRemoteControler,
+      ROUTER_PROVIDERS,
+      const Provider(LocationStrategy, useClass: HashLocationStrategy)
+    ])
 @RouteConfig(const [
   const Route(
-      name: ApplicationMainCmp.ROUTE_LOGS_NAME,
-      path: '/'  + ApplicationMainCmp.ROUTE_LOGS_PATH,
+      name: 'Logs',
+      path: '/logs',
       component: RouteLogsCmp,
       useAsDefault: true),
   const Route(
-      name: ApplicationMainCmp.ROUTE_CONFIG_NAME,
-      path: '/'  + ApplicationMainCmp.ROUTE_CONFIG_PATH,
+      name: 'Config',
+      path: '/config',
       component: RouteConfigCmp),
   const Route(
-      name: ApplicationMainCmp.ROUTE_REMOTE_API_NAME,
-      path: '/'  + ApplicationMainCmp.ROUTE_REMOTE_API_PATH,
+      name: 'Remoteapi',
+      path: '/remoteapi/...',
       component: RouteRemoteApiCmp)
 ])
 class ApplicationMainCmp {
-
-    static const String ROUTE_LOGS_PATH = 'logs';
-    static const String ROUTE_LOGS_NAME = 'Logs';
-    static const String ROUTE_CONFIG_PATH = 'config';
-    static const String ROUTE_CONFIG_NAME = 'Config';
-    static const String ROUTE_REMOTE_API_PATH = 'remoteapi';
-    static const String ROUTE_REMOTE_API_NAME = 'Remoteapi';
-
 }

@@ -3,8 +3,86 @@
 
     <div class="row">
 
-        <container-remote-api-cmp></container-remote-api-cmp>
+        <div class="col-md-3">
+
+            <div [class.hidden]="configuration.nodesConfiguration.isEmpty">
+                <div>
+                    <p class="lead"><i class="ion-ios-calendar-outline"></i> Available Nodes</p>
+                    <div class="list-group">
+                        <select class="form-control" [(ngModel)]="configuration.currentNodeIndex"
+                                (ngModelChange)="changeNodeIndex()">
+                            <option *ngFor="let node of configuration.nodesConfiguration" [ngValue]="node.name">
+                                {{node.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="bs-component">
+                        <div class="alert alert-dismissible alert-success2">
+                    <span class="alert-docker-remote-api-header">
+                        <i class="ion-ios-timer-outline"> </i> Node Info
+                    </span>
+                            <ul>
+                                <li>Hostname : <strong> {{ getRealHostName() }} </strong></li>
+                                <li>OS : <strong>{{ getOperatingSystem() }}</strong></li>
+                                <li>CPUs : <strong>{{ getCpuCount() }} </strong></li>
+                                <li>Mem : <strong>{{ getMemTotal() | humanSize }}</strong></li>
+                                <li>Docker version : <strong>{{ getDockerVersion() }}</strong></li>
+                                <li>Api Version : <strong>{{ getApiVersion() }}</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 menu-pointer">
+                    <div class="bs-component">
+                        <div class="alert alert-dismissible alert-docker-remote-api">
+                            <div>
+                        <span class="alert-docker-remote-api-header">
+                        <i class="devicon-docker-plain "> </i> {{ getContainerCount() }}
+                        </span>
+
+                                <ul class="alert-docker-remote-api-list">
+                                    <li><strong>  <i class="ion-heart-broken color-success"></i>  {{ getContainerRunningCount() }} </strong> Running</li>
+                                    <li> <strong> <i class="ion-heart-broken color-red"></i> {{ getContainerStoppedCount() }} </strong>  Stopped</li>
+                                    <li> <strong> <i class="ion-heart-broken color-warning"></i> {{ getContainerPausedCount() }} </strong>  Paused</li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 menu-pointer">
+                    <div class="bs-component">
+                        <div class="alert alert-dismissible alert-docker-remote-api-image">
+                            <div>
+                        <span class="alert-docker-remote-api-header">
+                        <i class="devicon-docker-plain "> </i> {{ getImagesCount() }}
+                        </span>
+                                <ul class="alert-docker-remote-api-list">
+                                    <li>Total size : <strong>{{ getImagesTotalSizeCount() | humanSize }} </strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
 
     </div>
 
 </div>
+

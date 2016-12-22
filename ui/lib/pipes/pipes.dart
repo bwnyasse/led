@@ -17,3 +17,8 @@ part of led_ui;
 class HumanSize implements PipeTransform {
   transform(dynamic value) => jsinterop.filesize(value);
 }
+
+@Pipe(name: 'truncateId')
+class TruncateId implements PipeTransform {
+  transform(dynamic value) => value.toString().replaceAll('sha256:','').substring(0,15);
+}

@@ -15,6 +15,9 @@ part of led_ui;
 @Injectable()
 class DockerRemoteControler {
 
+  List<Container> currentContainers = [];
+  List<ImageInfo> currentImagesInfo = [];
+
   Map<String, DockerRemoteConnection> dockerRemoteConnections = new Map();
 
   Future<DockerRemoteConnection> load({String host, String port}) async {
