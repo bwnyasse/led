@@ -18,7 +18,7 @@ import 'dart:html';
 import 'dart:js' as js;
 import 'dart:convert';
 import 'dart:collection';
-
+import "package:js/js.dart";
 import 'package:angular2/angular2.dart';
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
@@ -26,6 +26,7 @@ import 'package:angular2/router.dart';
 import 'package:angular2/platform/common.dart';
 
 import 'package:led_ui/gen/filesize.dart' as gen_filesize;
+import 'package:chartjs/chartjs.dart';
 
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart' as uuid;
@@ -35,6 +36,9 @@ import 'package:quiver/core.dart' as quiver_core;
 import 'package:date/date.dart' as external_date_lib;
 import 'package:http/http.dart' as http;
 import 'package:http/browser_client.dart' as http_browser_client;
+
+
+
 
 import 'utils/utils.dart';
 import 'utils/js_interop.dart' as jsinterop;

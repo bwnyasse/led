@@ -14,6 +14,8 @@ part of led_ui;
 
 class DockerRemoteConnection {
 
+  Uri hostServer;
+  
   final Map _headersJson = {'Content-Type': 'application/json'};
   final Map _headersTar = {'Content-Type': 'application/tar'};
 
@@ -141,6 +143,7 @@ class DockerRemoteConnection {
 //    print(response);
     return new ContainerInfo.fromJson(response, apiVersion);
   }
+
 
   Future<dynamic> _request(RequestType requestType, String path,
       {Map body, Map query, Map<String,

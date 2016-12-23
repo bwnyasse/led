@@ -29,6 +29,7 @@ class DockerRemoteControler {
       connection = dockerRemoteConnections[key];
     }else{
       connection= new DockerRemoteConnection(hostServer, new http_browser_client.BrowserClient());
+      connection.hostServer = hostServer;
       dockerRemoteConnections[key] = connection;
       await connection.init();
     }

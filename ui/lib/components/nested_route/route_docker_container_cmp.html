@@ -31,14 +31,9 @@
 <hr>
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">Container CPU Usage  </h3>
+        <h3 class="panel-title">Container CPU Usage  : {{ cpuPercentS }} %</h3>
     </div>
     <div class="panel-body">
-        <ul>
-            <li> <b>Driver:</b> {{ getContainerDriver() }} </li>
-            <li> <b>CMD:</b> {{ getContainerCmd() }} </li>
-            <li> <b>Exposed Ports:</b> {{ getExposedPorts()}} </li>
-            <li> <b>ENV:</b> {{ getEnv() }} </li>
-        </ul>
+        <canvas id="cpu-stats-chart"  width="800" height="330"></canvas>
     </div>
 </div>
