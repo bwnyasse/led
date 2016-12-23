@@ -25,6 +25,8 @@ class RouteDockerContainerCmp implements AfterContentInit {
   ContainerInfo containerInfo;
   String containerId;
   String cpuPercentS;
+  int memUsage;
+  int memLimit;
   Queue<String> receiveCpuPercentS = new Queue();
   Queue<String> receiveReadS = new Queue();
 
@@ -76,6 +78,8 @@ class RouteDockerContainerCmp implements AfterContentInit {
         StatsResponse statsResponse = new StatsResponse.fromJson(json, null);
         String readS = statsResponse.read.toLocal().toString();
         cpuPercentS = cpuPercent(statsResponse).toString();
+        memUsage = statsResponse.memoryStats.usage;
+        memLimit = statsResponse.memoryStats.limit;
         receiveReadS.add(readS);
         receiveCpuPercentS.add(cpuPercentS);
       } catch (e) {
