@@ -60,7 +60,10 @@ class RouteRemoteApiCmp implements AfterContentInit  {
     infoResponse = await connection.info();
   }
 
-  _updateImagesResponse() async => dockerRemoteCtrl.currentImagesInfo = await connection.images();
+  _updateImagesResponse() async {
+    dockerRemoteCtrl.currentImagesInfo = await connection.images();
+  }
+
 
   _updateContainerResponse() async =>  dockerRemoteCtrl.currentContainers = await connection.containers(all:true);
 
@@ -106,10 +109,10 @@ class RouteRemoteApiCmp implements AfterContentInit  {
   getContainerRunningCount() => infoResponse?.containersRunning;
   getContainerStoppedCount() => infoResponse?.containersStopped;
   getContainerPausedCount() => infoResponse?.containersPaused;
-  getImagesCount() => dockerRemoteCtrl.currentImagesInfo?.length > 1 ?  dockerRemoteCtrl.currentImagesInfo?.length.toString() + " Images "  : dockerRemoteCtrl.currentImagesInfo?.length.toString() + " Image ";
+  getImagesCount() => ( dockerRemoteCtrl.currentImagesInfo?.length != null && dockerRemoteCtrl.currentImagesInfo?.length > 1 ) ?  dockerRemoteCtrl.currentImagesInfo?.length.toString() + " Images "  : dockerRemoteCtrl.currentImagesInfo?.length.toString() + " Image ";
   getImagesTotalSizeCount() {
     int size = 0;
-    dockerRemoteCtrl.currentImagesInfo.forEach((info) => size += info.size);
+    dockerRemoteCtrl.currentImagesInfo?.forEach((info) => size += info.size);
     return size;
   }
 }

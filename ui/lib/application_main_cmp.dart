@@ -15,6 +15,7 @@ library led_ui;
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:math';
 import 'dart:js' as js;
 import 'dart:convert';
 import 'dart:collection';

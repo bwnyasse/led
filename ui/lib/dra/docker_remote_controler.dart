@@ -17,7 +17,7 @@ class DockerRemoteControler {
 
   DockerRemoteConnection currentConnection;
   List<Container> currentContainers = [];
-  List<ImageInfo> currentImagesInfo = [];
+  List<ImageInfo> currentImagesInfo;
 
   Map<String, DockerRemoteConnection> dockerRemoteConnections = new Map();
 
