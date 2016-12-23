@@ -19,15 +19,16 @@ ARG version
 # Do not split this into multiple RUN!
 # Docker creates a layer for every RUN-Statement
 # therefore an 'apk delete build*' has no effect
-RUN apk --no-cache --update add \
-                            build-base \
-                            ca-certificates \
-                            ruby \
-                            ruby-irb \
-                            ruby-dev && \
+RUN apk --no-cache add \
+                   build-base \
+                   ca-certificates \
+                   ruby \
+                   ruby-irb \
+                   ruby-dev && \
     echo 'gem: --no-document' >> /etc/gemrc && \
     gem install oj && \
-    gem install fluentd -v 0.12.28 && \
+    gem install json -v '1.8.3' && \
+    gem install fluentd -v 0.12.31 && \
     apk del build-base ruby-dev && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /usr/lib/ruby/gems/*/cache/*.gem
 
@@ -46,6 +47,7 @@ ENV GEM_PATH /root/.gem/ruby/2.3.0:$GEM_PATH
 
 ENV FLUENTD_OPT=""
 ENV FLUENTD_CONF="fluent.conf"
+
 
 # ============ start - fluent configuration
 # Install fluent plugins
