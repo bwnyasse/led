@@ -11,6 +11,10 @@ body {
     float: left;
 }
 
+.l-panel-heading {
+    height: 50px;
+}
+
 .width-full {
     width: 100%;
 }

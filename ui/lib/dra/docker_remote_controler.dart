@@ -32,6 +32,7 @@ class DockerRemoteControler {
       connection.hostServer = hostServer;
       dockerRemoteConnections[key] = connection;
       await connection.init();
+      connection.ping = true;
     }
     currentConnection = connection;
     return connection;

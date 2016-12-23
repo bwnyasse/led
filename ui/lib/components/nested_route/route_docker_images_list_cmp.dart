@@ -27,7 +27,7 @@ class AvailableColors {
 class RouteDockerImagesListCmp implements AfterContentInit {
 
   DockerRemoteControler dockerRemoteCtrl;
-  var ctx;
+  CanvasRenderingContext2D ctx;
 
   RouteDockerImagesListCmp(this.dockerRemoteCtrl);
 
@@ -64,7 +64,6 @@ class RouteDockerImagesListCmp implements AfterContentInit {
 
   @override
   ngAfterContentInit() async {
-
     initColor();
     ctx = (querySelector('#image-size-chart') as CanvasElement).context2D;
     initImageSizeChart();
@@ -72,6 +71,8 @@ class RouteDockerImagesListCmp implements AfterContentInit {
 
 
   initImageSizeChart() {
+    ctx.restore();
+    ctx.resetTransform();
     List imageReadData = [];
     List backgroundColorData = [];
     List borderColorData = [];

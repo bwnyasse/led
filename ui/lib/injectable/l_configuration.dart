@@ -31,7 +31,7 @@ class LConfiguration extends AbstractRestService {
 
   List logTagFormat = [];
   List levelsLogMessageConfiguration = [];
-  List nodesConfiguration = [];
+  ObservableList<NodeConfiguration> nodesConfiguration = new ObservableList();
   List levelsConfiguration = [];
 
   LConfiguration() {

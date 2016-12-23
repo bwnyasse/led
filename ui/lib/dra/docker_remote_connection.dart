@@ -15,7 +15,8 @@ part of led_ui;
 class DockerRemoteConnection {
 
   Uri hostServer;
-  
+  bool ping;
+
   final Map _headersJson = {'Content-Type': 'application/json'};
   final Map _headersTar = {'Content-Type': 'application/tar'};
 
