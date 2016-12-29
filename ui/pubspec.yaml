@@ -7,12 +7,11 @@ name: 'led_ui'
 author: <bwnyasse>
 
 environment:
-   sdk: '>=1.16.0 <2.0.0'
+   sdk: '>=1.19.0 <2.0.0'
 
 dependencies:
   angular2: '^2.2.0'
   http: '^0.11.2'
- # stream_transformers: '^0.3.0'
   chartjs:
   quiver:
   xml2json: any
@@ -20,7 +19,6 @@ dependencies:
   js: '^0.6.1'
   func: '^0.1.0'
   date:
-  #ng_infinite_scroll: any
   uuid:
 dev_dependencies:
   test:
